@@ -1,0 +1,14 @@
+{
+  "name": "circ",
+  "version": "0.0.1",
+  "description": "a toy programming language",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "hsiaosiyuan0",
+  "license": "MIT",
+  "dependencies": {
+    "antlr4": "^4.7.0"
+  }
+}
