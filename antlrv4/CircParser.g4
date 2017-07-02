@@ -40,6 +40,13 @@ statement
   | ifStatement
   ;
 
+noEmptyStatement
+  : blockStatement
+  | exprStatement
+  | varDeclarationStatement
+  | ifStatement
+  ;
+
 blockStatement
   : OpenBrace statementList? CloseBrace
   ;
@@ -63,25 +70,26 @@ initializer
   ;
 
 singleExpr
-  : Fun Identifier? OpenParen formalParameterList? CloseParen OpenBrace functionBody CloseBrace       # FunExpr
-  | singleExpr OpenBracket exprSequence CloseBracket                                                  # MemberIndexExpr
-  | singleExpr Dot Identifier                                                                         # MemberDotExpr
-  | singleExpr arguments                                                                              # FunCallExpr
-  | reservedWord { this.notifyErrorListeners("FunCall: Can not use reserved word as identifier") } arguments   # IllegalReservedWordFunCallExpr
-  | literal { this.notifyErrorListeners("FunCall: Can not use literal as identifier") } arguments              # IllegalLiteralFunCallExpr
-  | singleExpr ( Multiply | Divide | Modulus ) singleExpr                                             # MultiplyExpr
-  | singleExpr ( Plus | Minus ) singleExpr                                                            # AddExpr
-  | singleExpr ( LessThan | MoreThan | LessThanEquals | GreaterThanEquals ) singleExpr                # RelationalExpr
-  | singleExpr ( Equals | NotEquals ) singleExpr                                                      # EqualityExpr
+  : Fun Identifier? OpenParen formalParameterList? CloseParen OpenBrace functionBody CloseBrace                           # FunExpr
+  | singleExpr OpenBracket exprSequence CloseBracket                                                                      # MemberIndexExpr
+  | singleExpr Dot Identifier                                                                                             # MemberDotExpr
+  | singleExpr arguments                                                                                                  # FunCallExpr
+  | reservedWord { this.notifyErrorListeners("FunCall: Can not use reserved word as identifier") } arguments              # IllegalReservedWordFunCallExpr
+  | literal { this.notifyErrorListeners("FunCall: Can not use literal as identifier") } arguments                         # IllegalLiteralFunCallExpr
+  | singleExpr ( Multiply | Divide | Modulus ) singleExpr                                                                 # MultiplyExpr
+  | singleExpr ( Plus | Minus ) singleExpr                                                                                # AddExpr
+  | singleExpr ( LessThan | MoreThan | LessThanEquals | GreaterThanEquals ) singleExpr                                    # RelationalExpr
+  | singleExpr ( Equals | NotEquals ) singleExpr                                                                          # EqualityExpr
   | reservedWord { this.notifyErrorListeners("Assignment: Can not use reserved word as identifier") } Assign statement    # IllegalReservedWordAssignExpr
   | literal { this.notifyErrorListeners("Assignment: Can not use literal as identifier") } Assign statement               # IllegalLiteralAssignExpr
-  | singleExpr Assign statement                                                                       # AssignExpr
-  | ( Identifier|arguments ) LambdaConnect statement                                                  # LambdaExpr
-  | OpenParen exprSequence CloseParen                                                                 # ParenExpr
-  | Identifier                                                                                        # IdentifierExpr
-  | literal                                                                                           # LiteralExpr
-  | arrayLiteral                                                                                      # ArrayLiteralExpr
-  | objectLiteral                                                                                     # ObjectLiteralExpr
+  | singleExpr Assign noEmptyStatement                                                                                    # AssignExpr
+  | ( Identifier|arguments ) LambdaConnect noEmptyStatement                                                               # LambdaExpr
+  | OpenParen exprSequence CloseParen                                                                                     # ParenExpr
+  | This                                                                                                                  # ThisExpr
+  | Identifier                                                                                                            # IdentifierExpr
+  | literal                                                                                                               # LiteralExpr
+  | arrayLiteral                                                                                                          # ArrayLiteralExpr
+  | objectLiteral                                                                                                         # ObjectLiteralExpr
   ;
 
 arguments
@@ -128,8 +136,8 @@ propertyNameAndValueList
   ;
 
 propertyAssignment
-  : StringLiteral Colon singleExpr
-  | OpenBracket singleExpr CloseBracket Colon singleExpr
+  : StringLiteral Colon singleExpr                                                            # staticPropertyName
+  | OpenBracket propertyNameExpr=singleExpr CloseBracket Colon propertyValExpr=singleExpr     # exprPropertyName
   ;
 
 emptyStatement

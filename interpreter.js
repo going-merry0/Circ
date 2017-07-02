@@ -211,8 +211,26 @@ function evaluate (exp, activeRecord, cb) {
         stackGuard(cc, arguments);
         if (exp.left.type === NodeType.identifier) {
           activeRecord.set(exp.left.name, rval);
+          cb(rval);
+        } else if (exp.left.type === NodeType.memberIndex) {
+          evaluate(exp.left.left, activeRecord, function cc (obj) {
+            stackGuard(cc, arguments);
+            evaluate(exp.left.right, activeRecord, function cc (idx) {
+              stackGuard(cc, arguments);
+              obj[idx] = rval;
+              cb(rval);
+            })
+          })
+        } else if (exp.left.type === NodeType.memberDot) {
+          evaluate(exp.left.left, activeRecord, function cc (obj) {
+            stackGuard(cc, arguments);
+            evaluate(exp.left.right, activeRecord, function cc (idx) {
+              stackGuard(cc, arguments);
+              obj[idx] = rval;
+              cb(rval);
+            })
+          })
         }
-        cb(rval);
       });
       return;
     }
@@ -233,6 +251,60 @@ function evaluate (exp, activeRecord, cb) {
         activeRecord.def(exp.name.name, fn);
       }
       return cb(fn);
+    }
+    case NodeType.arrayLiteral: {
+      const arr = [];
+      const last = exp.items.length;
+      (function loop (i) {
+        stackGuard(loop, arguments);
+        if (i === last) {
+          cb(arr);
+        } else {
+          evaluate(exp.items[i], activeRecord, function cc (val) {
+            stackGuard(cc, arguments);
+            arr.push(val);
+            loop(i + 1);
+          })
+        }
+      })(0);
+      return;
+    }
+    case NodeType.memberIndex: {
+      evaluate(exp.left, activeRecord, function cc (lval) {
+        stackGuard(cc, arguments);
+        evaluate(exp.right, activeRecord, function cc (rval) {
+          stackGuard(cc, arguments);
+          cb(lval[rval]);
+        })
+      });
+      return;
+    }
+    case NodeType.objectLiteral: {
+      const obj = {};
+      const last = exp.properties.length;
+      (function loop (i) {
+        stackGuard(loop, arguments);
+        if (i === last) {
+          cb(obj);
+        } else {
+          evaluate(exp.properties[i].left, activeRecord, function cc (key) {
+            stackGuard(cc, arguments);
+            evaluate(exp.properties[i].right, activeRecord, function cc (val) {
+              stackGuard(cc, arguments);
+              obj[key] = val;
+              loop(i + 1);
+            })
+          });
+        }
+      })(0);
+      return;
+    }
+    case NodeType.memberDot: {
+      evaluate(exp.left, activeRecord, function cc (lval) {
+        stackGuard(cc, arguments);
+        cb(lval[exp.right.name]);
+      });
+      return;
     }
     case NodeType.prog: {
       loopExprList(exp.exprList, activeRecord, cb);

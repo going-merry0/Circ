@@ -2,44 +2,30 @@ const CircParser = require("./gen/CircParser").CircParser;
 const CircParserVisitor = require("./gen/CircParserVisitor").CircParserVisitor;
 
 const NodeType = {
-  unsupported: -1,
-  nullLiteral: 1,
-  booleanLiteral: 2,
-  stringLiteral: 3,
-  numberLiteral: 4,
-  varDeclaration: 5,
-  varDeclarationList: 6,
-  identifier: 7,
-  funDeclaration: 8,
-  funCall: 9,
-  binary: 10,
-  condition: 11,
-  exprSequence: 12,
-  assign: 13,
-  block: 14,
-  prog: 15
+  unsupported: "unsupported",
+  nullLiteral: "nullLiteral",
+  booleanLiteral: "booleanLiteral",
+  stringLiteral: "stringLiteral",
+  numberLiteral: "numberLiteral",
+  arrayLiteral: "arrayLiteral",
+  memberIndex: "memberIndex",
+  objectLiteral: "objectLiteral",
+  objectProperty: "objectProperty",
+  thisExpr: "this",
+  memberDot: "memberDot",
+  varDeclaration: "varDeclaration",
+  varDeclarationList: "varDeclarationList",
+  identifier: "identifier",
+  funDeclaration: "funDeclaration",
+  funCall: "funCall",
+  binary: "binary",
+  condition: "condition",
+  exprSequence: "exprSequence",
+  assign: "assign",
+  block: "block",
+  prog: "prog",
 };
-
 exports.NodeType = NodeType;
-
-const NodeTypeLabel = {
-  [NodeType.unsupported]: "unsupported",
-  [NodeType.nullLiteral]: "nullLiteral",
-  [NodeType.booleanLiteral]: "booleanLiteral",
-  [NodeType.stringLiteral]: "stringLiteral",
-  [NodeType.numberLiteral]: "numberLiteral",
-  [NodeType.varDeclaration]: "varDeclaration",
-  [NodeType.varDeclarationList]: "varDeclarationList",
-  [NodeType.identifier]: "identifier",
-  [NodeType.funDeclaration]: "funDeclaration",
-  [NodeType.funCall]: "funCall",
-  [NodeType.binary]: "binary",
-  [NodeType.condition]: "condition",
-  [NodeType.exprSequence]: "exprSequence",
-  [NodeType.assign]: "assign",
-  [NodeType.block]: "block",
-  [NodeType.prog]: "prog"
-};
 
 class Node {
   constructor (type = NodeType.unsupported) {
@@ -249,6 +235,83 @@ class ProgNode extends BlockNode {
   }
 }
 
+class ArrayLiteralNode extends Node {
+  constructor () {
+    super(NodeType.arrayLiteral);
+    this.items = [];
+  }
+
+  toJson () {
+    const json = super.toJson();
+    json.items = this.items.map(item => item.toJson());
+    return json;
+  }
+}
+
+class MemberIndexExprNode extends Node {
+  constructor () {
+    super(NodeType.memberIndex);
+    this.left = null;
+    this.right = null;
+  }
+
+  toJson () {
+    const json = super.toJson();
+    json.left = this.left.toJson();
+    json.right = this.right.toJson();
+    return json;
+  }
+}
+
+class ObjectPropertyNode extends Node {
+  constructor () {
+    super(NodeType.objectProperty);
+    this.left = null;
+    this.right = null;
+  }
+
+  toJson () {
+    const json = super.toJson();
+    json.left = this.left.toJson();
+    json.right = this.right.toJson();
+    return json;
+  }
+}
+
+class ObjectLiteralNode extends Node {
+  constructor () {
+    super(NodeType.objectLiteral);
+    this.properties = [];
+  }
+
+  toJson () {
+    const json = super.toJson();
+    json.properties = this.properties.map(node => node.toJson());
+    return json
+  }
+}
+
+class MemberDotExprNode extends Node {
+  constructor () {
+    super(NodeType.memberDot);
+    this.left = null;
+    this.right = null;
+  }
+
+  toJson () {
+    const json = super.toJson();
+    json.left = this.left.toJson();
+    json.right = this.right.toJson();
+    return json;
+  }
+}
+
+class ThisExprNode extends Node {
+  constructor () {
+    super(NodeType.thisExpr);
+  }
+}
+
 class AstVisitor extends CircParserVisitor {
   visitFormalParameterList (ctx) {
     if (!ctx) {
@@ -261,7 +324,7 @@ class AstVisitor extends CircParserVisitor {
     if (!ctx) {
       return [];
     }
-    return ctx.statement().map(ctx => this.visitStatement(ctx));
+    return ctx.statement().map(ctx => this.visitStatement(ctx)).filter(node => node !== null);
   }
 
   visitFunctionBody (ctx) {
@@ -290,6 +353,48 @@ class AstVisitor extends CircParserVisitor {
 
   visitArguments (ctx) {
     return this.visitArgumentList(ctx.argumentList());
+  }
+
+  visitElementList (ctx) {
+    return ctx.singleExpr().map(ctx => this.visitSingleExpr(ctx));
+  }
+
+  visitArrayLiteral (ctx) {
+    const node = new ArrayLiteralNode();
+    node.items = this.visitElementList(ctx.elementList());
+    return node;
+  }
+
+  visitStaticPropertyName (ctx) {
+    const node = new ObjectPropertyNode();
+    node.left = new StringLiteralNode(ctx.StringLiteral().getText());
+    node.right = this.visitSingleExpr(ctx.singleExpr());
+    return node;
+  }
+
+  visitExprPropertyName (ctx) {
+    const node = new ObjectPropertyNode();
+    node.left = this.visitSingleExpr(ctx.propertyNameExpr);
+    node.right = this.visitSingleExpr(ctx.propertyValExpr);
+    return node;
+  }
+
+  visitPropertyAssignment (ctx) {
+    if (ctx instanceof CircParser.StaticPropertyNameContext) {
+      return this.visitStaticPropertyName(ctx);
+    } else if (ctx instanceof CircParser.ExprPropertyNameContext) {
+      return this.visitExprPropertyName(ctx);
+    }
+  }
+
+  visitPropertyNameAndValueList (ctx) {
+    return ctx.propertyAssignment().map(ctx => this.visitPropertyAssignment(ctx));
+  }
+
+  visitObjectLiteral (ctx) {
+    const node = new ObjectLiteralNode();
+    node.properties = this.visitPropertyNameAndValueList(ctx.propertyNameAndValueList());
+    return node;
   }
 
   visitSingleExpr (ctx) {
@@ -355,14 +460,28 @@ class AstVisitor extends CircParserVisitor {
       } else {
         node.formalParamList = this.visitArguments(ctx.arguments());
       }
-      const body = new BlockNode();
-      body.exprList = [this.visitStatement(ctx.statement())];
-      node.body = body;
+      node.body = this.visitNoEmptyStatement(ctx.noEmptyStatement());
       return node;
     } else if (ctx instanceof CircParser.AssignExprContext) {
       const node = new AssignExprNode();
       node.left = this.visitSingleExpr(ctx.singleExpr());
-      node.right = this.visitStatement(ctx.statement());
+      node.right = this.visitNoEmptyStatement(ctx.noEmptyStatement());
+      return node;
+    } else if (ctx instanceof CircParser.ArrayLiteralExprContext) {
+      return this.visitArrayLiteral(ctx.arrayLiteral());
+    } else if (ctx instanceof CircParser.MemberIndexExprContext) {
+      const node = new MemberIndexExprNode();
+      node.left = this.visitSingleExpr(ctx.singleExpr());
+      node.right = this.visitExprSequence(ctx.exprSequence());
+      return node;
+    } else if (ctx instanceof CircParser.ObjectLiteralExprContext) {
+      return this.visitObjectLiteral(ctx.objectLiteral());
+    } else if (ctx instanceof CircParser.ThisExprContext) {
+      return new ThisExprNode();
+    } else if (ctx instanceof CircParser.MemberDotExprContext) {
+      const node = new MemberDotExprNode();
+      node.left = this.visitSingleExpr(ctx.singleExpr());
+      node.right = new IdentifierNode(ctx.Identifier().getText());
       return node;
     }
   }
@@ -410,6 +529,10 @@ class AstVisitor extends CircParserVisitor {
     return this.visitStatementList(ctx.statementList());
   }
 
+  visitNoEmptyStatement (ctx) {
+    return this.visitStatement(ctx);
+  }
+
   visitStatement (ctx) {
     if (ctx.exprStatement()) {
       return this.visitExprSequence(ctx.exprStatement().exprSequence());
@@ -421,6 +544,8 @@ class AstVisitor extends CircParserVisitor {
       const node = new BlockNode();
       node.exprList = this.visitBlockStatement(ctx.blockStatement());
       return node;
+    } else if (ctx.emptyStatement()) {
+      return null;
     }
   }
 
@@ -428,7 +553,7 @@ class AstVisitor extends CircParserVisitor {
     if (!ctx) {
       return [];
     }
-    return ctx.statement().map(ctx => this.visitStatement(ctx));
+    return ctx.statement().map(ctx => this.visitStatement(ctx)).filter(node => node !== null);
   }
 
   visitProgram (ctx) {

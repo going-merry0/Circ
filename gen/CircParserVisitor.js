@@ -30,6 +30,12 @@ CircParserVisitor.prototype.visitStatement = function(ctx) {
 };
 
 
+// Visit a parse tree produced by CircParser#noEmptyStatement.
+CircParserVisitor.prototype.visitNoEmptyStatement = function(ctx) {
+  return this.visitChildren(ctx);
+};
+
+
 // Visit a parse tree produced by CircParser#blockStatement.
 CircParserVisitor.prototype.visitBlockStatement = function(ctx) {
   return this.visitChildren(ctx);
@@ -174,6 +180,12 @@ CircParserVisitor.prototype.visitFunExpr = function(ctx) {
 };
 
 
+// Visit a parse tree produced by CircParser#ThisExpr.
+CircParserVisitor.prototype.visitThisExpr = function(ctx) {
+  return this.visitChildren(ctx);
+};
+
+
 // Visit a parse tree produced by CircParser#IllegalLiteralFunCallExpr.
 CircParserVisitor.prototype.visitIllegalLiteralFunCallExpr = function(ctx) {
   return this.visitChildren(ctx);
@@ -234,8 +246,14 @@ CircParserVisitor.prototype.visitPropertyNameAndValueList = function(ctx) {
 };
 
 
-// Visit a parse tree produced by CircParser#propertyAssignment.
-CircParserVisitor.prototype.visitPropertyAssignment = function(ctx) {
+// Visit a parse tree produced by CircParser#staticPropertyName.
+CircParserVisitor.prototype.visitStaticPropertyName = function(ctx) {
+  return this.visitChildren(ctx);
+};
+
+
+// Visit a parse tree produced by CircParser#exprPropertyName.
+CircParserVisitor.prototype.visitExprPropertyName = function(ctx) {
   return this.visitChildren(ctx);
 };
 

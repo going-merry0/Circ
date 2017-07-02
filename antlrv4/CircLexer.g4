@@ -7,6 +7,7 @@ Else:   'else';
 Fun:    'fun';
 For:    'for';
 In:     'in';
+This:   'this';
 
 LineTerminator
   : [\r\n\u0085\u2028\u2029]    -> channel(HIDDEN)
