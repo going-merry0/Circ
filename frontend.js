@@ -1,33 +1,26 @@
 const CircParser = require("./gen/CircParser").CircParser;
 const CircParserVisitor = require("./gen/CircParserVisitor").CircParserVisitor;
 
-const iota = (() => {
-  let i = 0;
-  return {
-    reset: () => i = 0,
-    next: () => ++i
-  };
-})();
-
 const NodeType = {
   unsupported: -1,
-  nullLiteral: iota.next(),
-  booleanLiteral: iota.next(),
-  stringLiteral: iota.next(),
-  numberLiteral: iota.next(),
-  varDeclaration: iota.next(),
-  varDeclarationList: iota.next(),
-  identifier: iota.next(),
-  funDeclaration: iota.next(),
-  funCall: iota.next(),
-  binary: iota.next(),
-  condition: iota.next(),
-  exprSequence: iota.next(),
-  assign: iota.next(),
-  block: iota.next(),
-  prog: iota.next()
+  nullLiteral: 1,
+  booleanLiteral: 2,
+  stringLiteral: 3,
+  numberLiteral: 4,
+  varDeclaration: 5,
+  varDeclarationList: 6,
+  identifier: 7,
+  funDeclaration: 8,
+  funCall: 9,
+  binary: 10,
+  condition: 11,
+  exprSequence: 12,
+  assign: 13,
+  block: 14,
+  prog: 15
 };
-iota.reset();
+
+exports.NodeType = NodeType;
 
 const NodeTypeLabel = {
   [NodeType.unsupported]: "unsupported",
@@ -55,7 +48,7 @@ class Node {
 
   toJson () {
     return {
-      type: NodeTypeLabel[this.type]
+      type: this.type
     };
   }
 }

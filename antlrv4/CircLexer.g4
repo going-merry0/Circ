@@ -59,7 +59,7 @@ Identifier
   : IdentifierStartCharacter IdentifierPartCharacter*
   ;
 
-StringLiteral:  '"'  (~["\\\r\n\u0085\u2028\u2029] | CommonCharacter)* '"';
+StringLiteral:  '"'  (~["\\\r\n\u0085\u2028\u2029] | CommonCharacter)*? '"';
 
 WhiteSpaces
   : [\t\u000B\u000C\u0020\u00A0]+   -> channel(HIDDEN)

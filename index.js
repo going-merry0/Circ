@@ -19,12 +19,24 @@ let source = `
 // let a = 1
 // let b = 2
 // a + b
-// let fib = (n) -> if n < 2 then n else fib(n - 1) + fib(n - 2)
-// fib(20)
 
-let sum = (n, ret) -> if n == 0 then ret 
-								else sum(n - 1, ret + n);
-time(() -> println(sum(50000, 0)))
+// let fib = (n) -> if n < 2 then n else fib(n - 1) + fib(n - 2)
+// time( () -> println(fib(20)) )
+
+// let sum = (n, ret) -> if n == 0 then ret 
+// 								else sum(n - 1, ret + n);
+// time(() -> println(sum(50000, 0)))
+
+// let foo = (return) -> {
+//   println("foo")
+//   return("DONE")
+//   println("bar")
+// }
+//
+// callCC(foo)
+
+let readFile = requireJsAsyncMethod("fs.readFile")
+println(readFile("./index.js", "utf8"))
 `;
 
 const input = new antlr4.InputStream(source);
@@ -37,5 +49,5 @@ const astTree = ast(parser);
 // console.log(JSON.stringify(astTree, null, 2));
 
 exec(astTree, (out) => {
-  console.log(out);
+  console.log(`Done: ${out}`);
 });
