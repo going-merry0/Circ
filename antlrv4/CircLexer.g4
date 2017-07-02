@@ -63,7 +63,7 @@ Identifier
 StringLiteral:  '"'  (~["\\\r\n\u0085\u2028\u2029] | CommonCharacter)*? '"';
 
 WhiteSpaces
-  : [\t\u000B\u000C\u0020\u00A0]+   -> channel(HIDDEN)
+  : [\t\u000B\u000C\u0020\u00A0]+   -> skip
   ;
 
 MultiLineComment

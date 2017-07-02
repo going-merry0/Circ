@@ -4,23 +4,15 @@ const CircParser = require("./gen/CircParser").CircParser;
 const ast = require("./frontend").ast;
 const exec = require("./interpreter").exec;
 
-let source = `
-// let a = {"a": 1, "b": 2, "fn": () -> { this.a + this.b }}
-// a.fn()
-
-// time(() -> {
-//   let a = [[1, 2, 3], 2, 3]
-//   a[0][1] = 5
-//   a
-// })
-
-time(() -> {
+let source = `time(() -> {
   let key = "testKey"
-  let a = { "b": [1, 2, 3], [key]: "val" }
+  let a = { 
+    "b": [1, 2, 3], 
+    [key]: "val" 
+  }
   a.b[0] = 5
   a
-})
-`;
+})`;
 
 const input = new antlr4.InputStream(source);
 const lexer = new CircLexer(input);
@@ -29,7 +21,7 @@ const parser = new CircParser(tokens);
 parser.buildParseTrees = true;
 
 const astTree = ast(parser);
-console.log(JSON.stringify(astTree, null, 2));
+// console.log(JSON.stringify(astTree, null, 2));
 
 exec(astTree, (out) => {
   console.log("\nDone:");

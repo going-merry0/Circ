@@ -493,7 +493,7 @@ class AstVisitor extends CircParserVisitor {
   }
 
   visitInitializer (ctx) {
-    return this.visitStatement(ctx.statement());
+    return this.visitNoEmptyStatement(ctx.noEmptyStatement());
   }
 
   visitVariableDeclaration (ctx) {

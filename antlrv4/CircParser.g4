@@ -66,7 +66,7 @@ variableDeclaration
   ;
 
 initializer
-  : Assign statement
+  : Assign noEmptyStatement
   ;
 
 singleExpr
