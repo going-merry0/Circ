@@ -1,23 +1,31 @@
 const NodeType = require("./frontend").NodeType;
 
 class MemoryCell {
-  constructor (value) {
+  constructor (value, depth) {
     this.value = value;
+    this.depth = depth;
   }
 }
 
-class ActiveRecord {
+let depthCounter = 0;
+
+class Environment {
   constructor (parent = null) {
     if (parent) {
       this.memoryCells = new Map(parent.memoryCells);
     } else {
       this.memoryCells = new Map();
     }
+    this.depth = depthCounter++;
+  }
+
+  extend () {
+    return new Environment(this);
   }
 
   set (key, value) {
     const cell = this.memoryCells.get(key);
-    if (cell === undefined) {
+    if (cell === undefined || cell.depth === 0) {
       throw new Error(`Undefined variable ${key}`);
     }
     cell.value = value;
@@ -32,11 +40,11 @@ class ActiveRecord {
   }
 
   def (key, value) {
-    const cell = new MemoryCell(value);
+    const cell = new MemoryCell(value, this.depth);
     this.memoryCells.set(key, cell);
   }
 }
-exports.ActiveRecord = ActiveRecord;
+exports.Environment = Environment;
 
 class Continuation {
   constructor (fn, args) {
@@ -122,7 +130,14 @@ function applyBinary (op, lval, rval) {
   }
 }
 
-function evaluate (exp, activeRecord, cb) {
+/**
+ *
+ * @param exp {*}
+ * @param env {Environment}
+ * @param cb {Function}
+ * @returns {*}
+ */
+function evaluate (exp, env, cb) {
   stackGuard(evaluate, arguments);
   switch (exp.type) {
     case NodeType.numberLiteral: {
@@ -130,7 +145,7 @@ function evaluate (exp, activeRecord, cb) {
       return;
     }
     case NodeType.identifier: {
-      cb(activeRecord.get(exp.name));
+      cb(env.get(exp.name));
       return;
     }
     case NodeType.booleanLiteral: {
@@ -146,11 +161,11 @@ function evaluate (exp, activeRecord, cb) {
       return;
     }
     case NodeType.exprSequence: {
-      loopExprList(exp.exprList, activeRecord, cb);
+      loopExprList(exp.exprList, env, cb);
       return;
     }
     case NodeType.funCall: {
-      evaluate(exp.prodFunExpr, activeRecord, function cc (fn) {
+      evaluate(exp.prodFunExpr, env, function cc (fn) {
         stackGuard(cc, arguments);
         const last = exp.paramList.length;
         const params = [cb];
@@ -159,7 +174,7 @@ function evaluate (exp, activeRecord, cb) {
           if (i === last) {
             fn.apply(null, params);
           } else {
-            evaluate(exp.paramList[i], activeRecord, function cc (val) {
+            evaluate(exp.paramList[i], env, function cc (val) {
               stackGuard(cc, arguments);
               params.push(val);
               loop(i + 1);
@@ -170,36 +185,36 @@ function evaluate (exp, activeRecord, cb) {
       return;
     }
     case NodeType.block: {
-      loopExprList(exp.exprList, activeRecord, cb);
+      loopExprList(exp.exprList, env, cb);
       return;
     }
     case NodeType.condition: {
-      evaluate(exp.expr, activeRecord, function cc (cond) {
+      evaluate(exp.expr, env, function cc (cond) {
         stackGuard(cc, arguments);
         if (cond !== null && cond !== false && cond !== 0 && cond !== '') {
-          evaluate(exp.then, activeRecord, cb);
+          evaluate(exp.then, env, cb);
         } else {
-          evaluate(exp.else, activeRecord, cb);
+          evaluate(exp.else, env, cb);
         }
       });
       return;
     }
     case NodeType.varDeclarationList: {
-      loopExprList(exp.exprList, activeRecord, cb);
+      loopExprList(exp.exprList, env, cb);
       return;
     }
     case NodeType.varDeclaration: {
-      evaluate(exp.right, activeRecord, function cc (val) {
+      evaluate(exp.right, env, function cc (val) {
         stackGuard(cc, arguments);
-        activeRecord.def(exp.left.name, val);
+        env.def(exp.left.name, val);
         cb(val);
       });
       return;
     }
     case NodeType.binary: {
-      evaluate(exp.left, activeRecord, function cc (lval) {
+      evaluate(exp.left, env, function cc (lval) {
         stackGuard(cc, arguments);
-        evaluate(exp.right, activeRecord, function cc (rval) {
+        evaluate(exp.right, env, function cc (rval) {
           stackGuard(cc, arguments);
           cb(applyBinary(exp.op, lval, rval));
         });
@@ -207,24 +222,24 @@ function evaluate (exp, activeRecord, cb) {
       return;
     }
     case NodeType.assign: {
-      evaluate(exp.right, activeRecord, function cc (rval) {
+      evaluate(exp.right, env, function cc (rval) {
         stackGuard(cc, arguments);
         if (exp.left.type === NodeType.identifier) {
-          activeRecord.set(exp.left.name, rval);
+          env.set(exp.left.name, rval);
           cb(rval);
         } else if (exp.left.type === NodeType.memberIndex) {
-          evaluate(exp.left.left, activeRecord, function cc (obj) {
+          evaluate(exp.left.left, env, function cc (obj) {
             stackGuard(cc, arguments);
-            evaluate(exp.left.right, activeRecord, function cc (idx) {
+            evaluate(exp.left.right, env, function cc (idx) {
               stackGuard(cc, arguments);
               obj[idx] = rval;
               cb(rval);
             })
           })
         } else if (exp.left.type === NodeType.memberDot) {
-          evaluate(exp.left.left, activeRecord, function cc (obj) {
+          evaluate(exp.left.left, env, function cc (obj) {
             stackGuard(cc, arguments);
-            evaluate(exp.left.right, activeRecord, function cc (idx) {
+            evaluate(exp.left.right, env, function cc (idx) {
               stackGuard(cc, arguments);
               obj[idx] = rval;
               cb(rval);
@@ -237,18 +252,17 @@ function evaluate (exp, activeRecord, cb) {
     case NodeType.funDeclaration: {
       const fn = function (cb) {
         stackGuard(fn, arguments);
-        const ar = new ActiveRecord(activeRecord);
+        const subEnv = env.extend();
         for (let i = 0, len = exp.formalParamList.length; i < len; i++) {
-          ar.def(exp.formalParamList[i].name, null);
+          subEnv.def(exp.formalParamList[i].name, null);
         }
-        const args = Array.from(arguments);
-        for (let i = 1, len = args.length; i < len; i++) {
-          ar.set(exp.formalParamList[i - 1].name, args[i]);
+        for (let i = 1, len = arguments.length; i < len; i++) {
+          subEnv.set(exp.formalParamList[i - 1].name, arguments[i]);
         }
-        evaluate(exp.body, ar, cb);
+        evaluate(exp.body, subEnv, cb);
       };
       if (exp.name) {
-        activeRecord.def(exp.name.name, fn);
+        env.def(exp.name.name, fn);
       }
       return cb(fn);
     }
@@ -260,7 +274,7 @@ function evaluate (exp, activeRecord, cb) {
         if (i === last) {
           cb(arr);
         } else {
-          evaluate(exp.items[i], activeRecord, function cc (val) {
+          evaluate(exp.items[i], env, function cc (val) {
             stackGuard(cc, arguments);
             arr.push(val);
             loop(i + 1);
@@ -270,9 +284,9 @@ function evaluate (exp, activeRecord, cb) {
       return;
     }
     case NodeType.memberIndex: {
-      evaluate(exp.left, activeRecord, function cc (lval) {
+      evaluate(exp.left, env, function cc (lval) {
         stackGuard(cc, arguments);
-        evaluate(exp.right, activeRecord, function cc (rval) {
+        evaluate(exp.right, env, function cc (rval) {
           stackGuard(cc, arguments);
           cb(lval[rval]);
         })
@@ -287,9 +301,9 @@ function evaluate (exp, activeRecord, cb) {
         if (i === last) {
           cb(obj);
         } else {
-          evaluate(exp.properties[i].left, activeRecord, function cc (key) {
+          evaluate(exp.properties[i].left, env, function cc (key) {
             stackGuard(cc, arguments);
-            evaluate(exp.properties[i].right, activeRecord, function cc (val) {
+            evaluate(exp.properties[i].right, env, function cc (val) {
               stackGuard(cc, arguments);
               obj[key] = val;
               loop(i + 1);
@@ -300,21 +314,21 @@ function evaluate (exp, activeRecord, cb) {
       return;
     }
     case NodeType.memberDot: {
-      evaluate(exp.left, activeRecord, function cc (lval) {
+      evaluate(exp.left, env, function cc (lval) {
         stackGuard(cc, arguments);
         cb(lval[exp.right.name]);
       });
       return;
     }
     case NodeType.prog: {
-      loopExprList(exp.exprList, activeRecord, cb);
+      loopExprList(exp.exprList, env, cb);
       return;
     }
   }
 }
 
-const globalActiveRecord = new ActiveRecord();
-globalActiveRecord.def("time", function (cc, fn) {
+const globalEnv = new Environment();
+globalEnv.def("time", function (cc, fn) {
   console.time("time");
   fn(function (val) {
     console.timeEnd("time");
@@ -322,19 +336,19 @@ globalActiveRecord.def("time", function (cc, fn) {
   })
 });
 
-globalActiveRecord.def("println", function (cc, val) {
+globalEnv.def("println", function (cc, val) {
   console.log(val);
   cc(false);
 });
 
-globalActiveRecord.def("callCC", function (cc, fn) {
+globalEnv.def("callCC", function (cc, fn) {
   fn(cc, function (_, val) {
     cc(val);
   })
 });
 
 const jsModules = new Map();
-globalActiveRecord.def("requireJsAsyncMethod", function (cc, path) {
+globalEnv.def("requireJsAsyncMethod", function (cc, path) {
   let [moduleName, methodName] = path.split('.');
   let module = jsModules.get(moduleName);
   if (module === undefined) {
@@ -351,8 +365,8 @@ globalActiveRecord.def("requireJsAsyncMethod", function (cc, path) {
   })
 });
 
-exports.globalActiveRecord = globalActiveRecord;
+exports.globalEnv = globalEnv;
 
 exports.exec = (exp, cb) => {
-  execute(evaluate, [exp, globalActiveRecord, cb]);
+  execute(evaluate, [exp, globalEnv, cb]);
 };
