@@ -15,9 +15,36 @@ let source = `
 //   a
 // })
 
-let sum = (n, ret) -> if n == 0 then ret 
-								else sum(n - 1, ret + n);
-time(() -> println(sum(50000, 0)))
+let a = 8
+
+let obj = {
+  "a": 1,
+  "b": 2,
+  "fn": (a, b) -> {
+    println(this.a)
+    println(this.b)
+    let f = () -> {
+      println(this.a)
+      println(a)
+      println(b)
+    }
+    f()
+    let obj = {
+      "a": 5,
+      "b": 6,
+      "fn": (a, b) -> {
+        println(this.a)
+        println(this.b)
+        println(a)
+        println(b)
+      }
+    }
+    call({ "a": "a", "b": "b" }, obj.fn, ["arg a", "arg b"])
+    obj.fn()
+  }
+}
+
+time(() -> { obj.fn(3, 4) })
 `;
 
 const input = new antlr4.InputStream(source);

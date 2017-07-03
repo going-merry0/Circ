@@ -130,6 +130,8 @@ function applyBinary (op, lval, rval) {
   }
 }
 
+let funExecContext = null;
+
 /**
  *
  * @param exp {*}
@@ -169,6 +171,9 @@ function evaluate (exp, env, cb) {
         stackGuard(cc, arguments);
         const last = exp.paramList.length;
         const params = [cb];
+        if (!fn.__thisObj__) {
+          fn.__thisObj__ = globalEnv;
+        }
         (function loop (i) {
           stackGuard(loop, arguments);
           if (i === last) {
@@ -253,10 +258,14 @@ function evaluate (exp, env, cb) {
       const fn = function (cb) {
         stackGuard(fn, arguments);
         const subEnv = env.extend();
-        for (let i = 1, len = arguments.length; i < len; i++) {
-          subEnv.def(exp.formalParamList[i - 1].name, arguments[i]);
+        for (let i = 0, len = exp.formalParamList.length; i < len; i++) {
+          subEnv.def(exp.formalParamList[i].name, arguments[i + 1]);
         }
-        evaluate(exp.body, subEnv, cb);
+        funExecContext = fn.__thisObj__;
+        evaluate(exp.body, subEnv, function (val) {
+          fn.__thisObj__ = null;
+          cb(val);
+        });
       };
       if (exp.name) {
         env.def(exp.name.name, fn);
@@ -313,8 +322,16 @@ function evaluate (exp, env, cb) {
     case NodeType.memberDot: {
       evaluate(exp.left, env, function cc (lval) {
         stackGuard(cc, arguments);
-        cb(lval[exp.right.name]);
+        const rval = lval instanceof Environment ? lval.get(exp.right.name) : lval[exp.right.name];
+        if (typeof rval === "function") {
+          rval.__thisObj__ = lval;
+        }
+        cb(rval);
       });
+      return;
+    }
+    case NodeType.thisExpr: {
+      cb(funExecContext);
       return;
     }
     case NodeType.prog: {
@@ -324,8 +341,8 @@ function evaluate (exp, env, cb) {
   }
 }
 
-const globalEnv = new Environment();
-globalEnv.def("time", function (cc, fn) {
+const builtinEnv = new Environment();
+builtinEnv.def("time", function (cc, fn) {
   console.time("time");
   fn(function (val) {
     console.timeEnd("time");
@@ -333,19 +350,24 @@ globalEnv.def("time", function (cc, fn) {
   })
 });
 
-globalEnv.def("println", function (cc, val) {
+builtinEnv.def("println", function (cc, val) {
   console.log(val);
   cc(false);
 });
 
-globalEnv.def("callCC", function (cc, fn) {
+builtinEnv.def("callCC", function (cc, fn) {
   fn(cc, function (_, val) {
     cc(val);
   })
 });
 
+builtinEnv.def("call", function (cc, thisObj, fn, args) {
+  fn.__thisObj__ = thisObj;
+  fn.apply(null, [cc].concat(args));
+});
+
 const jsModules = new Map();
-globalEnv.def("requireJsAsyncMethod", function (cc, path) {
+builtinEnv.def("requireJsAsyncMethod", function (cc, path) {
   let [moduleName, methodName] = path.split('.');
   let module = jsModules.get(moduleName);
   if (module === undefined) {
@@ -362,8 +384,7 @@ globalEnv.def("requireJsAsyncMethod", function (cc, path) {
   })
 });
 
-exports.globalEnv = globalEnv;
-
+const globalEnv = builtinEnv.extend();
 exports.exec = (exp, cb) => {
   execute(evaluate, [exp, globalEnv, cb]);
 };
