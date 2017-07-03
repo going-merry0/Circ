@@ -41,6 +41,10 @@ NullLiteral
   : 'null'
   ;
 
+UndefinedLiteral
+  : 'undefined'
+  ;
+
 BooleanLiteral
   : 'true'
   | 'false'

@@ -158,6 +158,10 @@ function evaluate (exp, env, cb) {
       cb(null);
       return;
     }
+    case NodeType.undefinedLiteral: {
+      cb(undefined);
+      return;
+    }
     case NodeType.stringLiteral: {
       cb(exp.value);
       return;

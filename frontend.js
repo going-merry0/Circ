@@ -4,6 +4,7 @@ const CircParserVisitor = require("./gen/CircParserVisitor").CircParserVisitor;
 const NodeType = {
   unsupported: "unsupported",
   nullLiteral: "nullLiteral",
+  undefinedLiteral: "undefinedLiteral",
   booleanLiteral: "booleanLiteral",
   stringLiteral: "stringLiteral",
   numberLiteral: "numberLiteral",
@@ -55,6 +56,12 @@ class LiteralNode extends Node {
 class NullLiteralNode extends LiteralNode {
   constructor () {
     super(NodeType.nullLiteral, null);
+  }
+}
+
+class UndefinedLiteralNode extends LiteralNode {
+  constructor () {
+    super(NodeType.undefinedLiteral, undefined);
   }
 }
 
@@ -404,6 +411,8 @@ class AstVisitor extends CircParserVisitor {
         return new NumberLiteralNode(Number(literal.getText()));
       } else if (literal.NullLiteral()) {
         return new NullLiteralNode();
+      } else if (literal.UndefinedLiteral()) {
+        return new UndefinedLiteralNode();
       } else if (literal.BooleanLiteral()) {
         return new BooleanLiteralNode(literal.getText() === "true");
       } else if (literal.StringLiteral()) {

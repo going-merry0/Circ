@@ -15,36 +15,39 @@ let source = `
 //   a
 // })
 
-let a = 8
+// let a = 8
+//
+// let obj = {
+//   "a": 1,
+//   "b": 2,
+//   "fn": (a, b) -> {
+//     println(this.a)
+//     println(this.b)
+//     let f = () -> {
+//       println(this.a)
+//       println(a)
+//       println(b)
+//     }
+//     f()
+//     let obj = {
+//       "a": 5,
+//       "b": 6,
+//       "fn": (a, b) -> {
+//         println(this.a)
+//         println(this.b)
+//         println(a)
+//         println(b)
+//       }
+//     }
+//     call({ "a": "a", "b": "b" }, obj.fn, ["arg a", "arg b"])
+//     obj.fn()
+//   }
+// }
+//
+// time(() -> { obj.fn(3, 4) })
 
-let obj = {
-  "a": 1,
-  "b": 2,
-  "fn": (a, b) -> {
-    println(this.a)
-    println(this.b)
-    let f = () -> {
-      println(this.a)
-      println(a)
-      println(b)
-    }
-    f()
-    let obj = {
-      "a": 5,
-      "b": 6,
-      "fn": (a, b) -> {
-        println(this.a)
-        println(this.b)
-        println(a)
-        println(b)
-      }
-    }
-    call({ "a": "a", "b": "b" }, obj.fn, ["arg a", "arg b"])
-    obj.fn()
-  }
-}
-
-time(() -> { obj.fn(3, 4) })
+let a = undefined
+a == undefined
 `;
 
 const input = new antlr4.InputStream(source);

@@ -106,6 +106,7 @@ exprSequence
 
 literal
   : ( NullLiteral
+    | UndefinedLiteral
     | BooleanLiteral
     | StringLiteral
     )

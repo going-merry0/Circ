@@ -6,7 +6,7 @@ var CircParserVisitor = require('./CircParserVisitor').CircParserVisitor;
 var grammarFileName = "CircParser.g4";
 
 var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
-    "\u0003,\u013e\u0004\u0002\t\u0002\u0004\u0003\t\u0003\u0004\u0004\t",
+    "\u0003-\u013e\u0004\u0002\t\u0002\u0004\u0003\t\u0003\u0004\u0004\t",
     "\u0004\u0004\u0005\t\u0005\u0004\u0006\t\u0006\u0004\u0007\t\u0007\u0004",
     "\b\t\b\u0004\t\t\t\u0004\n\t\n\u0004\u000b\t\u000b\u0004\f\t\f\u0004",
     "\r\t\r\u0004\u000e\t\u000e\u0004\u000f\t\u000f\u0004\u0010\t\u0010\u0004",
@@ -55,7 +55,7 @@ var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
     "\u001f\u0002\u0003\u0016 \u0002\u0004\u0006\b\n\f\u000e\u0010\u0012",
     "\u0014\u0016\u0018\u001a\u001c\u001e \"$&(*,.02468:<\u0002\n\u0003\u0002",
     "\u0018\u001a\u0003\u0002\u0016\u0017\u0004\u0002\u001c\u001d !\u0003",
-    "\u0002\u001e\u001f\u0004\u0002#$))\u0003\u0002%\'\u0003\u0002#$\u0003",
+    "\u0002\u001e\u001f\u0004\u0002#%**\u0003\u0002&(\u0004\u0002##%%\u0003",
     "\u0002\u0003\t\u0002\u0157\u0002?\u0003\u0002\u0002\u0002\u0004D\u0003",
     "\u0002\u0002\u0002\u0006M\u0003\u0002\u0002\u0002\bS\u0003\u0002\u0002",
     "\u0002\nU\u0003\u0002\u0002\u0002\f\\\u0003\u0002\u0002\u0002\u000e",
@@ -91,7 +91,7 @@ var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
     "di\u0005\u0012\n\u0002ef\u0007\u0012\u0002\u0002fh\u0005\u0012\n\u0002",
     "ge\u0003\u0002\u0002\u0002hk\u0003\u0002\u0002\u0002ig\u0003\u0002\u0002",
     "\u0002ij\u0003\u0002\u0002\u0002j\u0011\u0003\u0002\u0002\u0002ki\u0003",
-    "\u0002\u0002\u0002ln\u0007(\u0002\u0002mo\u0005\u0014\u000b\u0002nm",
+    "\u0002\u0002\u0002ln\u0007)\u0002\u0002mo\u0005\u0014\u000b\u0002nm",
     "\u0003\u0002\u0002\u0002no\u0003\u0002\u0002\u0002o{\u0003\u0002\u0002",
     "\u0002pq\u0005:\u001e\u0002qs\b\n\u0001\u0002rt\u0005\u0014\u000b\u0002",
     "sr\u0003\u0002\u0002\u0002st\u0003\u0002\u0002\u0002t{\u0003\u0002\u0002",
@@ -101,7 +101,7 @@ var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
     "\u0002\u0002\u0002{\u0013\u0003\u0002\u0002\u0002|}\u0007\u001b\u0002",
     "\u0002}~\u0005\b\u0005\u0002~\u0015\u0003\u0002\u0002\u0002\u007f\u0080",
     "\b\f\u0001\u0002\u0080\u0082\u0007\u0007\u0002\u0002\u0081\u0083\u0007",
-    "(\u0002\u0002\u0082\u0081\u0003\u0002\u0002\u0002\u0082\u0083\u0003",
+    ")\u0002\u0002\u0082\u0081\u0003\u0002\u0002\u0002\u0082\u0083\u0003",
     "\u0002\u0002\u0002\u0083\u0084\u0003\u0002\u0002\u0002\u0084\u0086\u0007",
     "\u0010\u0002\u0002\u0085\u0087\u00050\u0019\u0002\u0086\u0085\u0003",
     "\u0002\u0002\u0002\u0086\u0087\u0003\u0002\u0002\u0002\u0087\u0088\u0003",
@@ -116,13 +116,13 @@ var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
     "\u0002\u0099\u00af\u0003\u0002\u0002\u0002\u009a\u009b\u0005\u001e\u0010",
     "\u0002\u009b\u009c\b\f\u0001\u0002\u009c\u009d\u0007\u001b\u0002\u0002",
     "\u009d\u009e\u0005\u0006\u0004\u0002\u009e\u00af\u0003\u0002\u0002\u0002",
-    "\u009f\u00a2\u0007(\u0002\u0002\u00a0\u00a2\u0005\u0018\r\u0002\u00a1",
+    "\u009f\u00a2\u0007)\u0002\u0002\u00a0\u00a2\u0005\u0018\r\u0002\u00a1",
     "\u009f\u0003\u0002\u0002\u0002\u00a1\u00a0\u0003\u0002\u0002\u0002\u00a2",
     "\u00a3\u0003\u0002\u0002\u0002\u00a3\u00a4\u0007\"\u0002\u0002\u00a4",
     "\u00af\u0005\b\u0005\u0002\u00a5\u00a6\u0007\u0010\u0002\u0002\u00a6",
     "\u00a7\u0005\u001c\u000f\u0002\u00a7\u00a8\u0007\u0011\u0002\u0002\u00a8",
     "\u00af\u0003\u0002\u0002\u0002\u00a9\u00af\u0007\n\u0002\u0002\u00aa",
-    "\u00af\u0007(\u0002\u0002\u00ab\u00af\u0005\u001e\u0010\u0002\u00ac",
+    "\u00af\u0007)\u0002\u0002\u00ab\u00af\u0005\u001e\u0010\u0002\u00ac",
     "\u00af\u0005\"\u0012\u0002\u00ad\u00af\u0005&\u0014\u0002\u00ae\u007f",
     "\u0003\u0002\u0002\u0002\u00ae\u008d\u0003\u0002\u0002\u0002\u00ae\u0091",
     "\u0003\u0002\u0002\u0002\u00ae\u0095\u0003\u0002\u0002\u0002\u00ae\u009a",
@@ -139,7 +139,7 @@ var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
     "\u0002\u0002\u00bd\u00be\u0007\u000e\u0002\u0002\u00be\u00bf\u0005\u001c",
     "\u000f\u0002\u00bf\u00c0\u0007\u000f\u0002\u0002\u00c0\u00ca\u0003\u0002",
     "\u0002\u0002\u00c1\u00c2\f\u0014\u0002\u0002\u00c2\u00c3\u0007\u0015",
-    "\u0002\u0002\u00c3\u00ca\u0007(\u0002\u0002\u00c4\u00c5\f\u0013\u0002",
+    "\u0002\u0002\u00c3\u00ca\u0007)\u0002\u0002\u00c4\u00c5\f\u0013\u0002",
     "\u0002\u00c5\u00ca\u0005\u0018\r\u0002\u00c6\u00c7\f\n\u0002\u0002\u00c7",
     "\u00c8\u0007\u001b\u0002\u0002\u00c8\u00ca\u0005\b\u0005\u0002\u00c9",
     "\u00b0\u0003\u0002\u0002\u0002\u00c9\u00b3\u0003\u0002\u0002\u0002\u00c9",
@@ -185,7 +185,7 @@ var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
     "\u0109\u0107\u0003\u0002\u0002\u0002\u010a\u010d\u0003\u0002\u0002\u0002",
     "\u010b\u0109\u0003\u0002\u0002\u0002\u010b\u010c\u0003\u0002\u0002\u0002",
     "\u010c)\u0003\u0002\u0002\u0002\u010d\u010b\u0003\u0002\u0002\u0002",
-    "\u010e\u010f\u0007)\u0002\u0002\u010f\u0110\u0007\u0014\u0002\u0002",
+    "\u010e\u010f\u0007*\u0002\u0002\u010f\u0110\u0007\u0014\u0002\u0002",
     "\u0110\u0118\u0005\u0016\f\u0002\u0111\u0112\u0007\u000e\u0002\u0002",
     "\u0112\u0113\u0005\u0016\f\u0002\u0113\u0114\u0007\u000f\u0002\u0002",
     "\u0114\u0115\u0007\u0014\u0002\u0002\u0115\u0116\u0005\u0016\f\u0002",
@@ -195,8 +195,8 @@ var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
     "\u011b\u011f\u0007\u0013\u0002\u0002\u011c\u011f\u0007\u0002\u0002\u0003",
     "\u011d\u011f\u0006\u0018\n\u0002\u011e\u011b\u0003\u0002\u0002\u0002",
     "\u011e\u011c\u0003\u0002\u0002\u0002\u011e\u011d\u0003\u0002\u0002\u0002",
-    "\u011f/\u0003\u0002\u0002\u0002\u0120\u0125\u0007(\u0002\u0002\u0121",
-    "\u0122\u0007\u0012\u0002\u0002\u0122\u0124\u0007(\u0002\u0002\u0123",
+    "\u011f/\u0003\u0002\u0002\u0002\u0120\u0125\u0007)\u0002\u0002\u0121",
+    "\u0122\u0007\u0012\u0002\u0002\u0122\u0124\u0007)\u0002\u0002\u0123",
     "\u0121\u0003\u0002\u0002\u0002\u0124\u0127\u0003\u0002\u0002\u0002\u0125",
     "\u0123\u0003\u0002\u0002\u0002\u0125\u0126\u0003\u0002\u0002\u0002\u0126",
     "1\u0003\u0002\u0002\u0002\u0127\u0125\u0003\u0002\u0002\u0002\u0128",
@@ -226,7 +226,7 @@ var literalNames = [ null, "'let'", "'if'", "'then'", "'else'", "'fun'",
                      "'for'", "'in'", "'this'", null, "'{'", "'}'", "'['", 
                      "']'", "'('", "')'", "','", "';'", "':'", "'.'", "'+'", 
                      "'-'", "'*'", "'/'", "'%'", "'='", "'<'", "'>'", "'=='", 
-                     "'!='", "'<='", "'>='", "'->'", "'null'" ];
+                     "'!='", "'<='", "'>='", "'->'", "'null'", "'undefined'" ];
 
 var symbolicNames = [ null, "Let", "If", "Then", "Else", "Fun", "For", "In", 
                       "This", "LineTerminator", "OpenBrace", "CloseBrace", 
@@ -235,9 +235,10 @@ var symbolicNames = [ null, "Let", "If", "Then", "Else", "Fun", "For", "In",
                       "Multiply", "Divide", "Modulus", "Assign", "LessThan", 
                       "MoreThan", "Equals", "NotEquals", "LessThanEquals", 
                       "GreaterThanEquals", "LambdaConnect", "NullLiteral", 
-                      "BooleanLiteral", "IntegerLiteral", "HexIntegerLiteral", 
-                      "RealLiteral", "Identifier", "StringLiteral", "WhiteSpaces", 
-                      "MultiLineComment", "SingleLineComment" ];
+                      "UndefinedLiteral", "BooleanLiteral", "IntegerLiteral", 
+                      "HexIntegerLiteral", "RealLiteral", "Identifier", 
+                      "StringLiteral", "WhiteSpaces", "MultiLineComment", 
+                      "SingleLineComment" ];
 
 var ruleNames =  [ "program", "statements", "statement", "noEmptyStatement", 
                    "blockStatement", "statementList", "varDeclarationStatement", 
@@ -322,15 +323,16 @@ CircParser.LessThanEquals = 30;
 CircParser.GreaterThanEquals = 31;
 CircParser.LambdaConnect = 32;
 CircParser.NullLiteral = 33;
-CircParser.BooleanLiteral = 34;
-CircParser.IntegerLiteral = 35;
-CircParser.HexIntegerLiteral = 36;
-CircParser.RealLiteral = 37;
-CircParser.Identifier = 38;
-CircParser.StringLiteral = 39;
-CircParser.WhiteSpaces = 40;
-CircParser.MultiLineComment = 41;
-CircParser.SingleLineComment = 42;
+CircParser.UndefinedLiteral = 34;
+CircParser.BooleanLiteral = 35;
+CircParser.IntegerLiteral = 36;
+CircParser.HexIntegerLiteral = 37;
+CircParser.RealLiteral = 38;
+CircParser.Identifier = 39;
+CircParser.StringLiteral = 40;
+CircParser.WhiteSpaces = 41;
+CircParser.MultiLineComment = 42;
+CircParser.SingleLineComment = 43;
 
 CircParser.RULE_program = 0;
 CircParser.RULE_statements = 1;
@@ -410,7 +412,7 @@ CircParser.prototype.program = function() {
         this.state = 61;
         this._errHandler.sync(this);
         _la = this._input.LA(1);
-        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.This) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen) | (1 << CircParser.SemiColon))) !== 0) || ((((_la - 33)) & ~0x1f) == 0 && ((1 << (_la - 33)) & ((1 << (CircParser.NullLiteral - 33)) | (1 << (CircParser.BooleanLiteral - 33)) | (1 << (CircParser.IntegerLiteral - 33)) | (1 << (CircParser.HexIntegerLiteral - 33)) | (1 << (CircParser.RealLiteral - 33)) | (1 << (CircParser.Identifier - 33)) | (1 << (CircParser.StringLiteral - 33)))) !== 0)) {
+        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.This) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen) | (1 << CircParser.SemiColon))) !== 0) || ((((_la - 33)) & ~0x1f) == 0 && ((1 << (_la - 33)) & ((1 << (CircParser.NullLiteral - 33)) | (1 << (CircParser.UndefinedLiteral - 33)) | (1 << (CircParser.BooleanLiteral - 33)) | (1 << (CircParser.IntegerLiteral - 33)) | (1 << (CircParser.HexIntegerLiteral - 33)) | (1 << (CircParser.RealLiteral - 33)) | (1 << (CircParser.Identifier - 33)) | (1 << (CircParser.StringLiteral - 33)))) !== 0)) {
             this.state = 60;
             this.statements();
         }
@@ -487,7 +489,7 @@ CircParser.prototype.statements = function() {
             this.state = 68; 
             this._errHandler.sync(this);
             _la = this._input.LA(1);
-        } while((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.This) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen) | (1 << CircParser.SemiColon))) !== 0) || ((((_la - 33)) & ~0x1f) == 0 && ((1 << (_la - 33)) & ((1 << (CircParser.NullLiteral - 33)) | (1 << (CircParser.BooleanLiteral - 33)) | (1 << (CircParser.IntegerLiteral - 33)) | (1 << (CircParser.HexIntegerLiteral - 33)) | (1 << (CircParser.RealLiteral - 33)) | (1 << (CircParser.Identifier - 33)) | (1 << (CircParser.StringLiteral - 33)))) !== 0));
+        } while((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.This) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen) | (1 << CircParser.SemiColon))) !== 0) || ((((_la - 33)) & ~0x1f) == 0 && ((1 << (_la - 33)) & ((1 << (CircParser.NullLiteral - 33)) | (1 << (CircParser.UndefinedLiteral - 33)) | (1 << (CircParser.BooleanLiteral - 33)) | (1 << (CircParser.IntegerLiteral - 33)) | (1 << (CircParser.HexIntegerLiteral - 33)) | (1 << (CircParser.RealLiteral - 33)) | (1 << (CircParser.Identifier - 33)) | (1 << (CircParser.StringLiteral - 33)))) !== 0));
     } catch (re) {
     	if(re instanceof antlr4.error.RecognitionException) {
 	        localctx.exception = re;
@@ -751,7 +753,7 @@ CircParser.prototype.blockStatement = function() {
         this.state = 85;
         this._errHandler.sync(this);
         _la = this._input.LA(1);
-        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.This) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen) | (1 << CircParser.SemiColon))) !== 0) || ((((_la - 33)) & ~0x1f) == 0 && ((1 << (_la - 33)) & ((1 << (CircParser.NullLiteral - 33)) | (1 << (CircParser.BooleanLiteral - 33)) | (1 << (CircParser.IntegerLiteral - 33)) | (1 << (CircParser.HexIntegerLiteral - 33)) | (1 << (CircParser.RealLiteral - 33)) | (1 << (CircParser.Identifier - 33)) | (1 << (CircParser.StringLiteral - 33)))) !== 0)) {
+        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.This) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen) | (1 << CircParser.SemiColon))) !== 0) || ((((_la - 33)) & ~0x1f) == 0 && ((1 << (_la - 33)) & ((1 << (CircParser.NullLiteral - 33)) | (1 << (CircParser.UndefinedLiteral - 33)) | (1 << (CircParser.BooleanLiteral - 33)) | (1 << (CircParser.IntegerLiteral - 33)) | (1 << (CircParser.HexIntegerLiteral - 33)) | (1 << (CircParser.RealLiteral - 33)) | (1 << (CircParser.Identifier - 33)) | (1 << (CircParser.StringLiteral - 33)))) !== 0)) {
             this.state = 84;
             this.statementList();
         }
@@ -828,7 +830,7 @@ CircParser.prototype.statementList = function() {
             this.state = 92; 
             this._errHandler.sync(this);
             _la = this._input.LA(1);
-        } while((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.This) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen) | (1 << CircParser.SemiColon))) !== 0) || ((((_la - 33)) & ~0x1f) == 0 && ((1 << (_la - 33)) & ((1 << (CircParser.NullLiteral - 33)) | (1 << (CircParser.BooleanLiteral - 33)) | (1 << (CircParser.IntegerLiteral - 33)) | (1 << (CircParser.HexIntegerLiteral - 33)) | (1 << (CircParser.RealLiteral - 33)) | (1 << (CircParser.Identifier - 33)) | (1 << (CircParser.StringLiteral - 33)))) !== 0));
+        } while((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.This) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen) | (1 << CircParser.SemiColon))) !== 0) || ((((_la - 33)) & ~0x1f) == 0 && ((1 << (_la - 33)) & ((1 << (CircParser.NullLiteral - 33)) | (1 << (CircParser.UndefinedLiteral - 33)) | (1 << (CircParser.BooleanLiteral - 33)) | (1 << (CircParser.IntegerLiteral - 33)) | (1 << (CircParser.HexIntegerLiteral - 33)) | (1 << (CircParser.RealLiteral - 33)) | (1 << (CircParser.Identifier - 33)) | (1 << (CircParser.StringLiteral - 33)))) !== 0));
     } catch (re) {
     	if(re instanceof antlr4.error.RecognitionException) {
 	        localctx.exception = re;
@@ -2229,7 +2231,7 @@ CircParser.prototype.arguments = function() {
         this.state = 206;
         this._errHandler.sync(this);
         _la = this._input.LA(1);
-        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.This) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen))) !== 0) || ((((_la - 33)) & ~0x1f) == 0 && ((1 << (_la - 33)) & ((1 << (CircParser.NullLiteral - 33)) | (1 << (CircParser.BooleanLiteral - 33)) | (1 << (CircParser.IntegerLiteral - 33)) | (1 << (CircParser.HexIntegerLiteral - 33)) | (1 << (CircParser.RealLiteral - 33)) | (1 << (CircParser.Identifier - 33)) | (1 << (CircParser.StringLiteral - 33)))) !== 0)) {
+        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.This) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen))) !== 0) || ((((_la - 33)) & ~0x1f) == 0 && ((1 << (_la - 33)) & ((1 << (CircParser.NullLiteral - 33)) | (1 << (CircParser.UndefinedLiteral - 33)) | (1 << (CircParser.BooleanLiteral - 33)) | (1 << (CircParser.IntegerLiteral - 33)) | (1 << (CircParser.HexIntegerLiteral - 33)) | (1 << (CircParser.RealLiteral - 33)) | (1 << (CircParser.Identifier - 33)) | (1 << (CircParser.StringLiteral - 33)))) !== 0)) {
             this.state = 205;
             this.argumentList();
         }
@@ -2446,6 +2448,10 @@ LiteralContext.prototype.NullLiteral = function() {
     return this.getToken(CircParser.NullLiteral, 0);
 };
 
+LiteralContext.prototype.UndefinedLiteral = function() {
+    return this.getToken(CircParser.UndefinedLiteral, 0);
+};
+
 LiteralContext.prototype.BooleanLiteral = function() {
     return this.getToken(CircParser.BooleanLiteral, 0);
 };
@@ -2481,12 +2487,13 @@ CircParser.prototype.literal = function() {
         this._errHandler.sync(this);
         switch(this._input.LA(1)) {
         case CircParser.NullLiteral:
+        case CircParser.UndefinedLiteral:
         case CircParser.BooleanLiteral:
         case CircParser.StringLiteral:
             this.enterOuterAlt(localctx, 1);
             this.state = 226;
             _la = this._input.LA(1);
-            if(!(((((_la - 33)) & ~0x1f) == 0 && ((1 << (_la - 33)) & ((1 << (CircParser.NullLiteral - 33)) | (1 << (CircParser.BooleanLiteral - 33)) | (1 << (CircParser.StringLiteral - 33)))) !== 0))) {
+            if(!(((((_la - 33)) & ~0x1f) == 0 && ((1 << (_la - 33)) & ((1 << (CircParser.NullLiteral - 33)) | (1 << (CircParser.UndefinedLiteral - 33)) | (1 << (CircParser.BooleanLiteral - 33)) | (1 << (CircParser.StringLiteral - 33)))) !== 0))) {
             this._errHandler.recoverInline(this);
             }
             else {
@@ -2568,7 +2575,7 @@ CircParser.prototype.numericLiteral = function() {
         this.enterOuterAlt(localctx, 1);
         this.state = 230;
         _la = this._input.LA(1);
-        if(!(((((_la - 35)) & ~0x1f) == 0 && ((1 << (_la - 35)) & ((1 << (CircParser.IntegerLiteral - 35)) | (1 << (CircParser.HexIntegerLiteral - 35)) | (1 << (CircParser.RealLiteral - 35)))) !== 0))) {
+        if(!(((((_la - 36)) & ~0x1f) == 0 && ((1 << (_la - 36)) & ((1 << (CircParser.IntegerLiteral - 36)) | (1 << (CircParser.HexIntegerLiteral - 36)) | (1 << (CircParser.RealLiteral - 36)))) !== 0))) {
         this._errHandler.recoverInline(this);
         }
         else {
@@ -2646,7 +2653,7 @@ CircParser.prototype.arrayLiteral = function() {
         this.state = 234;
         this._errHandler.sync(this);
         _la = this._input.LA(1);
-        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.This) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen))) !== 0) || ((((_la - 33)) & ~0x1f) == 0 && ((1 << (_la - 33)) & ((1 << (CircParser.NullLiteral - 33)) | (1 << (CircParser.BooleanLiteral - 33)) | (1 << (CircParser.IntegerLiteral - 33)) | (1 << (CircParser.HexIntegerLiteral - 33)) | (1 << (CircParser.RealLiteral - 33)) | (1 << (CircParser.Identifier - 33)) | (1 << (CircParser.StringLiteral - 33)))) !== 0)) {
+        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.This) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen))) !== 0) || ((((_la - 33)) & ~0x1f) == 0 && ((1 << (_la - 33)) & ((1 << (CircParser.NullLiteral - 33)) | (1 << (CircParser.UndefinedLiteral - 33)) | (1 << (CircParser.BooleanLiteral - 33)) | (1 << (CircParser.IntegerLiteral - 33)) | (1 << (CircParser.HexIntegerLiteral - 33)) | (1 << (CircParser.RealLiteral - 33)) | (1 << (CircParser.Identifier - 33)) | (1 << (CircParser.StringLiteral - 33)))) !== 0)) {
             this.state = 233;
             this.elementList();
         }
@@ -3366,7 +3373,7 @@ CircParser.prototype.functionBody = function() {
         this.state = 295;
         this._errHandler.sync(this);
         _la = this._input.LA(1);
-        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.This) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen) | (1 << CircParser.SemiColon))) !== 0) || ((((_la - 33)) & ~0x1f) == 0 && ((1 << (_la - 33)) & ((1 << (CircParser.NullLiteral - 33)) | (1 << (CircParser.BooleanLiteral - 33)) | (1 << (CircParser.IntegerLiteral - 33)) | (1 << (CircParser.HexIntegerLiteral - 33)) | (1 << (CircParser.RealLiteral - 33)) | (1 << (CircParser.Identifier - 33)) | (1 << (CircParser.StringLiteral - 33)))) !== 0)) {
+        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.This) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen) | (1 << CircParser.SemiColon))) !== 0) || ((((_la - 33)) & ~0x1f) == 0 && ((1 << (_la - 33)) & ((1 << (CircParser.NullLiteral - 33)) | (1 << (CircParser.UndefinedLiteral - 33)) | (1 << (CircParser.BooleanLiteral - 33)) | (1 << (CircParser.IntegerLiteral - 33)) | (1 << (CircParser.HexIntegerLiteral - 33)) | (1 << (CircParser.RealLiteral - 33)) | (1 << (CircParser.Identifier - 33)) | (1 << (CircParser.StringLiteral - 33)))) !== 0)) {
             this.state = 294;
             this.statementList();
         }
