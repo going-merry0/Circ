@@ -253,11 +253,8 @@ function evaluate (exp, env, cb) {
       const fn = function (cb) {
         stackGuard(fn, arguments);
         const subEnv = env.extend();
-        for (let i = 0, len = exp.formalParamList.length; i < len; i++) {
-          subEnv.def(exp.formalParamList[i].name, null);
-        }
         for (let i = 1, len = arguments.length; i < len; i++) {
-          subEnv.set(exp.formalParamList[i - 1].name, arguments[i]);
+          subEnv.def(exp.formalParamList[i - 1].name, arguments[i]);
         }
         evaluate(exp.body, subEnv, cb);
       };
