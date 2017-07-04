@@ -466,6 +466,10 @@ builtinEnv.def("newJsObj", function (cc, klass) {
 
 builtinEnv.def("jsGlobal", global);
 
+builtinEnv.def("regexp", function (cc, str, opt) {
+  cc(new RegExp(str, opt));
+});
+
 exports.builtinEnv = builtinEnv;
 
 const globalEnv = builtinEnv.extend();
