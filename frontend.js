@@ -31,11 +31,15 @@ exports.NodeType = NodeType;
 class Node {
   constructor (type = NodeType.unsupported) {
     this.type = type;
+    this.lineNumber = -1;
+    this.charIndex = -1;
   }
 
   toJson () {
     return {
-      type: this.type
+      type: this.type,
+      lineNumber: this.lineNumber,
+      charIndex: this.charIndex
     };
   }
 }
@@ -324,7 +328,12 @@ class AstVisitor extends CircParserVisitor {
     if (!ctx) {
       return [];
     }
-    return ctx.Identifier().map(ctx => new IdentifierNode(ctx.getText()));
+    return ctx.Identifier().map(ctx => {
+      const node = new IdentifierNode(ctx.getText());
+      node.lineNumber = ctx.start.line;
+      node.charIndex = ctx.start.column;
+      return node;
+    });
   }
 
   visitStatementList (ctx) {
@@ -340,8 +349,13 @@ class AstVisitor extends CircParserVisitor {
 
   visitFunExpr (ctx) {
     const node = new FunDeclarationNode();
+    node.lineNumber = ctx.start.line;
+    node.charIndex = ctx.start.column;
     if (ctx.Identifier()) {
-      node.name = new IdentifierNode(ctx.Identifier().getText());
+      const name = new IdentifierNode(ctx.Identifier().getText());
+      name.lineNumber = ctx.Identifier().symbol.line;
+      name.charIndex = ctx.Identifier().symbol.column;
+      node.name = name;
     }
     node.formalParamList = this.visitFormalParameterList(ctx.formalParameterList());
 
@@ -368,19 +382,28 @@ class AstVisitor extends CircParserVisitor {
 
   visitArrayLiteral (ctx) {
     const node = new ArrayLiteralNode();
+    node.lineNumber = ctx.start.line;
+    node.charIndex = ctx.start.column;
     node.items = this.visitElementList(ctx.elementList());
     return node;
   }
 
   visitStaticPropertyName (ctx) {
     const node = new ObjectPropertyNode();
-    node.left = new StringLiteralNode(ctx.StringLiteral().getText());
+    node.lineNumber = ctx.start.line;
+    node.charIndex = ctx.start.column;
+    const left = new StringLiteralNode(ctx.StringLiteral().getText());
+    left.lineNumber = ctx.StringLiteral().symbol.line;
+    left.charIndex = ctx.StringLiteral().symbol.column;
+    node.left = left;
     node.right = this.visitSingleExpr(ctx.singleExpr());
     return node;
   }
 
   visitExprPropertyName (ctx) {
     const node = new ObjectPropertyNode();
+    node.lineNumber = ctx.start.line;
+    node.charIndex = ctx.start.column;
     node.left = this.visitSingleExpr(ctx.propertyNameExpr);
     node.right = this.visitSingleExpr(ctx.propertyValExpr);
     return node;
@@ -400,6 +423,8 @@ class AstVisitor extends CircParserVisitor {
 
   visitObjectLiteral (ctx) {
     const node = new ObjectLiteralNode();
+    node.lineNumber = ctx.start.line;
+    node.charIndex = ctx.start.column;
     node.properties = this.visitPropertyNameAndValueList(ctx.propertyNameAndValueList());
     return node;
   }
@@ -408,15 +433,30 @@ class AstVisitor extends CircParserVisitor {
     if (ctx instanceof CircParser.LiteralExprContext) {
       const literal = ctx.literal();
       if (literal.numericLiteral()) {
-        return new NumberLiteralNode(Number(literal.getText()));
+        const node = new NumberLiteralNode(Number(literal.getText()));
+        node.lineNumber = ctx.start.line;
+        node.charIndex = ctx.start.column;
+        return node;
       } else if (literal.NullLiteral()) {
-        return new NullLiteralNode();
+        const node = new NullLiteralNode();
+        node.lineNumber = ctx.start.line;
+        node.charIndex = ctx.start.column;
+        return node;
       } else if (literal.UndefinedLiteral()) {
-        return new UndefinedLiteralNode();
+        const node = new UndefinedLiteralNode();
+        node.lineNumber = ctx.start.line;
+        node.charIndex = ctx.start.column;
+        return node;
       } else if (literal.BooleanLiteral()) {
-        return new BooleanLiteralNode(literal.getText() === "true");
+        const node = new BooleanLiteralNode(literal.getText() === "true");
+        node.lineNumber = ctx.start.line;
+        node.charIndex = ctx.start.column;
+        return node;
       } else if (literal.StringLiteral()) {
-        return new StringLiteralNode(literal.getText());
+        const node = new StringLiteralNode(literal.getText());
+        node.lineNumber = ctx.start.line;
+        node.charIndex = ctx.start.column;
+        return node;
       }
     } else if (ctx instanceof CircParser.FunExprContext) {
       return this.visitFunExpr(ctx);
@@ -425,6 +465,8 @@ class AstVisitor extends CircParserVisitor {
       || ctx instanceof CircParser.RelationalExprContext
       || ctx instanceof CircParser.EqualityExprContext) {
       const node = new BinaryExprNode();
+      node.lineNumber = ctx.start.line;
+      node.charIndex = ctx.start.column;
       node.left = this.visitSingleExpr(ctx.singleExpr(0));
       node.right = this.visitSingleExpr(ctx.singleExpr(1));
       if (ctx.Plus && ctx.Plus()) {
@@ -455,16 +497,28 @@ class AstVisitor extends CircParserVisitor {
       return this.visitExprSequence(ctx.exprSequence())
     } else if (ctx instanceof CircParser.FunCallExprContext) {
       const node = new FunCallExprNode();
+      node.lineNumber = ctx.start.line;
+      node.charIndex = ctx.start.column;
       node.paramList = this.visitArguments(ctx.arguments());
       node.prodFunExpr = this.visitSingleExpr(ctx.singleExpr());
       return node;
     } else if (ctx instanceof CircParser.IdentifierExprContext) {
-      return new IdentifierNode(ctx.Identifier().getText());
+      const node = new IdentifierNode(ctx.Identifier().getText());
+      node.lineNumber = ctx.start.line;
+      node.charIndex = ctx.start.column;
+      node.lineNumber = ctx.start.line;
+      node.charIndex = ctx.start.column;
+      return node;
     } else if (ctx instanceof CircParser.LambdaExprContext) {
       const node = new FunDeclarationNode();
+      node.lineNumber = ctx.start.line;
+      node.charIndex = ctx.start.column;
       if (ctx.Identifier()) {
+        const param = new IdentifierNode(ctx.Identifier().getText());
+        param.lineNumber = ctx.Identifier().symbol.line;
+        param.charIndex = ctx.Identifier().symbol.column;
         node.formalParamList = [
-          new IdentifierNode(ctx.Identifier().getText())
+          param
         ];
       } else {
         node.formalParamList = this.visitArguments(ctx.arguments());
@@ -473,6 +527,8 @@ class AstVisitor extends CircParserVisitor {
       return node;
     } else if (ctx instanceof CircParser.AssignExprContext) {
       const node = new AssignExprNode();
+      node.lineNumber = ctx.start.line;
+      node.charIndex = ctx.start.column;
       node.left = this.visitSingleExpr(ctx.singleExpr());
       node.right = this.visitNoEmptyStatement(ctx.noEmptyStatement());
       return node;
@@ -480,23 +536,35 @@ class AstVisitor extends CircParserVisitor {
       return this.visitArrayLiteral(ctx.arrayLiteral());
     } else if (ctx instanceof CircParser.MemberIndexExprContext) {
       const node = new MemberIndexExprNode();
+      node.lineNumber = ctx.start.line;
+      node.charIndex = ctx.start.column;
       node.left = this.visitSingleExpr(ctx.singleExpr());
       node.right = this.visitExprSequence(ctx.exprSequence());
       return node;
     } else if (ctx instanceof CircParser.ObjectLiteralExprContext) {
       return this.visitObjectLiteral(ctx.objectLiteral());
     } else if (ctx instanceof CircParser.ThisExprContext) {
-      return new ThisExprNode();
+      const node = new ThisExprNode();
+      node.lineNumber = ctx.start.line;
+      node.charIndex = ctx.start.column;
+      return node;
     } else if (ctx instanceof CircParser.MemberDotExprContext) {
       const node = new MemberDotExprNode();
+      node.lineNumber = ctx.start.line;
+      node.charIndex = ctx.start.column;
       node.left = this.visitSingleExpr(ctx.singleExpr());
-      node.right = new IdentifierNode(ctx.Identifier().getText());
+      const right = new IdentifierNode(ctx.Identifier().getText());
+      right.lineNumber = ctx.Identifier().symbol.line;
+      right.charIndex = ctx.Identifier().symbol.column;
+      node.right = right;
       return node;
     }
   }
 
   visitExprSequence (ctx) {
     const node = new ExprSequenceNode();
+    node.lineNumber = ctx.start.line;
+    node.charIndex = ctx.start.column;
     node.exprList = ctx.singleExpr().map(ctx => this.visitSingleExpr(ctx));
     return node;
   }
@@ -507,13 +575,20 @@ class AstVisitor extends CircParserVisitor {
 
   visitVariableDeclaration (ctx) {
     const node = new VarDeclarationNode();
-    node.left = new IdentifierNode(ctx.Identifier().getText());
+    node.lineNumber = ctx.start.line;
+    node.charIndex = ctx.start.column;
+    const left = new IdentifierNode(ctx.Identifier().getText());
+    left.lineNumber = ctx.Identifier().symbol.line;
+    left.charIndex = ctx.Identifier().symbol.column;
+    node.left = left;
     node.right = this.visitInitializer(ctx.initializer());
     return node;
   }
 
   visitVarDeclarationList (ctx) {
     const node = new VarDeclarationListNode();
+    node.lineNumber = ctx.start.line;
+    node.charIndex = ctx.start.column;
     node.exprList = ctx.variableDeclaration().map(ctx => this.visitVariableDeclaration(ctx));
     return node;
   }
@@ -528,6 +603,8 @@ class AstVisitor extends CircParserVisitor {
 
   visitIfStatement (ctx) {
     const node = new ConditionExprNode();
+    node.lineNumber = ctx.start.line;
+    node.charIndex = ctx.start.column;
     node.expr = this.visitSingleExpr(ctx.singleExpr());
     node.then = this.visitIfStatementBody(ctx.thenBody);
     node.else = this.visitIfStatementBody(ctx.elseBody);
@@ -551,6 +628,8 @@ class AstVisitor extends CircParserVisitor {
       return this.visitIfStatement(ctx.ifStatement());
     } else if (ctx.blockStatement()) {
       const node = new BlockNode();
+      node.lineNumber = ctx.start.line;
+      node.charIndex = ctx.start.column;
       node.exprList = this.visitBlockStatement(ctx.blockStatement());
       return node;
     } else if (ctx.emptyStatement()) {
@@ -567,6 +646,8 @@ class AstVisitor extends CircParserVisitor {
 
   visitProgram (ctx) {
     const node = new ProgNode();
+    node.lineNumber = ctx.start.line;
+    node.charIndex = ctx.start.column;
     node.exprList = this.visitStatements(ctx.statements());
     return node;
   }
