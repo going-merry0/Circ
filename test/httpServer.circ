@@ -1,0 +1,11 @@
+let http = jsModule("http")
+let server = callJs(http, http.createServer, (req, res) -> {
+  res.statusCode = 200
+  callJs(res, res.setHeader, "Content-Type", "text/plain")
+  callJs(res, res.end, "Hello World\n")
+})
+
+let port = 9999
+callJs(server, server.listen, port, () -> {
+  println("server running at port: " + port)
+})

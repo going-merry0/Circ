@@ -9,6 +9,7 @@
   "author": "hsiaosiyuan0",
   "license": "MIT",
   "dependencies": {
-    "antlr4": "^4.7.0"
+    "antlr4": "^4.7.0",
+    "yargs": "^8.0.2"
   }
 }

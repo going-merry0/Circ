@@ -248,11 +248,12 @@ function evaluate (exp, env, cb) {
         } else if (exp.left.type === NodeType.memberDot) {
           evaluate(exp.left.left, env, function cc (obj) {
             stackGuard(cc, arguments);
-            evaluate(exp.left.right, env, function cc (idx) {
-              stackGuard(cc, arguments);
-              obj[idx] = rval;
-              cb(rval);
-            })
+            if (obj instanceof Environment) {
+              obj.set(exp.right.name, rval);
+            } else {
+              obj[exp.right.name] = rval;
+            }
+            cb(rval);
           })
         }
       });
@@ -402,7 +403,7 @@ function __throw__ (_, code, info) {
 builtinEnv.def("throw", __throw__);
 
 const jsModules = new Map();
-builtinEnv.def("requireJsAsyncMethod", function (cc, path) {
+builtinEnv.def("jsMethod", function (cc, path) {
   let [moduleName, methodName] = path.split('.');
   let module = jsModules.get(moduleName);
   if (module === undefined) {
@@ -418,6 +419,35 @@ builtinEnv.def("requireJsAsyncMethod", function (cc, path) {
     });
     method.apply(null, args);
   })
+});
+
+builtinEnv.def("jsModule", function (cc, path) {
+  let module = jsModules.get(path);
+  if (module === undefined) {
+    module = require(path);
+    jsModules.set(path, module);
+  }
+  cc(module);
+});
+
+builtinEnv.def("callJs", function (cc, thisObj, fn) {
+  const args = [];
+  for (let i = 3, len = arguments.length; i < len; i++) {
+    const arg = arguments[i];
+    if (typeof arg === "function") {
+      args.push((function (arg) {
+        return function () {
+          const args = Array.from(arguments);
+          args.unshift(() => {
+          });
+          execute(arg, args);
+        }
+      })(arg))
+    } else {
+      args.push(arg);
+    }
+  }
+  cc(fn.apply(thisObj || null, args));
 });
 
 const globalEnv = builtinEnv.extend();
