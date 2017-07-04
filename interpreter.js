@@ -359,16 +359,47 @@ builtinEnv.def("println", function (cc, val) {
   cc(false);
 });
 
-builtinEnv.def("callCC", function (cc, fn) {
-  fn(cc, function (_, val) {
-    cc(val);
-  })
-});
-
 builtinEnv.def("call", function (cc, thisObj, fn, args) {
   fn.__thisObj__ = thisObj;
   fn.apply(null, [cc].concat(args));
 });
+
+
+const exHandlers = [];
+builtinEnv.def("try", function (cc, fn) {
+  const frame = [];
+  for (let i = 2, len = arguments.length; i < len;) {
+    const f = {
+      code: arguments[i++],
+      handler: arguments[i++],
+      continuation: cc
+    };
+    if (typeof f.handler !== "function") {
+      throw new Error("Exception handler must be a function!");
+    }
+    frame.push(f);
+  }
+  exHandlers.push(frame);
+  fn(function (val) {
+    exHandlers.pop();
+    cc(val);
+  });
+});
+
+function __throw__ (_, code, info) {
+  while (exHandlers.length) {
+    const frame = exHandlers.pop();
+    for (let i = 0, len = frame.length; i < len; i++) {
+      const f = frame[i];
+      if (f.code === true || f.code === code) {
+        f.handler(f.continuation, code, info);
+        return;
+      }
+    }
+  }
+  throw new Error(`No error handler for [${code}] ${info}`);
+}
+builtinEnv.def("throw", __throw__);
 
 const jsModules = new Map();
 builtinEnv.def("requireJsAsyncMethod", function (cc, path) {
@@ -382,7 +413,8 @@ builtinEnv.def("requireJsAsyncMethod", function (cc, path) {
   cc(function (cc) {
     const args = Array.from(arguments).slice(1);
     args.push(function (err, data) {
-      cc(data);
+      if (err) return execute(__throw__, [cc, err.code, err.message]);
+      execute(cc, [data]);
     });
     method.apply(null, args);
   })
