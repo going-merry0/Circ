@@ -457,12 +457,14 @@ builtinEnv.def("callJsAsync", function (cc, thisObj, fn) {
   fn.apply(thisObj || null, args);
 });
 
-builtinEnv.def("newJsObj", function (cc, cons) {
+builtinEnv.def("newJsObj", function (cc, klass) {
   const args = Array.from(arguments).slice(2);
-  const obj = Object.create(cons.prototype);
-  cons.apply(obj, args);
+  const obj = Object.create(klass.prototype);
+  klass.apply(obj, args);
   cc(obj);
 });
+
+builtinEnv.def("jsGlobal", global);
 
 exports.builtinEnv = builtinEnv;
 
