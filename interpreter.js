@@ -365,7 +365,6 @@ builtinEnv.def("call", function (cc, thisObj, fn, args) {
   fn.apply(null, [cc].concat(args));
 });
 
-
 const exHandlers = [];
 builtinEnv.def("try", function (cc, fn) {
   const frame = [];
@@ -403,24 +402,6 @@ function __throw__ (_, code, info) {
 builtinEnv.def("throw", __throw__);
 
 const jsModules = new Map();
-builtinEnv.def("jsMethod", function (cc, path) {
-  let [moduleName, methodName] = path.split('.');
-  let module = jsModules.get(moduleName);
-  if (module === undefined) {
-    module = require(moduleName);
-    jsModules.set(moduleName, module);
-  }
-  const method = module[methodName];
-  cc(function (cc) {
-    const args = Array.from(arguments).slice(1);
-    args.push(function (err, data) {
-      if (err) return execute(__throw__, [cc, err.code, err.message]);
-      execute(cc, [data]);
-    });
-    method.apply(null, args);
-  })
-});
-
 builtinEnv.def("jsModule", function (cc, path) {
   let module = jsModules.get(path);
   if (module === undefined) {
@@ -449,6 +430,34 @@ builtinEnv.def("callJs", function (cc, thisObj, fn) {
   }
   cc(fn.apply(thisObj || null, args));
 });
+
+builtinEnv.def("callJsAsync", function (cc, thisObj, fn) {
+  const args = [];
+  for (let i = 3, len = arguments.length; i < len; i++) {
+    const arg = arguments[i];
+    if (typeof arg === "function") {
+      args.push((function (arg) {
+        return function () {
+          const args = Array.from(arguments);
+          args.unshift(() => {
+          });
+          execute(arg, args);
+        }
+      })(arg))
+    } else {
+      args.push(arg);
+    }
+  }
+  args.push(function (err) {
+    if (err) return execute(__throw__, [cc, err.code, err.message]);
+    const args = Array.from(arguments);
+    args.shift();
+    execute(cc, args);
+  });
+  fn.apply(thisObj || null, args);
+});
+
+exports.builtinEnv = builtinEnv;
 
 const globalEnv = builtinEnv.extend();
 exports.exec = (exp, cb) => {
