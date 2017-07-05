@@ -1,0 +1,15 @@
+let type = false
+type = type || "raw"
+println(type)
+
+type = "type"
+type = type || "raw"
+println(type)
+
+type = false
+type = type && "raw"
+println(type)
+
+type = "type"
+type = type && "raw"
+println(type)

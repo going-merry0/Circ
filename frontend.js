@@ -363,6 +363,13 @@ class AndExpr extends Node {
     this.left = null;
     this.right = null;
   }
+
+  toJson () {
+    const json = super.toJson();
+    json.left = this.left.toJson();
+    json.right = this.right.toJson();
+    return json;
+  }
 }
 
 class OrExpr extends Node {
@@ -370,6 +377,13 @@ class OrExpr extends Node {
     super(NodeType.or);
     this.left = null;
     this.right = null;
+  }
+
+  toJson () {
+    const json = super.toJson();
+    json.left = this.left.toJson();
+    json.right = this.right.toJson();
+    return json;
   }
 }
 
