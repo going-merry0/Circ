@@ -411,7 +411,7 @@ function evaluate (exp, env, cb) {
               if (val !== discard) {
                 out.push(val)
               }
-              loopObject(out, keys, i);
+              loopObject(out, keys, i + 1);
             })
           }
         }
