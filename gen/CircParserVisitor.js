@@ -72,8 +72,8 @@ CircParserVisitor.prototype.visitInitializer = function(ctx) {
 };
 
 
-// Visit a parse tree produced by CircParser#ObjectLiteralExpr.
-CircParserVisitor.prototype.visitObjectLiteralExpr = function(ctx) {
+// Visit a parse tree produced by CircParser#AndExpr.
+CircParserVisitor.prototype.visitAndExpr = function(ctx) {
   return this.visitChildren(ctx);
 };
 
@@ -84,26 +84,8 @@ CircParserVisitor.prototype.visitMultiplyExpr = function(ctx) {
 };
 
 
-// Visit a parse tree produced by CircParser#LambdaExpr.
-CircParserVisitor.prototype.visitLambdaExpr = function(ctx) {
-  return this.visitChildren(ctx);
-};
-
-
-// Visit a parse tree produced by CircParser#IllegalReservedWordAssignExpr.
-CircParserVisitor.prototype.visitIllegalReservedWordAssignExpr = function(ctx) {
-  return this.visitChildren(ctx);
-};
-
-
 // Visit a parse tree produced by CircParser#IllegalLiteralAssignExpr.
 CircParserVisitor.prototype.visitIllegalLiteralAssignExpr = function(ctx) {
-  return this.visitChildren(ctx);
-};
-
-
-// Visit a parse tree produced by CircParser#AddExpr.
-CircParserVisitor.prototype.visitAddExpr = function(ctx) {
   return this.visitChildren(ctx);
 };
 
@@ -132,12 +114,6 @@ CircParserVisitor.prototype.visitAssignExpr = function(ctx) {
 };
 
 
-// Visit a parse tree produced by CircParser#IllegalReservedWordFunCallExpr.
-CircParserVisitor.prototype.visitIllegalReservedWordFunCallExpr = function(ctx) {
-  return this.visitChildren(ctx);
-};
-
-
 // Visit a parse tree produced by CircParser#EqualityExpr.
 CircParserVisitor.prototype.visitEqualityExpr = function(ctx) {
   return this.visitChildren(ctx);
@@ -162,14 +138,56 @@ CircParserVisitor.prototype.visitArrayLiteralExpr = function(ctx) {
 };
 
 
-// Visit a parse tree produced by CircParser#FunCallExpr.
-CircParserVisitor.prototype.visitFunCallExpr = function(ctx) {
+// Visit a parse tree produced by CircParser#LiteralExpr.
+CircParserVisitor.prototype.visitLiteralExpr = function(ctx) {
   return this.visitChildren(ctx);
 };
 
 
-// Visit a parse tree produced by CircParser#LiteralExpr.
-CircParserVisitor.prototype.visitLiteralExpr = function(ctx) {
+// Visit a parse tree produced by CircParser#ThisExpr.
+CircParserVisitor.prototype.visitThisExpr = function(ctx) {
+  return this.visitChildren(ctx);
+};
+
+
+// Visit a parse tree produced by CircParser#ObjectLiteralExpr.
+CircParserVisitor.prototype.visitObjectLiteralExpr = function(ctx) {
+  return this.visitChildren(ctx);
+};
+
+
+// Visit a parse tree produced by CircParser#LambdaExpr.
+CircParserVisitor.prototype.visitLambdaExpr = function(ctx) {
+  return this.visitChildren(ctx);
+};
+
+
+// Visit a parse tree produced by CircParser#IllegalReservedWordAssignExpr.
+CircParserVisitor.prototype.visitIllegalReservedWordAssignExpr = function(ctx) {
+  return this.visitChildren(ctx);
+};
+
+
+// Visit a parse tree produced by CircParser#AddExpr.
+CircParserVisitor.prototype.visitAddExpr = function(ctx) {
+  return this.visitChildren(ctx);
+};
+
+
+// Visit a parse tree produced by CircParser#OrExpr.
+CircParserVisitor.prototype.visitOrExpr = function(ctx) {
+  return this.visitChildren(ctx);
+};
+
+
+// Visit a parse tree produced by CircParser#IllegalReservedWordFunCallExpr.
+CircParserVisitor.prototype.visitIllegalReservedWordFunCallExpr = function(ctx) {
+  return this.visitChildren(ctx);
+};
+
+
+// Visit a parse tree produced by CircParser#FunCallExpr.
+CircParserVisitor.prototype.visitFunCallExpr = function(ctx) {
   return this.visitChildren(ctx);
 };
 
@@ -188,12 +206,6 @@ CircParserVisitor.prototype.visitParenExpr = function(ctx) {
 
 // Visit a parse tree produced by CircParser#FunExpr.
 CircParserVisitor.prototype.visitFunExpr = function(ctx) {
-  return this.visitChildren(ctx);
-};
-
-
-// Visit a parse tree produced by CircParser#ThisExpr.
-CircParserVisitor.prototype.visitThisExpr = function(ctx) {
   return this.visitChildren(ctx);
 };
 

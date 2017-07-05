@@ -81,6 +81,8 @@ singleExpr
   | singleExpr ( Plus | Minus ) singleExpr                                                                                # AddExpr
   | singleExpr ( LessThan | MoreThan | LessThanEquals | GreaterThanEquals ) singleExpr                                    # RelationalExpr
   | singleExpr ( Equals | NotEquals ) singleExpr                                                                          # EqualityExpr
+  | singleExpr And singleExpr                                                                                             # AndExpr
+  | singleExpr Or singleExpr                                                                                              # OrExpr
   | reservedWord { this.notifyErrorListeners("Assignment: Can not use reserved word as identifier") } Assign statement    # IllegalReservedWordAssignExpr
   | literal { this.notifyErrorListeners("Assignment: Can not use literal as identifier") } Assign statement               # IllegalLiteralAssignExpr
   | singleExpr Assign noEmptyStatement                                                                                    # AssignExpr

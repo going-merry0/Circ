@@ -6,7 +6,7 @@ var CircParserVisitor = require('./CircParserVisitor').CircParserVisitor;
 var grammarFileName = "CircParser.g4";
 
 var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
-    "\u0003/\u0152\u0004\u0002\t\u0002\u0004\u0003\t\u0003\u0004\u0004\t",
+    "\u00031\u0158\u0004\u0002\t\u0002\u0004\u0003\t\u0003\u0004\u0004\t",
     "\u0004\u0004\u0005\t\u0005\u0004\u0006\t\u0006\u0004\u0007\t\u0007\u0004",
     "\b\t\b\u0004\t\t\t\u0004\n\t\n\u0004\u000b\t\u000b\u0004\f\t\f\u0004",
     "\r\t\r\u0004\u000e\t\u000e\u0004\u000f\t\u000f\u0004\u0010\t\u0010\u0004",
@@ -32,71 +32,72 @@ var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
     "\u0003\f\u0003\f\u0003\f\u0003\f\u0003\f\u0003\f\u0005\f\u00b9\n\f\u0003",
     "\f\u0003\f\u0003\f\u0003\f\u0003\f\u0003\f\u0003\f\u0003\f\u0003\f\u0003",
     "\f\u0003\f\u0003\f\u0003\f\u0003\f\u0003\f\u0003\f\u0003\f\u0003\f\u0003",
-    "\f\u0003\f\u0003\f\u0003\f\u0003\f\u0003\f\u0003\f\u0007\f\u00d4\n\f",
-    "\f\f\u000e\f\u00d7\u000b\f\u0003\r\u0003\r\u0003\r\u0003\r\u0003\r\u0003",
-    "\r\u0005\r\u00df\n\r\u0003\u000e\u0003\u000e\u0005\u000e\u00e3\n\u000e",
-    "\u0003\u000e\u0003\u000e\u0003\u000f\u0003\u000f\u0003\u000f\u0007\u000f",
-    "\u00ea\n\u000f\f\u000f\u000e\u000f\u00ed\u000b\u000f\u0003\u0010\u0003",
-    "\u0010\u0003\u0010\u0007\u0010\u00f2\n\u0010\f\u0010\u000e\u0010\u00f5",
-    "\u000b\u0010\u0003\u0011\u0003\u0011\u0005\u0011\u00f9\n\u0011\u0003",
-    "\u0012\u0003\u0012\u0003\u0013\u0003\u0013\u0005\u0013\u00ff\n\u0013",
-    "\u0003\u0013\u0005\u0013\u0102\n\u0013\u0003\u0013\u0003\u0013\u0003",
-    "\u0014\u0003\u0014\u0003\u0014\u0007\u0014\u0109\n\u0014\f\u0014\u000e",
-    "\u0014\u010c\u000b\u0014\u0003\u0015\u0003\u0015\u0003\u0015\u0003\u0015",
-    "\u0003\u0015\u0005\u0015\u0113\n\u0015\u0003\u0015\u0003\u0015\u0005",
-    "\u0015\u0117\n\u0015\u0003\u0016\u0003\u0016\u0003\u0016\u0007\u0016",
-    "\u011c\n\u0016\f\u0016\u000e\u0016\u011f\u000b\u0016\u0003\u0017\u0003",
+    "\f\u0003\f\u0003\f\u0003\f\u0003\f\u0003\f\u0003\f\u0003\f\u0003\f\u0003",
+    "\f\u0003\f\u0003\f\u0003\f\u0007\f\u00da\n\f\f\f\u000e\f\u00dd\u000b",
+    "\f\u0003\r\u0003\r\u0003\r\u0003\r\u0003\r\u0003\r\u0005\r\u00e5\n\r",
+    "\u0003\u000e\u0003\u000e\u0005\u000e\u00e9\n\u000e\u0003\u000e\u0003",
+    "\u000e\u0003\u000f\u0003\u000f\u0003\u000f\u0007\u000f\u00f0\n\u000f",
+    "\f\u000f\u000e\u000f\u00f3\u000b\u000f\u0003\u0010\u0003\u0010\u0003",
+    "\u0010\u0007\u0010\u00f8\n\u0010\f\u0010\u000e\u0010\u00fb\u000b\u0010",
+    "\u0003\u0011\u0003\u0011\u0005\u0011\u00ff\n\u0011\u0003\u0012\u0003",
+    "\u0012\u0003\u0013\u0003\u0013\u0005\u0013\u0105\n\u0013\u0003\u0013",
+    "\u0005\u0013\u0108\n\u0013\u0003\u0013\u0003\u0013\u0003\u0014\u0003",
+    "\u0014\u0003\u0014\u0007\u0014\u010f\n\u0014\f\u0014\u000e\u0014\u0112",
+    "\u000b\u0014\u0003\u0015\u0003\u0015\u0003\u0015\u0003\u0015\u0003\u0015",
+    "\u0005\u0015\u0119\n\u0015\u0003\u0015\u0003\u0015\u0005\u0015\u011d",
+    "\n\u0015\u0003\u0016\u0003\u0016\u0003\u0016\u0007\u0016\u0122\n\u0016",
+    "\f\u0016\u000e\u0016\u0125\u000b\u0016\u0003\u0017\u0003\u0017\u0003",
     "\u0017\u0003\u0017\u0003\u0017\u0003\u0017\u0003\u0017\u0003\u0017\u0003",
-    "\u0017\u0003\u0017\u0005\u0017\u012a\n\u0017\u0003\u0018\u0003\u0018",
-    "\u0003\u0019\u0003\u0019\u0003\u0019\u0005\u0019\u0131\n\u0019\u0003",
-    "\u001a\u0003\u001a\u0003\u001a\u0007\u001a\u0136\n\u001a\f\u001a\u000e",
-    "\u001a\u0139\u000b\u001a\u0003\u001b\u0005\u001b\u013c\n\u001b\u0003",
-    "\u001c\u0003\u001c\u0003\u001c\u0003\u001c\u0005\u001c\u0142\n\u001c",
-    "\u0003\u001c\u0003\u001c\u0005\u001c\u0146\n\u001c\u0003\u001d\u0003",
-    "\u001d\u0003\u001e\u0003\u001e\u0003\u001f\u0003\u001f\u0005\u001f\u014e",
-    "\n\u001f\u0003 \u0003 \u0003 \u0002\u0003\u0016!\u0002\u0004\u0006\b",
-    "\n\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a\u001c\u001e \"$&(*,.",
-    "02468:<>\u0002\n\u0003\u0002\u001a\u001c\u0003\u0002\u0018\u0019\u0004",
-    "\u0002\u001e\u001f\"#\u0003\u0002 !\u0004\u0002%\',,\u0003\u0002(*\u0004",
-    "\u0002%%\'\'\u0003\u0002\u0003\t\u0002\u016f\u0002A\u0003\u0002\u0002",
-    "\u0002\u0004F\u0003\u0002\u0002\u0002\u0006O\u0003\u0002\u0002\u0002",
-    "\bU\u0003\u0002\u0002\u0002\nW\u0003\u0002\u0002\u0002\f^\u0003\u0002",
-    "\u0002\u0002\u000eb\u0003\u0002\u0002\u0002\u0010f\u0003\u0002\u0002",
-    "\u0002\u0012|\u0003\u0002\u0002\u0002\u0014~\u0003\u0002\u0002\u0002",
-    "\u0016\u00b8\u0003\u0002\u0002\u0002\u0018\u00de\u0003\u0002\u0002\u0002",
-    "\u001a\u00e0\u0003\u0002\u0002\u0002\u001c\u00e6\u0003\u0002\u0002\u0002",
-    "\u001e\u00ee\u0003\u0002\u0002\u0002 \u00f8\u0003\u0002\u0002\u0002",
-    "\"\u00fa\u0003\u0002\u0002\u0002$\u00fc\u0003\u0002\u0002\u0002&\u0105",
-    "\u0003\u0002\u0002\u0002(\u0116\u0003\u0002\u0002\u0002*\u0118\u0003",
-    "\u0002\u0002\u0002,\u0129\u0003\u0002\u0002\u0002.\u012b\u0003\u0002",
-    "\u0002\u00020\u0130\u0003\u0002\u0002\u00022\u0132\u0003\u0002\u0002",
-    "\u00024\u013b\u0003\u0002\u0002\u00026\u013d\u0003\u0002\u0002\u0002",
-    "8\u0147\u0003\u0002\u0002\u0002:\u0149\u0003\u0002\u0002\u0002<\u014d",
-    "\u0003\u0002\u0002\u0002>\u014f\u0003\u0002\u0002\u0002@B\u0005\u0004",
-    "\u0003\u0002A@\u0003\u0002\u0002\u0002AB\u0003\u0002\u0002\u0002BC\u0003",
-    "\u0002\u0002\u0002CD\u0007\u0002\u0002\u0003D\u0003\u0003\u0002\u0002",
-    "\u0002EG\u0005\u0006\u0004\u0002FE\u0003\u0002\u0002\u0002GH\u0003\u0002",
-    "\u0002\u0002HF\u0003\u0002\u0002\u0002HI\u0003\u0002\u0002\u0002I\u0005",
-    "\u0003\u0002\u0002\u0002JP\u0005\n\u0006\u0002KP\u0005:\u001e\u0002",
-    "LP\u0005\u000e\b\u0002MP\u0005.\u0018\u0002NP\u00056\u001c\u0002OJ\u0003",
-    "\u0002\u0002\u0002OK\u0003\u0002\u0002\u0002OL\u0003\u0002\u0002\u0002",
-    "OM\u0003\u0002\u0002\u0002ON\u0003\u0002\u0002\u0002P\u0007\u0003\u0002",
-    "\u0002\u0002QV\u0005\n\u0006\u0002RV\u0005:\u001e\u0002SV\u0005\u000e",
-    "\b\u0002TV\u00056\u001c\u0002UQ\u0003\u0002\u0002\u0002UR\u0003\u0002",
-    "\u0002\u0002US\u0003\u0002\u0002\u0002UT\u0003\u0002\u0002\u0002V\t",
-    "\u0003\u0002\u0002\u0002WY\u0007\u000e\u0002\u0002XZ\u0005\f\u0007\u0002",
-    "YX\u0003\u0002\u0002\u0002YZ\u0003\u0002\u0002\u0002Z[\u0003\u0002\u0002",
-    "\u0002[\\\u0007\u000f\u0002\u0002\\\u000b\u0003\u0002\u0002\u0002]_",
-    "\u0005\u0006\u0004\u0002^]\u0003\u0002\u0002\u0002_`\u0003\u0002\u0002",
-    "\u0002`^\u0003\u0002\u0002\u0002`a\u0003\u0002\u0002\u0002a\r\u0003",
-    "\u0002\u0002\u0002bc\u0007\u0003\u0002\u0002cd\u0005\u0010\t\u0002d",
-    "e\u00050\u0019\u0002e\u000f\u0003\u0002\u0002\u0002fk\u0005\u0012\n",
-    "\u0002gh\u0007\u0014\u0002\u0002hj\u0005\u0012\n\u0002ig\u0003\u0002",
-    "\u0002\u0002jm\u0003\u0002\u0002\u0002ki\u0003\u0002\u0002\u0002kl\u0003",
-    "\u0002\u0002\u0002l\u0011\u0003\u0002\u0002\u0002mk\u0003\u0002\u0002",
-    "\u0002np\u0007+\u0002\u0002oq\u0005\u0014\u000b\u0002po\u0003\u0002",
-    "\u0002\u0002pq\u0003\u0002\u0002\u0002q}\u0003\u0002\u0002\u0002rs\u0005",
-    "<\u001f\u0002su\b\n\u0001\u0002tv\u0005\u0014\u000b\u0002ut\u0003\u0002",
+    "\u0017\u0005\u0017\u0130\n\u0017\u0003\u0018\u0003\u0018\u0003\u0019",
+    "\u0003\u0019\u0003\u0019\u0005\u0019\u0137\n\u0019\u0003\u001a\u0003",
+    "\u001a\u0003\u001a\u0007\u001a\u013c\n\u001a\f\u001a\u000e\u001a\u013f",
+    "\u000b\u001a\u0003\u001b\u0005\u001b\u0142\n\u001b\u0003\u001c\u0003",
+    "\u001c\u0003\u001c\u0003\u001c\u0005\u001c\u0148\n\u001c\u0003\u001c",
+    "\u0003\u001c\u0005\u001c\u014c\n\u001c\u0003\u001d\u0003\u001d\u0003",
+    "\u001e\u0003\u001e\u0003\u001f\u0003\u001f\u0005\u001f\u0154\n\u001f",
+    "\u0003 \u0003 \u0003 \u0002\u0003\u0016!\u0002\u0004\u0006\b\n\f\u000e",
+    "\u0010\u0012\u0014\u0016\u0018\u001a\u001c\u001e \"$&(*,.02468:<>\u0002",
+    "\n\u0003\u0002\u001a\u001c\u0003\u0002\u0018\u0019\u0004\u0002\u001e",
+    "\u001f\"#\u0003\u0002 !\u0004\u0002\')..\u0003\u0002*,\u0004\u0002\'",
+    "\'))\u0003\u0002\u0003\t\u0002\u0177\u0002A\u0003\u0002\u0002\u0002",
+    "\u0004F\u0003\u0002\u0002\u0002\u0006O\u0003\u0002\u0002\u0002\bU\u0003",
+    "\u0002\u0002\u0002\nW\u0003\u0002\u0002\u0002\f^\u0003\u0002\u0002\u0002",
+    "\u000eb\u0003\u0002\u0002\u0002\u0010f\u0003\u0002\u0002\u0002\u0012",
+    "|\u0003\u0002\u0002\u0002\u0014~\u0003\u0002\u0002\u0002\u0016\u00b8",
+    "\u0003\u0002\u0002\u0002\u0018\u00e4\u0003\u0002\u0002\u0002\u001a\u00e6",
+    "\u0003\u0002\u0002\u0002\u001c\u00ec\u0003\u0002\u0002\u0002\u001e\u00f4",
+    "\u0003\u0002\u0002\u0002 \u00fe\u0003\u0002\u0002\u0002\"\u0100\u0003",
+    "\u0002\u0002\u0002$\u0102\u0003\u0002\u0002\u0002&\u010b\u0003\u0002",
+    "\u0002\u0002(\u011c\u0003\u0002\u0002\u0002*\u011e\u0003\u0002\u0002",
+    "\u0002,\u012f\u0003\u0002\u0002\u0002.\u0131\u0003\u0002\u0002\u0002",
+    "0\u0136\u0003\u0002\u0002\u00022\u0138\u0003\u0002\u0002\u00024\u0141",
+    "\u0003\u0002\u0002\u00026\u0143\u0003\u0002\u0002\u00028\u014d\u0003",
+    "\u0002\u0002\u0002:\u014f\u0003\u0002\u0002\u0002<\u0153\u0003\u0002",
+    "\u0002\u0002>\u0155\u0003\u0002\u0002\u0002@B\u0005\u0004\u0003\u0002",
+    "A@\u0003\u0002\u0002\u0002AB\u0003\u0002\u0002\u0002BC\u0003\u0002\u0002",
+    "\u0002CD\u0007\u0002\u0002\u0003D\u0003\u0003\u0002\u0002\u0002EG\u0005",
+    "\u0006\u0004\u0002FE\u0003\u0002\u0002\u0002GH\u0003\u0002\u0002\u0002",
+    "HF\u0003\u0002\u0002\u0002HI\u0003\u0002\u0002\u0002I\u0005\u0003\u0002",
+    "\u0002\u0002JP\u0005\n\u0006\u0002KP\u0005:\u001e\u0002LP\u0005\u000e",
+    "\b\u0002MP\u0005.\u0018\u0002NP\u00056\u001c\u0002OJ\u0003\u0002\u0002",
+    "\u0002OK\u0003\u0002\u0002\u0002OL\u0003\u0002\u0002\u0002OM\u0003\u0002",
+    "\u0002\u0002ON\u0003\u0002\u0002\u0002P\u0007\u0003\u0002\u0002\u0002",
+    "QV\u0005\n\u0006\u0002RV\u0005:\u001e\u0002SV\u0005\u000e\b\u0002TV",
+    "\u00056\u001c\u0002UQ\u0003\u0002\u0002\u0002UR\u0003\u0002\u0002\u0002",
+    "US\u0003\u0002\u0002\u0002UT\u0003\u0002\u0002\u0002V\t\u0003\u0002",
+    "\u0002\u0002WY\u0007\u000e\u0002\u0002XZ\u0005\f\u0007\u0002YX\u0003",
+    "\u0002\u0002\u0002YZ\u0003\u0002\u0002\u0002Z[\u0003\u0002\u0002\u0002",
+    "[\\\u0007\u000f\u0002\u0002\\\u000b\u0003\u0002\u0002\u0002]_\u0005",
+    "\u0006\u0004\u0002^]\u0003\u0002\u0002\u0002_`\u0003\u0002\u0002\u0002",
+    "`^\u0003\u0002\u0002\u0002`a\u0003\u0002\u0002\u0002a\r\u0003\u0002",
+    "\u0002\u0002bc\u0007\u0003\u0002\u0002cd\u0005\u0010\t\u0002de\u0005",
+    "0\u0019\u0002e\u000f\u0003\u0002\u0002\u0002fk\u0005\u0012\n\u0002g",
+    "h\u0007\u0014\u0002\u0002hj\u0005\u0012\n\u0002ig\u0003\u0002\u0002",
+    "\u0002jm\u0003\u0002\u0002\u0002ki\u0003\u0002\u0002\u0002kl\u0003\u0002",
+    "\u0002\u0002l\u0011\u0003\u0002\u0002\u0002mk\u0003\u0002\u0002\u0002",
+    "np\u0007-\u0002\u0002oq\u0005\u0014\u000b\u0002po\u0003\u0002\u0002",
+    "\u0002pq\u0003\u0002\u0002\u0002q}\u0003\u0002\u0002\u0002rs\u0005<",
+    "\u001f\u0002su\b\n\u0001\u0002tv\u0005\u0014\u000b\u0002ut\u0003\u0002",
     "\u0002\u0002uv\u0003\u0002\u0002\u0002v}\u0003\u0002\u0002\u0002wx\u0005",
     " \u0011\u0002xz\b\n\u0001\u0002y{\u0005\u0014\u000b\u0002zy\u0003\u0002",
     "\u0002\u0002z{\u0003\u0002\u0002\u0002{}\u0003\u0002\u0002\u0002|n\u0003",
@@ -104,7 +105,7 @@ var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
     "}\u0013\u0003\u0002\u0002\u0002~\u007f\u0007\u001d\u0002\u0002\u007f",
     "\u0080\u0005\b\u0005\u0002\u0080\u0015\u0003\u0002\u0002\u0002\u0081",
     "\u0082\b\f\u0001\u0002\u0082\u0084\u0007\u0007\u0002\u0002\u0083\u0085",
-    "\u0007+\u0002\u0002\u0084\u0083\u0003\u0002\u0002\u0002\u0084\u0085",
+    "\u0007-\u0002\u0002\u0084\u0083\u0003\u0002\u0002\u0002\u0084\u0085",
     "\u0003\u0002\u0002\u0002\u0085\u0086\u0003\u0002\u0002\u0002\u0086\u0088",
     "\u0007\u0012\u0002\u0002\u0087\u0089\u00052\u001a\u0002\u0088\u0087",
     "\u0003\u0002\u0002\u0002\u0088\u0089\u0003\u0002\u0002\u0002\u0089\u008a",
@@ -122,14 +123,14 @@ var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
     "\u0005\u0006\u0004\u0002\u00a1\u00b9\u0003\u0002\u0002\u0002\u00a2\u00a3",
     "\u0005 \u0011\u0002\u00a3\u00a4\b\f\u0001\u0002\u00a4\u00a5\u0007\u001d",
     "\u0002\u0002\u00a5\u00a6\u0005\u0006\u0004\u0002\u00a6\u00b9\u0003\u0002",
-    "\u0002\u0002\u00a7\u00aa\u0007+\u0002\u0002\u00a8\u00aa\u0005\u001a",
+    "\u0002\u0002\u00a7\u00aa\u0007-\u0002\u0002\u00a8\u00aa\u0005\u001a",
     "\u000e\u0002\u00a9\u00a7\u0003\u0002\u0002\u0002\u00a9\u00a8\u0003\u0002",
     "\u0002\u0002\u00aa\u00ab\u0003\u0002\u0002\u0002\u00ab\u00ac\u0007$",
     "\u0002\u0002\u00ac\u00b9\u0005\b\u0005\u0002\u00ad\u00ae\u0007\u0012",
     "\u0002\u0002\u00ae\u00af\u0005\u001e\u0010\u0002\u00af\u00b0\u0007\u0013",
     "\u0002\u0002\u00b0\u00b9\u0003\u0002\u0002\u0002\u00b1\u00b9\u0007\u000b",
     "\u0002\u0002\u00b2\u00b9\u0007\n\u0002\u0002\u00b3\u00b9\u0007\f\u0002",
-    "\u0002\u00b4\u00b9\u0007+\u0002\u0002\u00b5\u00b9\u0005 \u0011\u0002",
+    "\u0002\u00b4\u00b9\u0007-\u0002\u0002\u00b5\u00b9\u0005 \u0011\u0002",
     "\u00b6\u00b9\u0005$\u0013\u0002\u00b7\u00b9\u0005(\u0015\u0002\u00b8",
     "\u0081\u0003\u0002\u0002\u0002\u00b8\u008f\u0003\u0002\u0002\u0002\u00b8",
     "\u0095\u0003\u0002\u0002\u0002\u00b8\u0099\u0003\u0002\u0002\u0002\u00b8",
@@ -138,97 +139,101 @@ var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
     "\u00b1\u0003\u0002\u0002\u0002\u00b8\u00b2\u0003\u0002\u0002\u0002\u00b8",
     "\u00b3\u0003\u0002\u0002\u0002\u00b8\u00b4\u0003\u0002\u0002\u0002\u00b8",
     "\u00b5\u0003\u0002\u0002\u0002\u00b8\u00b6\u0003\u0002\u0002\u0002\u00b8",
-    "\u00b7\u0003\u0002\u0002\u0002\u00b9\u00d5\u0003\u0002\u0002\u0002\u00ba",
-    "\u00bb\f\u0012\u0002\u0002\u00bb\u00bc\t\u0002\u0002\u0002\u00bc\u00d4",
-    "\u0005\u0016\f\u0013\u00bd\u00be\f\u0011\u0002\u0002\u00be\u00bf\t\u0003",
-    "\u0002\u0002\u00bf\u00d4\u0005\u0016\f\u0012\u00c0\u00c1\f\u0010\u0002",
-    "\u0002\u00c1\u00c2\t\u0004\u0002\u0002\u00c2\u00d4\u0005\u0016\f\u0011",
-    "\u00c3\u00c4\f\u000f\u0002\u0002\u00c4\u00c5\t\u0005\u0002\u0002\u00c5",
-    "\u00d4\u0005\u0016\f\u0010\u00c6\u00c7\f\u0017\u0002\u0002\u00c7\u00c8",
-    "\u0007\u0010\u0002\u0002\u00c8\u00c9\u0005\u001e\u0010\u0002\u00c9\u00ca",
-    "\u0007\u0011\u0002\u0002\u00ca\u00d4\u0003\u0002\u0002\u0002\u00cb\u00cc",
-    "\f\u0016\u0002\u0002\u00cc\u00cd\u0007\u0017\u0002\u0002\u00cd\u00d4",
-    "\u0007+\u0002\u0002\u00ce\u00cf\f\u0015\u0002\u0002\u00cf\u00d4\u0005",
-    "\u001a\u000e\u0002\u00d0\u00d1\f\f\u0002\u0002\u00d1\u00d2\u0007\u001d",
-    "\u0002\u0002\u00d2\u00d4\u0005\b\u0005\u0002\u00d3\u00ba\u0003\u0002",
-    "\u0002\u0002\u00d3\u00bd\u0003\u0002\u0002\u0002\u00d3\u00c0\u0003\u0002",
-    "\u0002\u0002\u00d3\u00c3\u0003\u0002\u0002\u0002\u00d3\u00c6\u0003\u0002",
-    "\u0002\u0002\u00d3\u00cb\u0003\u0002\u0002\u0002\u00d3\u00ce\u0003\u0002",
-    "\u0002\u0002\u00d3\u00d0\u0003\u0002\u0002\u0002\u00d4\u00d7\u0003\u0002",
-    "\u0002\u0002\u00d5\u00d3\u0003\u0002\u0002\u0002\u00d5\u00d6\u0003\u0002",
-    "\u0002\u0002\u00d6\u0017\u0003\u0002\u0002\u0002\u00d7\u00d5\u0003\u0002",
-    "\u0002\u0002\u00d8\u00d9\u0007\u0010\u0002\u0002\u00d9\u00da\u0007+",
-    "\u0002\u0002\u00da\u00db\u0007\u0014\u0002\u0002\u00db\u00dc\u0007+",
-    "\u0002\u0002\u00dc\u00df\u0007\u0011\u0002\u0002\u00dd\u00df\u0007+",
-    "\u0002\u0002\u00de\u00d8\u0003\u0002\u0002\u0002\u00de\u00dd\u0003\u0002",
-    "\u0002\u0002\u00df\u0019\u0003\u0002\u0002\u0002\u00e0\u00e2\u0007\u0012",
-    "\u0002\u0002\u00e1\u00e3\u0005\u001c\u000f\u0002\u00e2\u00e1\u0003\u0002",
-    "\u0002\u0002\u00e2\u00e3\u0003\u0002\u0002\u0002\u00e3\u00e4\u0003\u0002",
-    "\u0002\u0002\u00e4\u00e5\u0007\u0013\u0002\u0002\u00e5\u001b\u0003\u0002",
-    "\u0002\u0002\u00e6\u00eb\u0005\u0016\f\u0002\u00e7\u00e8\u0007\u0014",
-    "\u0002\u0002\u00e8\u00ea\u0005\u0016\f\u0002\u00e9\u00e7\u0003\u0002",
-    "\u0002\u0002\u00ea\u00ed\u0003\u0002\u0002\u0002\u00eb\u00e9\u0003\u0002",
-    "\u0002\u0002\u00eb\u00ec\u0003\u0002\u0002\u0002\u00ec\u001d\u0003\u0002",
-    "\u0002\u0002\u00ed\u00eb\u0003\u0002\u0002\u0002\u00ee\u00f3\u0005\u0016",
-    "\f\u0002\u00ef\u00f0\u0007\u0014\u0002\u0002\u00f0\u00f2\u0005\u0016",
-    "\f\u0002\u00f1\u00ef\u0003\u0002\u0002\u0002\u00f2\u00f5\u0003\u0002",
-    "\u0002\u0002\u00f3\u00f1\u0003\u0002\u0002\u0002\u00f3\u00f4\u0003\u0002",
-    "\u0002\u0002\u00f4\u001f\u0003\u0002\u0002\u0002\u00f5\u00f3\u0003\u0002",
-    "\u0002\u0002\u00f6\u00f9\t\u0006\u0002\u0002\u00f7\u00f9\u0005\"\u0012",
-    "\u0002\u00f8\u00f6\u0003\u0002\u0002\u0002\u00f8\u00f7\u0003\u0002\u0002",
-    "\u0002\u00f9!\u0003\u0002\u0002\u0002\u00fa\u00fb\t\u0007\u0002\u0002",
-    "\u00fb#\u0003\u0002\u0002\u0002\u00fc\u00fe\u0007\u0010\u0002\u0002",
-    "\u00fd\u00ff\u0005&\u0014\u0002\u00fe\u00fd\u0003\u0002\u0002\u0002",
-    "\u00fe\u00ff\u0003\u0002\u0002\u0002\u00ff\u0101\u0003\u0002\u0002\u0002",
-    "\u0100\u0102\u0007\u0014\u0002\u0002\u0101\u0100\u0003\u0002\u0002\u0002",
-    "\u0101\u0102\u0003\u0002\u0002\u0002\u0102\u0103\u0003\u0002\u0002\u0002",
-    "\u0103\u0104\u0007\u0011\u0002\u0002\u0104%\u0003\u0002\u0002\u0002",
-    "\u0105\u010a\u0005\u0016\f\u0002\u0106\u0107\u0007\u0014\u0002\u0002",
-    "\u0107\u0109\u0005\u0016\f\u0002\u0108\u0106\u0003\u0002\u0002\u0002",
-    "\u0109\u010c\u0003\u0002\u0002\u0002\u010a\u0108\u0003\u0002\u0002\u0002",
-    "\u010a\u010b\u0003\u0002\u0002\u0002\u010b\'\u0003\u0002\u0002\u0002",
-    "\u010c\u010a\u0003\u0002\u0002\u0002\u010d\u010e\u0007\u000e\u0002\u0002",
-    "\u010e\u0117\u0007\u000f\u0002\u0002\u010f\u0110\u0007\u000e\u0002\u0002",
-    "\u0110\u0112\u0005*\u0016\u0002\u0111\u0113\u0007\u0014\u0002\u0002",
-    "\u0112\u0111\u0003\u0002\u0002\u0002\u0112\u0113\u0003\u0002\u0002\u0002",
-    "\u0113\u0114\u0003\u0002\u0002\u0002\u0114\u0115\u0007\u000f\u0002\u0002",
-    "\u0115\u0117\u0003\u0002\u0002\u0002\u0116\u010d\u0003\u0002\u0002\u0002",
-    "\u0116\u010f\u0003\u0002\u0002\u0002\u0117)\u0003\u0002\u0002\u0002",
-    "\u0118\u011d\u0005,\u0017\u0002\u0119\u011a\u0007\u0014\u0002\u0002",
-    "\u011a\u011c\u0005,\u0017\u0002\u011b\u0119\u0003\u0002\u0002\u0002",
-    "\u011c\u011f\u0003\u0002\u0002\u0002\u011d\u011b\u0003\u0002\u0002\u0002",
-    "\u011d\u011e\u0003\u0002\u0002\u0002\u011e+\u0003\u0002\u0002\u0002",
-    "\u011f\u011d\u0003\u0002\u0002\u0002\u0120\u0121\u0007,\u0002\u0002",
-    "\u0121\u0122\u0007\u0016\u0002\u0002\u0122\u012a\u0005\u0016\f\u0002",
-    "\u0123\u0124\u0007\u0010\u0002\u0002\u0124\u0125\u0005\u0016\f\u0002",
-    "\u0125\u0126\u0007\u0011\u0002\u0002\u0126\u0127\u0007\u0016\u0002\u0002",
-    "\u0127\u0128\u0005\u0016\f\u0002\u0128\u012a\u0003\u0002\u0002\u0002",
-    "\u0129\u0120\u0003\u0002\u0002\u0002\u0129\u0123\u0003\u0002\u0002\u0002",
-    "\u012a-\u0003\u0002\u0002\u0002\u012b\u012c\u0007\u0015\u0002\u0002",
-    "\u012c/\u0003\u0002\u0002\u0002\u012d\u0131\u0007\u0015\u0002\u0002",
-    "\u012e\u0131\u0007\u0002\u0002\u0003\u012f\u0131\u0006\u0019\n\u0002",
-    "\u0130\u012d\u0003\u0002\u0002\u0002\u0130\u012e\u0003\u0002\u0002\u0002",
-    "\u0130\u012f\u0003\u0002\u0002\u0002\u01311\u0003\u0002\u0002\u0002",
-    "\u0132\u0137\u0007+\u0002\u0002\u0133\u0134\u0007\u0014\u0002\u0002",
-    "\u0134\u0136\u0007+\u0002\u0002\u0135\u0133\u0003\u0002\u0002\u0002",
-    "\u0136\u0139\u0003\u0002\u0002\u0002\u0137\u0135\u0003\u0002\u0002\u0002",
-    "\u0137\u0138\u0003\u0002\u0002\u0002\u01383\u0003\u0002\u0002\u0002",
-    "\u0139\u0137\u0003\u0002\u0002\u0002\u013a\u013c\u0005\f\u0007\u0002",
-    "\u013b\u013a\u0003\u0002\u0002\u0002\u013b\u013c\u0003\u0002\u0002\u0002",
-    "\u013c5\u0003\u0002\u0002\u0002\u013d\u013e\u0007\u0004\u0002\u0002",
-    "\u013e\u0141\u0005\u0016\f\u0002\u013f\u0140\u0007\u0005\u0002\u0002",
-    "\u0140\u0142\u00058\u001d\u0002\u0141\u013f\u0003\u0002\u0002\u0002",
-    "\u0141\u0142\u0003\u0002\u0002\u0002\u0142\u0145\u0003\u0002\u0002\u0002",
-    "\u0143\u0144\u0007\u0006\u0002\u0002\u0144\u0146\u00058\u001d\u0002",
-    "\u0145\u0143\u0003\u0002\u0002\u0002\u0145\u0146\u0003\u0002\u0002\u0002",
-    "\u01467\u0003\u0002\u0002\u0002\u0147\u0148\u0005\b\u0005\u0002\u0148",
-    "9\u0003\u0002\u0002\u0002\u0149\u014a\u0005\u001e\u0010\u0002\u014a",
-    ";\u0003\u0002\u0002\u0002\u014b\u014e\u0005> \u0002\u014c\u014e\t\b",
-    "\u0002\u0002\u014d\u014b\u0003\u0002\u0002\u0002\u014d\u014c\u0003\u0002",
-    "\u0002\u0002\u014e=\u0003\u0002\u0002\u0002\u014f\u0150\t\t\u0002\u0002",
-    "\u0150?\u0003\u0002\u0002\u0002%AHOUY`kpuz|\u0084\u0088\u00a9\u00b8",
-    "\u00d3\u00d5\u00de\u00e2\u00eb\u00f3\u00f8\u00fe\u0101\u010a\u0112\u0116",
-    "\u011d\u0129\u0130\u0137\u013b\u0141\u0145\u014d"].join("");
+    "\u00b7\u0003\u0002\u0002\u0002\u00b9\u00db\u0003\u0002\u0002\u0002\u00ba",
+    "\u00bb\f\u0014\u0002\u0002\u00bb\u00bc\t\u0002\u0002\u0002\u00bc\u00da",
+    "\u0005\u0016\f\u0015\u00bd\u00be\f\u0013\u0002\u0002\u00be\u00bf\t\u0003",
+    "\u0002\u0002\u00bf\u00da\u0005\u0016\f\u0014\u00c0\u00c1\f\u0012\u0002",
+    "\u0002\u00c1\u00c2\t\u0004\u0002\u0002\u00c2\u00da\u0005\u0016\f\u0013",
+    "\u00c3\u00c4\f\u0011\u0002\u0002\u00c4\u00c5\t\u0005\u0002\u0002\u00c5",
+    "\u00da\u0005\u0016\f\u0012\u00c6\u00c7\f\u0010\u0002\u0002\u00c7\u00c8",
+    "\u0007%\u0002\u0002\u00c8\u00da\u0005\u0016\f\u0011\u00c9\u00ca\f\u000f",
+    "\u0002\u0002\u00ca\u00cb\u0007&\u0002\u0002\u00cb\u00da\u0005\u0016",
+    "\f\u0010\u00cc\u00cd\f\u0019\u0002\u0002\u00cd\u00ce\u0007\u0010\u0002",
+    "\u0002\u00ce\u00cf\u0005\u001e\u0010\u0002\u00cf\u00d0\u0007\u0011\u0002",
+    "\u0002\u00d0\u00da\u0003\u0002\u0002\u0002\u00d1\u00d2\f\u0018\u0002",
+    "\u0002\u00d2\u00d3\u0007\u0017\u0002\u0002\u00d3\u00da\u0007-\u0002",
+    "\u0002\u00d4\u00d5\f\u0017\u0002\u0002\u00d5\u00da\u0005\u001a\u000e",
+    "\u0002\u00d6\u00d7\f\f\u0002\u0002\u00d7\u00d8\u0007\u001d\u0002\u0002",
+    "\u00d8\u00da\u0005\b\u0005\u0002\u00d9\u00ba\u0003\u0002\u0002\u0002",
+    "\u00d9\u00bd\u0003\u0002\u0002\u0002\u00d9\u00c0\u0003\u0002\u0002\u0002",
+    "\u00d9\u00c3\u0003\u0002\u0002\u0002\u00d9\u00c6\u0003\u0002\u0002\u0002",
+    "\u00d9\u00c9\u0003\u0002\u0002\u0002\u00d9\u00cc\u0003\u0002\u0002\u0002",
+    "\u00d9\u00d1\u0003\u0002\u0002\u0002\u00d9\u00d4\u0003\u0002\u0002\u0002",
+    "\u00d9\u00d6\u0003\u0002\u0002\u0002\u00da\u00dd\u0003\u0002\u0002\u0002",
+    "\u00db\u00d9\u0003\u0002\u0002\u0002\u00db\u00dc\u0003\u0002\u0002\u0002",
+    "\u00dc\u0017\u0003\u0002\u0002\u0002\u00dd\u00db\u0003\u0002\u0002\u0002",
+    "\u00de\u00df\u0007\u0010\u0002\u0002\u00df\u00e0\u0007-\u0002\u0002",
+    "\u00e0\u00e1\u0007\u0014\u0002\u0002\u00e1\u00e2\u0007-\u0002\u0002",
+    "\u00e2\u00e5\u0007\u0011\u0002\u0002\u00e3\u00e5\u0007-\u0002\u0002",
+    "\u00e4\u00de\u0003\u0002\u0002\u0002\u00e4\u00e3\u0003\u0002\u0002\u0002",
+    "\u00e5\u0019\u0003\u0002\u0002\u0002\u00e6\u00e8\u0007\u0012\u0002\u0002",
+    "\u00e7\u00e9\u0005\u001c\u000f\u0002\u00e8\u00e7\u0003\u0002\u0002\u0002",
+    "\u00e8\u00e9\u0003\u0002\u0002\u0002\u00e9\u00ea\u0003\u0002\u0002\u0002",
+    "\u00ea\u00eb\u0007\u0013\u0002\u0002\u00eb\u001b\u0003\u0002\u0002\u0002",
+    "\u00ec\u00f1\u0005\u0016\f\u0002\u00ed\u00ee\u0007\u0014\u0002\u0002",
+    "\u00ee\u00f0\u0005\u0016\f\u0002\u00ef\u00ed\u0003\u0002\u0002\u0002",
+    "\u00f0\u00f3\u0003\u0002\u0002\u0002\u00f1\u00ef\u0003\u0002\u0002\u0002",
+    "\u00f1\u00f2\u0003\u0002\u0002\u0002\u00f2\u001d\u0003\u0002\u0002\u0002",
+    "\u00f3\u00f1\u0003\u0002\u0002\u0002\u00f4\u00f9\u0005\u0016\f\u0002",
+    "\u00f5\u00f6\u0007\u0014\u0002\u0002\u00f6\u00f8\u0005\u0016\f\u0002",
+    "\u00f7\u00f5\u0003\u0002\u0002\u0002\u00f8\u00fb\u0003\u0002\u0002\u0002",
+    "\u00f9\u00f7\u0003\u0002\u0002\u0002\u00f9\u00fa\u0003\u0002\u0002\u0002",
+    "\u00fa\u001f\u0003\u0002\u0002\u0002\u00fb\u00f9\u0003\u0002\u0002\u0002",
+    "\u00fc\u00ff\t\u0006\u0002\u0002\u00fd\u00ff\u0005\"\u0012\u0002\u00fe",
+    "\u00fc\u0003\u0002\u0002\u0002\u00fe\u00fd\u0003\u0002\u0002\u0002\u00ff",
+    "!\u0003\u0002\u0002\u0002\u0100\u0101\t\u0007\u0002\u0002\u0101#\u0003",
+    "\u0002\u0002\u0002\u0102\u0104\u0007\u0010\u0002\u0002\u0103\u0105\u0005",
+    "&\u0014\u0002\u0104\u0103\u0003\u0002\u0002\u0002\u0104\u0105\u0003",
+    "\u0002\u0002\u0002\u0105\u0107\u0003\u0002\u0002\u0002\u0106\u0108\u0007",
+    "\u0014\u0002\u0002\u0107\u0106\u0003\u0002\u0002\u0002\u0107\u0108\u0003",
+    "\u0002\u0002\u0002\u0108\u0109\u0003\u0002\u0002\u0002\u0109\u010a\u0007",
+    "\u0011\u0002\u0002\u010a%\u0003\u0002\u0002\u0002\u010b\u0110\u0005",
+    "\u0016\f\u0002\u010c\u010d\u0007\u0014\u0002\u0002\u010d\u010f\u0005",
+    "\u0016\f\u0002\u010e\u010c\u0003\u0002\u0002\u0002\u010f\u0112\u0003",
+    "\u0002\u0002\u0002\u0110\u010e\u0003\u0002\u0002\u0002\u0110\u0111\u0003",
+    "\u0002\u0002\u0002\u0111\'\u0003\u0002\u0002\u0002\u0112\u0110\u0003",
+    "\u0002\u0002\u0002\u0113\u0114\u0007\u000e\u0002\u0002\u0114\u011d\u0007",
+    "\u000f\u0002\u0002\u0115\u0116\u0007\u000e\u0002\u0002\u0116\u0118\u0005",
+    "*\u0016\u0002\u0117\u0119\u0007\u0014\u0002\u0002\u0118\u0117\u0003",
+    "\u0002\u0002\u0002\u0118\u0119\u0003\u0002\u0002\u0002\u0119\u011a\u0003",
+    "\u0002\u0002\u0002\u011a\u011b\u0007\u000f\u0002\u0002\u011b\u011d\u0003",
+    "\u0002\u0002\u0002\u011c\u0113\u0003\u0002\u0002\u0002\u011c\u0115\u0003",
+    "\u0002\u0002\u0002\u011d)\u0003\u0002\u0002\u0002\u011e\u0123\u0005",
+    ",\u0017\u0002\u011f\u0120\u0007\u0014\u0002\u0002\u0120\u0122\u0005",
+    ",\u0017\u0002\u0121\u011f\u0003\u0002\u0002\u0002\u0122\u0125\u0003",
+    "\u0002\u0002\u0002\u0123\u0121\u0003\u0002\u0002\u0002\u0123\u0124\u0003",
+    "\u0002\u0002\u0002\u0124+\u0003\u0002\u0002\u0002\u0125\u0123\u0003",
+    "\u0002\u0002\u0002\u0126\u0127\u0007.\u0002\u0002\u0127\u0128\u0007",
+    "\u0016\u0002\u0002\u0128\u0130\u0005\u0016\f\u0002\u0129\u012a\u0007",
+    "\u0010\u0002\u0002\u012a\u012b\u0005\u0016\f\u0002\u012b\u012c\u0007",
+    "\u0011\u0002\u0002\u012c\u012d\u0007\u0016\u0002\u0002\u012d\u012e\u0005",
+    "\u0016\f\u0002\u012e\u0130\u0003\u0002\u0002\u0002\u012f\u0126\u0003",
+    "\u0002\u0002\u0002\u012f\u0129\u0003\u0002\u0002\u0002\u0130-\u0003",
+    "\u0002\u0002\u0002\u0131\u0132\u0007\u0015\u0002\u0002\u0132/\u0003",
+    "\u0002\u0002\u0002\u0133\u0137\u0007\u0015\u0002\u0002\u0134\u0137\u0007",
+    "\u0002\u0002\u0003\u0135\u0137\u0006\u0019\f\u0002\u0136\u0133\u0003",
+    "\u0002\u0002\u0002\u0136\u0134\u0003\u0002\u0002\u0002\u0136\u0135\u0003",
+    "\u0002\u0002\u0002\u01371\u0003\u0002\u0002\u0002\u0138\u013d\u0007",
+    "-\u0002\u0002\u0139\u013a\u0007\u0014\u0002\u0002\u013a\u013c\u0007",
+    "-\u0002\u0002\u013b\u0139\u0003\u0002\u0002\u0002\u013c\u013f\u0003",
+    "\u0002\u0002\u0002\u013d\u013b\u0003\u0002\u0002\u0002\u013d\u013e\u0003",
+    "\u0002\u0002\u0002\u013e3\u0003\u0002\u0002\u0002\u013f\u013d\u0003",
+    "\u0002\u0002\u0002\u0140\u0142\u0005\f\u0007\u0002\u0141\u0140\u0003",
+    "\u0002\u0002\u0002\u0141\u0142\u0003\u0002\u0002\u0002\u01425\u0003",
+    "\u0002\u0002\u0002\u0143\u0144\u0007\u0004\u0002\u0002\u0144\u0147\u0005",
+    "\u0016\f\u0002\u0145\u0146\u0007\u0005\u0002\u0002\u0146\u0148\u0005",
+    "8\u001d\u0002\u0147\u0145\u0003\u0002\u0002\u0002\u0147\u0148\u0003",
+    "\u0002\u0002\u0002\u0148\u014b\u0003\u0002\u0002\u0002\u0149\u014a\u0007",
+    "\u0006\u0002\u0002\u014a\u014c\u00058\u001d\u0002\u014b\u0149\u0003",
+    "\u0002\u0002\u0002\u014b\u014c\u0003\u0002\u0002\u0002\u014c7\u0003",
+    "\u0002\u0002\u0002\u014d\u014e\u0005\b\u0005\u0002\u014e9\u0003\u0002",
+    "\u0002\u0002\u014f\u0150\u0005\u001e\u0010\u0002\u0150;\u0003\u0002",
+    "\u0002\u0002\u0151\u0154\u0005> \u0002\u0152\u0154\t\b\u0002\u0002\u0153",
+    "\u0151\u0003\u0002\u0002\u0002\u0153\u0152\u0003\u0002\u0002\u0002\u0154",
+    "=\u0003\u0002\u0002\u0002\u0155\u0156\t\t\u0002\u0002\u0156?\u0003\u0002",
+    "\u0002\u0002%AHOUY`kpuz|\u0084\u0088\u00a9\u00b8\u00d9\u00db\u00e4\u00e8",
+    "\u00f1\u00f9\u00fe\u0104\u0107\u0110\u0118\u011c\u0123\u012f\u0136\u013d",
+    "\u0141\u0147\u014b\u0153"].join("");
 
 
 var atn = new antlr4.atn.ATNDeserializer().deserialize(serializedATN);
@@ -242,7 +247,7 @@ var literalNames = [ null, "'let'", "'if'", "'then'", "'else'", "'fun'",
                      null, "'{'", "'}'", "'['", "']'", "'('", "')'", "','", 
                      "';'", "':'", "'.'", "'+'", "'-'", "'*'", "'/'", "'%'", 
                      "'='", "'<'", "'>'", "'=='", "'!='", "'<='", "'>='", 
-                     "'->'", "'null'", "'undefined'" ];
+                     "'->'", "'&&'", "'||'", "'null'", "'undefined'" ];
 
 var symbolicNames = [ null, "Let", "If", "Then", "Else", "Fun", "For", "In", 
                       "Break", "This", "Discard", "LineTerminator", "OpenBrace", 
@@ -251,7 +256,7 @@ var symbolicNames = [ null, "Let", "If", "Then", "Else", "Fun", "For", "In",
                       "Plus", "Minus", "Multiply", "Divide", "Modulus", 
                       "Assign", "LessThan", "MoreThan", "Equals", "NotEquals", 
                       "LessThanEquals", "GreaterThanEquals", "LambdaConnect", 
-                      "NullLiteral", "UndefinedLiteral", "BooleanLiteral", 
+                      "And", "Or", "NullLiteral", "UndefinedLiteral", "BooleanLiteral", 
                       "IntegerLiteral", "HexIntegerLiteral", "RealLiteral", 
                       "Identifier", "StringLiteral", "WhiteSpaces", "MultiLineComment", 
                       "SingleLineComment" ];
@@ -340,17 +345,19 @@ CircParser.NotEquals = 31;
 CircParser.LessThanEquals = 32;
 CircParser.GreaterThanEquals = 33;
 CircParser.LambdaConnect = 34;
-CircParser.NullLiteral = 35;
-CircParser.UndefinedLiteral = 36;
-CircParser.BooleanLiteral = 37;
-CircParser.IntegerLiteral = 38;
-CircParser.HexIntegerLiteral = 39;
-CircParser.RealLiteral = 40;
-CircParser.Identifier = 41;
-CircParser.StringLiteral = 42;
-CircParser.WhiteSpaces = 43;
-CircParser.MultiLineComment = 44;
-CircParser.SingleLineComment = 45;
+CircParser.And = 35;
+CircParser.Or = 36;
+CircParser.NullLiteral = 37;
+CircParser.UndefinedLiteral = 38;
+CircParser.BooleanLiteral = 39;
+CircParser.IntegerLiteral = 40;
+CircParser.HexIntegerLiteral = 41;
+CircParser.RealLiteral = 42;
+CircParser.Identifier = 43;
+CircParser.StringLiteral = 44;
+CircParser.WhiteSpaces = 45;
+CircParser.MultiLineComment = 46;
+CircParser.SingleLineComment = 47;
 
 CircParser.RULE_program = 0;
 CircParser.RULE_statements = 1;
@@ -431,7 +438,7 @@ CircParser.prototype.program = function() {
         this.state = 63;
         this._errHandler.sync(this);
         _la = this._input.LA(1);
-        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.Break) | (1 << CircParser.This) | (1 << CircParser.Discard) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen) | (1 << CircParser.SemiColon))) !== 0) || ((((_la - 35)) & ~0x1f) == 0 && ((1 << (_la - 35)) & ((1 << (CircParser.NullLiteral - 35)) | (1 << (CircParser.UndefinedLiteral - 35)) | (1 << (CircParser.BooleanLiteral - 35)) | (1 << (CircParser.IntegerLiteral - 35)) | (1 << (CircParser.HexIntegerLiteral - 35)) | (1 << (CircParser.RealLiteral - 35)) | (1 << (CircParser.Identifier - 35)) | (1 << (CircParser.StringLiteral - 35)))) !== 0)) {
+        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.Break) | (1 << CircParser.This) | (1 << CircParser.Discard) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen) | (1 << CircParser.SemiColon))) !== 0) || ((((_la - 37)) & ~0x1f) == 0 && ((1 << (_la - 37)) & ((1 << (CircParser.NullLiteral - 37)) | (1 << (CircParser.UndefinedLiteral - 37)) | (1 << (CircParser.BooleanLiteral - 37)) | (1 << (CircParser.IntegerLiteral - 37)) | (1 << (CircParser.HexIntegerLiteral - 37)) | (1 << (CircParser.RealLiteral - 37)) | (1 << (CircParser.Identifier - 37)) | (1 << (CircParser.StringLiteral - 37)))) !== 0)) {
             this.state = 62;
             this.statements();
         }
@@ -508,7 +515,7 @@ CircParser.prototype.statements = function() {
             this.state = 70; 
             this._errHandler.sync(this);
             _la = this._input.LA(1);
-        } while((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.Break) | (1 << CircParser.This) | (1 << CircParser.Discard) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen) | (1 << CircParser.SemiColon))) !== 0) || ((((_la - 35)) & ~0x1f) == 0 && ((1 << (_la - 35)) & ((1 << (CircParser.NullLiteral - 35)) | (1 << (CircParser.UndefinedLiteral - 35)) | (1 << (CircParser.BooleanLiteral - 35)) | (1 << (CircParser.IntegerLiteral - 35)) | (1 << (CircParser.HexIntegerLiteral - 35)) | (1 << (CircParser.RealLiteral - 35)) | (1 << (CircParser.Identifier - 35)) | (1 << (CircParser.StringLiteral - 35)))) !== 0));
+        } while((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.Break) | (1 << CircParser.This) | (1 << CircParser.Discard) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen) | (1 << CircParser.SemiColon))) !== 0) || ((((_la - 37)) & ~0x1f) == 0 && ((1 << (_la - 37)) & ((1 << (CircParser.NullLiteral - 37)) | (1 << (CircParser.UndefinedLiteral - 37)) | (1 << (CircParser.BooleanLiteral - 37)) | (1 << (CircParser.IntegerLiteral - 37)) | (1 << (CircParser.HexIntegerLiteral - 37)) | (1 << (CircParser.RealLiteral - 37)) | (1 << (CircParser.Identifier - 37)) | (1 << (CircParser.StringLiteral - 37)))) !== 0));
     } catch (re) {
     	if(re instanceof antlr4.error.RecognitionException) {
 	        localctx.exception = re;
@@ -772,7 +779,7 @@ CircParser.prototype.blockStatement = function() {
         this.state = 87;
         this._errHandler.sync(this);
         _la = this._input.LA(1);
-        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.Break) | (1 << CircParser.This) | (1 << CircParser.Discard) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen) | (1 << CircParser.SemiColon))) !== 0) || ((((_la - 35)) & ~0x1f) == 0 && ((1 << (_la - 35)) & ((1 << (CircParser.NullLiteral - 35)) | (1 << (CircParser.UndefinedLiteral - 35)) | (1 << (CircParser.BooleanLiteral - 35)) | (1 << (CircParser.IntegerLiteral - 35)) | (1 << (CircParser.HexIntegerLiteral - 35)) | (1 << (CircParser.RealLiteral - 35)) | (1 << (CircParser.Identifier - 35)) | (1 << (CircParser.StringLiteral - 35)))) !== 0)) {
+        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.Break) | (1 << CircParser.This) | (1 << CircParser.Discard) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen) | (1 << CircParser.SemiColon))) !== 0) || ((((_la - 37)) & ~0x1f) == 0 && ((1 << (_la - 37)) & ((1 << (CircParser.NullLiteral - 37)) | (1 << (CircParser.UndefinedLiteral - 37)) | (1 << (CircParser.BooleanLiteral - 37)) | (1 << (CircParser.IntegerLiteral - 37)) | (1 << (CircParser.HexIntegerLiteral - 37)) | (1 << (CircParser.RealLiteral - 37)) | (1 << (CircParser.Identifier - 37)) | (1 << (CircParser.StringLiteral - 37)))) !== 0)) {
             this.state = 86;
             this.statementList();
         }
@@ -849,7 +856,7 @@ CircParser.prototype.statementList = function() {
             this.state = 94; 
             this._errHandler.sync(this);
             _la = this._input.LA(1);
-        } while((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.Break) | (1 << CircParser.This) | (1 << CircParser.Discard) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen) | (1 << CircParser.SemiColon))) !== 0) || ((((_la - 35)) & ~0x1f) == 0 && ((1 << (_la - 35)) & ((1 << (CircParser.NullLiteral - 35)) | (1 << (CircParser.UndefinedLiteral - 35)) | (1 << (CircParser.BooleanLiteral - 35)) | (1 << (CircParser.IntegerLiteral - 35)) | (1 << (CircParser.HexIntegerLiteral - 35)) | (1 << (CircParser.RealLiteral - 35)) | (1 << (CircParser.Identifier - 35)) | (1 << (CircParser.StringLiteral - 35)))) !== 0));
+        } while((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.Break) | (1 << CircParser.This) | (1 << CircParser.Discard) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen) | (1 << CircParser.SemiColon))) !== 0) || ((((_la - 37)) & ~0x1f) == 0 && ((1 << (_la - 37)) & ((1 << (CircParser.NullLiteral - 37)) | (1 << (CircParser.UndefinedLiteral - 37)) | (1 << (CircParser.BooleanLiteral - 37)) | (1 << (CircParser.IntegerLiteral - 37)) | (1 << (CircParser.HexIntegerLiteral - 37)) | (1 << (CircParser.RealLiteral - 37)) | (1 << (CircParser.Identifier - 37)) | (1 << (CircParser.StringLiteral - 37)))) !== 0));
     } catch (re) {
     	if(re instanceof antlr4.error.RecognitionException) {
 	        localctx.exception = re;
@@ -1216,23 +1223,34 @@ SingleExprContext.prototype.copyFrom = function(ctx) {
     antlr4.ParserRuleContext.prototype.copyFrom.call(this, ctx);
 };
 
-function ObjectLiteralExprContext(parser, ctx) {
+function AndExprContext(parser, ctx) {
 	SingleExprContext.call(this, parser);
     SingleExprContext.prototype.copyFrom.call(this, ctx);
     return this;
 }
 
-ObjectLiteralExprContext.prototype = Object.create(SingleExprContext.prototype);
-ObjectLiteralExprContext.prototype.constructor = ObjectLiteralExprContext;
+AndExprContext.prototype = Object.create(SingleExprContext.prototype);
+AndExprContext.prototype.constructor = AndExprContext;
 
-CircParser.ObjectLiteralExprContext = ObjectLiteralExprContext;
+CircParser.AndExprContext = AndExprContext;
 
-ObjectLiteralExprContext.prototype.objectLiteral = function() {
-    return this.getTypedRuleContext(ObjectLiteralContext,0);
+AndExprContext.prototype.singleExpr = function(i) {
+    if(i===undefined) {
+        i = null;
+    }
+    if(i===null) {
+        return this.getTypedRuleContexts(SingleExprContext);
+    } else {
+        return this.getTypedRuleContext(SingleExprContext,i);
+    }
 };
-ObjectLiteralExprContext.prototype.accept = function(visitor) {
+
+AndExprContext.prototype.And = function() {
+    return this.getToken(CircParser.And, 0);
+};
+AndExprContext.prototype.accept = function(visitor) {
     if ( visitor instanceof CircParserVisitor ) {
-        return visitor.visitObjectLiteralExpr(this);
+        return visitor.visitAndExpr(this);
     } else {
         return visitor.visitChildren(this);
     }
@@ -1281,72 +1299,6 @@ MultiplyExprContext.prototype.accept = function(visitor) {
 };
 
 
-function LambdaExprContext(parser, ctx) {
-	SingleExprContext.call(this, parser);
-    SingleExprContext.prototype.copyFrom.call(this, ctx);
-    return this;
-}
-
-LambdaExprContext.prototype = Object.create(SingleExprContext.prototype);
-LambdaExprContext.prototype.constructor = LambdaExprContext;
-
-CircParser.LambdaExprContext = LambdaExprContext;
-
-LambdaExprContext.prototype.LambdaConnect = function() {
-    return this.getToken(CircParser.LambdaConnect, 0);
-};
-
-LambdaExprContext.prototype.noEmptyStatement = function() {
-    return this.getTypedRuleContext(NoEmptyStatementContext,0);
-};
-
-LambdaExprContext.prototype.Identifier = function() {
-    return this.getToken(CircParser.Identifier, 0);
-};
-
-LambdaExprContext.prototype.arguments = function() {
-    return this.getTypedRuleContext(ArgumentsContext,0);
-};
-LambdaExprContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof CircParserVisitor ) {
-        return visitor.visitLambdaExpr(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
-
-function IllegalReservedWordAssignExprContext(parser, ctx) {
-	SingleExprContext.call(this, parser);
-    SingleExprContext.prototype.copyFrom.call(this, ctx);
-    return this;
-}
-
-IllegalReservedWordAssignExprContext.prototype = Object.create(SingleExprContext.prototype);
-IllegalReservedWordAssignExprContext.prototype.constructor = IllegalReservedWordAssignExprContext;
-
-CircParser.IllegalReservedWordAssignExprContext = IllegalReservedWordAssignExprContext;
-
-IllegalReservedWordAssignExprContext.prototype.reservedWord = function() {
-    return this.getTypedRuleContext(ReservedWordContext,0);
-};
-
-IllegalReservedWordAssignExprContext.prototype.Assign = function() {
-    return this.getToken(CircParser.Assign, 0);
-};
-
-IllegalReservedWordAssignExprContext.prototype.statement = function() {
-    return this.getTypedRuleContext(StatementContext,0);
-};
-IllegalReservedWordAssignExprContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof CircParserVisitor ) {
-        return visitor.visitIllegalReservedWordAssignExpr(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
-
 function IllegalLiteralAssignExprContext(parser, ctx) {
 	SingleExprContext.call(this, parser);
     SingleExprContext.prototype.copyFrom.call(this, ctx);
@@ -1372,44 +1324,6 @@ IllegalLiteralAssignExprContext.prototype.statement = function() {
 IllegalLiteralAssignExprContext.prototype.accept = function(visitor) {
     if ( visitor instanceof CircParserVisitor ) {
         return visitor.visitIllegalLiteralAssignExpr(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
-
-function AddExprContext(parser, ctx) {
-	SingleExprContext.call(this, parser);
-    SingleExprContext.prototype.copyFrom.call(this, ctx);
-    return this;
-}
-
-AddExprContext.prototype = Object.create(SingleExprContext.prototype);
-AddExprContext.prototype.constructor = AddExprContext;
-
-CircParser.AddExprContext = AddExprContext;
-
-AddExprContext.prototype.singleExpr = function(i) {
-    if(i===undefined) {
-        i = null;
-    }
-    if(i===null) {
-        return this.getTypedRuleContexts(SingleExprContext);
-    } else {
-        return this.getTypedRuleContext(SingleExprContext,i);
-    }
-};
-
-AddExprContext.prototype.Plus = function() {
-    return this.getToken(CircParser.Plus, 0);
-};
-
-AddExprContext.prototype.Minus = function() {
-    return this.getToken(CircParser.Minus, 0);
-};
-AddExprContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof CircParserVisitor ) {
-        return visitor.visitAddExpr(this);
     } else {
         return visitor.visitChildren(this);
     }
@@ -1551,33 +1465,6 @@ AssignExprContext.prototype.accept = function(visitor) {
 };
 
 
-function IllegalReservedWordFunCallExprContext(parser, ctx) {
-	SingleExprContext.call(this, parser);
-    SingleExprContext.prototype.copyFrom.call(this, ctx);
-    return this;
-}
-
-IllegalReservedWordFunCallExprContext.prototype = Object.create(SingleExprContext.prototype);
-IllegalReservedWordFunCallExprContext.prototype.constructor = IllegalReservedWordFunCallExprContext;
-
-CircParser.IllegalReservedWordFunCallExprContext = IllegalReservedWordFunCallExprContext;
-
-IllegalReservedWordFunCallExprContext.prototype.reservedWord = function() {
-    return this.getTypedRuleContext(ReservedWordContext,0);
-};
-
-IllegalReservedWordFunCallExprContext.prototype.arguments = function() {
-    return this.getTypedRuleContext(ArgumentsContext,0);
-};
-IllegalReservedWordFunCallExprContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof CircParserVisitor ) {
-        return visitor.visitIllegalReservedWordFunCallExpr(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
-
 function EqualityExprContext(parser, ctx) {
 	SingleExprContext.call(this, parser);
     SingleExprContext.prototype.copyFrom.call(this, ctx);
@@ -1693,6 +1580,240 @@ ArrayLiteralExprContext.prototype.accept = function(visitor) {
 };
 
 
+function LiteralExprContext(parser, ctx) {
+	SingleExprContext.call(this, parser);
+    SingleExprContext.prototype.copyFrom.call(this, ctx);
+    return this;
+}
+
+LiteralExprContext.prototype = Object.create(SingleExprContext.prototype);
+LiteralExprContext.prototype.constructor = LiteralExprContext;
+
+CircParser.LiteralExprContext = LiteralExprContext;
+
+LiteralExprContext.prototype.literal = function() {
+    return this.getTypedRuleContext(LiteralContext,0);
+};
+LiteralExprContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof CircParserVisitor ) {
+        return visitor.visitLiteralExpr(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
+
+function ThisExprContext(parser, ctx) {
+	SingleExprContext.call(this, parser);
+    SingleExprContext.prototype.copyFrom.call(this, ctx);
+    return this;
+}
+
+ThisExprContext.prototype = Object.create(SingleExprContext.prototype);
+ThisExprContext.prototype.constructor = ThisExprContext;
+
+CircParser.ThisExprContext = ThisExprContext;
+
+ThisExprContext.prototype.This = function() {
+    return this.getToken(CircParser.This, 0);
+};
+ThisExprContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof CircParserVisitor ) {
+        return visitor.visitThisExpr(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
+
+function ObjectLiteralExprContext(parser, ctx) {
+	SingleExprContext.call(this, parser);
+    SingleExprContext.prototype.copyFrom.call(this, ctx);
+    return this;
+}
+
+ObjectLiteralExprContext.prototype = Object.create(SingleExprContext.prototype);
+ObjectLiteralExprContext.prototype.constructor = ObjectLiteralExprContext;
+
+CircParser.ObjectLiteralExprContext = ObjectLiteralExprContext;
+
+ObjectLiteralExprContext.prototype.objectLiteral = function() {
+    return this.getTypedRuleContext(ObjectLiteralContext,0);
+};
+ObjectLiteralExprContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof CircParserVisitor ) {
+        return visitor.visitObjectLiteralExpr(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
+
+function LambdaExprContext(parser, ctx) {
+	SingleExprContext.call(this, parser);
+    SingleExprContext.prototype.copyFrom.call(this, ctx);
+    return this;
+}
+
+LambdaExprContext.prototype = Object.create(SingleExprContext.prototype);
+LambdaExprContext.prototype.constructor = LambdaExprContext;
+
+CircParser.LambdaExprContext = LambdaExprContext;
+
+LambdaExprContext.prototype.LambdaConnect = function() {
+    return this.getToken(CircParser.LambdaConnect, 0);
+};
+
+LambdaExprContext.prototype.noEmptyStatement = function() {
+    return this.getTypedRuleContext(NoEmptyStatementContext,0);
+};
+
+LambdaExprContext.prototype.Identifier = function() {
+    return this.getToken(CircParser.Identifier, 0);
+};
+
+LambdaExprContext.prototype.arguments = function() {
+    return this.getTypedRuleContext(ArgumentsContext,0);
+};
+LambdaExprContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof CircParserVisitor ) {
+        return visitor.visitLambdaExpr(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
+
+function IllegalReservedWordAssignExprContext(parser, ctx) {
+	SingleExprContext.call(this, parser);
+    SingleExprContext.prototype.copyFrom.call(this, ctx);
+    return this;
+}
+
+IllegalReservedWordAssignExprContext.prototype = Object.create(SingleExprContext.prototype);
+IllegalReservedWordAssignExprContext.prototype.constructor = IllegalReservedWordAssignExprContext;
+
+CircParser.IllegalReservedWordAssignExprContext = IllegalReservedWordAssignExprContext;
+
+IllegalReservedWordAssignExprContext.prototype.reservedWord = function() {
+    return this.getTypedRuleContext(ReservedWordContext,0);
+};
+
+IllegalReservedWordAssignExprContext.prototype.Assign = function() {
+    return this.getToken(CircParser.Assign, 0);
+};
+
+IllegalReservedWordAssignExprContext.prototype.statement = function() {
+    return this.getTypedRuleContext(StatementContext,0);
+};
+IllegalReservedWordAssignExprContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof CircParserVisitor ) {
+        return visitor.visitIllegalReservedWordAssignExpr(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
+
+function AddExprContext(parser, ctx) {
+	SingleExprContext.call(this, parser);
+    SingleExprContext.prototype.copyFrom.call(this, ctx);
+    return this;
+}
+
+AddExprContext.prototype = Object.create(SingleExprContext.prototype);
+AddExprContext.prototype.constructor = AddExprContext;
+
+CircParser.AddExprContext = AddExprContext;
+
+AddExprContext.prototype.singleExpr = function(i) {
+    if(i===undefined) {
+        i = null;
+    }
+    if(i===null) {
+        return this.getTypedRuleContexts(SingleExprContext);
+    } else {
+        return this.getTypedRuleContext(SingleExprContext,i);
+    }
+};
+
+AddExprContext.prototype.Plus = function() {
+    return this.getToken(CircParser.Plus, 0);
+};
+
+AddExprContext.prototype.Minus = function() {
+    return this.getToken(CircParser.Minus, 0);
+};
+AddExprContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof CircParserVisitor ) {
+        return visitor.visitAddExpr(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
+
+function OrExprContext(parser, ctx) {
+	SingleExprContext.call(this, parser);
+    SingleExprContext.prototype.copyFrom.call(this, ctx);
+    return this;
+}
+
+OrExprContext.prototype = Object.create(SingleExprContext.prototype);
+OrExprContext.prototype.constructor = OrExprContext;
+
+CircParser.OrExprContext = OrExprContext;
+
+OrExprContext.prototype.singleExpr = function(i) {
+    if(i===undefined) {
+        i = null;
+    }
+    if(i===null) {
+        return this.getTypedRuleContexts(SingleExprContext);
+    } else {
+        return this.getTypedRuleContext(SingleExprContext,i);
+    }
+};
+
+OrExprContext.prototype.Or = function() {
+    return this.getToken(CircParser.Or, 0);
+};
+OrExprContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof CircParserVisitor ) {
+        return visitor.visitOrExpr(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
+
+function IllegalReservedWordFunCallExprContext(parser, ctx) {
+	SingleExprContext.call(this, parser);
+    SingleExprContext.prototype.copyFrom.call(this, ctx);
+    return this;
+}
+
+IllegalReservedWordFunCallExprContext.prototype = Object.create(SingleExprContext.prototype);
+IllegalReservedWordFunCallExprContext.prototype.constructor = IllegalReservedWordFunCallExprContext;
+
+CircParser.IllegalReservedWordFunCallExprContext = IllegalReservedWordFunCallExprContext;
+
+IllegalReservedWordFunCallExprContext.prototype.reservedWord = function() {
+    return this.getTypedRuleContext(ReservedWordContext,0);
+};
+
+IllegalReservedWordFunCallExprContext.prototype.arguments = function() {
+    return this.getTypedRuleContext(ArgumentsContext,0);
+};
+IllegalReservedWordFunCallExprContext.prototype.accept = function(visitor) {
+    if ( visitor instanceof CircParserVisitor ) {
+        return visitor.visitIllegalReservedWordFunCallExpr(this);
+    } else {
+        return visitor.visitChildren(this);
+    }
+};
+
+
 function FunCallExprContext(parser, ctx) {
 	SingleExprContext.call(this, parser);
     SingleExprContext.prototype.copyFrom.call(this, ctx);
@@ -1714,29 +1835,6 @@ FunCallExprContext.prototype.arguments = function() {
 FunCallExprContext.prototype.accept = function(visitor) {
     if ( visitor instanceof CircParserVisitor ) {
         return visitor.visitFunCallExpr(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
-
-function LiteralExprContext(parser, ctx) {
-	SingleExprContext.call(this, parser);
-    SingleExprContext.prototype.copyFrom.call(this, ctx);
-    return this;
-}
-
-LiteralExprContext.prototype = Object.create(SingleExprContext.prototype);
-LiteralExprContext.prototype.constructor = LiteralExprContext;
-
-CircParser.LiteralExprContext = LiteralExprContext;
-
-LiteralExprContext.prototype.literal = function() {
-    return this.getTypedRuleContext(LiteralContext,0);
-};
-LiteralExprContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof CircParserVisitor ) {
-        return visitor.visitLiteralExpr(this);
     } else {
         return visitor.visitChildren(this);
     }
@@ -1858,29 +1956,6 @@ FunExprContext.prototype.formalParameterList = function() {
 FunExprContext.prototype.accept = function(visitor) {
     if ( visitor instanceof CircParserVisitor ) {
         return visitor.visitFunExpr(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
-
-function ThisExprContext(parser, ctx) {
-	SingleExprContext.call(this, parser);
-    SingleExprContext.prototype.copyFrom.call(this, ctx);
-    return this;
-}
-
-ThisExprContext.prototype = Object.create(SingleExprContext.prototype);
-ThisExprContext.prototype.constructor = ThisExprContext;
-
-CircParser.ThisExprContext = ThisExprContext;
-
-ThisExprContext.prototype.This = function() {
-    return this.getToken(CircParser.This, 0);
-};
-ThisExprContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof CircParserVisitor ) {
-        return visitor.visitThisExpr(this);
     } else {
         return visitor.visitChildren(this);
     }
@@ -2148,7 +2223,7 @@ CircParser.prototype.singleExpr = function(_p) {
 
         }
         this._ctx.stop = this._input.LT(-1);
-        this.state = 211;
+        this.state = 217;
         this._errHandler.sync(this);
         var _alt = this._interp.adaptivePredict(this._input,16,this._ctx)
         while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
@@ -2157,7 +2232,7 @@ CircParser.prototype.singleExpr = function(_p) {
                     this.triggerExitRuleEvent();
                 }
                 _prevctx = localctx;
-                this.state = 209;
+                this.state = 215;
                 this._errHandler.sync(this);
                 var la_ = this._interp.adaptivePredict(this._input,15,this._ctx);
                 switch(la_) {
@@ -2165,8 +2240,8 @@ CircParser.prototype.singleExpr = function(_p) {
                     localctx = new MultiplyExprContext(this, new SingleExprContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, CircParser.RULE_singleExpr);
                     this.state = 184;
-                    if (!( this.precpred(this._ctx, 16))) {
-                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 16)");
+                    if (!( this.precpred(this._ctx, 18))) {
+                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 18)");
                     }
                     this.state = 185;
                     _la = this._input.LA(1);
@@ -2178,15 +2253,15 @@ CircParser.prototype.singleExpr = function(_p) {
                         this.consume();
                     }
                     this.state = 186;
-                    this.singleExpr(17);
+                    this.singleExpr(19);
                     break;
 
                 case 2:
                     localctx = new AddExprContext(this, new SingleExprContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, CircParser.RULE_singleExpr);
                     this.state = 187;
-                    if (!( this.precpred(this._ctx, 15))) {
-                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 15)");
+                    if (!( this.precpred(this._ctx, 17))) {
+                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 17)");
                     }
                     this.state = 188;
                     _la = this._input.LA(1);
@@ -2198,15 +2273,15 @@ CircParser.prototype.singleExpr = function(_p) {
                         this.consume();
                     }
                     this.state = 189;
-                    this.singleExpr(16);
+                    this.singleExpr(18);
                     break;
 
                 case 3:
                     localctx = new RelationalExprContext(this, new SingleExprContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, CircParser.RULE_singleExpr);
                     this.state = 190;
-                    if (!( this.precpred(this._ctx, 14))) {
-                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 14)");
+                    if (!( this.precpred(this._ctx, 16))) {
+                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 16)");
                     }
                     this.state = 191;
                     _la = this._input.LA(1);
@@ -2218,15 +2293,15 @@ CircParser.prototype.singleExpr = function(_p) {
                         this.consume();
                     }
                     this.state = 192;
-                    this.singleExpr(15);
+                    this.singleExpr(17);
                     break;
 
                 case 4:
                     localctx = new EqualityExprContext(this, new SingleExprContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, CircParser.RULE_singleExpr);
                     this.state = 193;
-                    if (!( this.precpred(this._ctx, 13))) {
-                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 13)");
+                    if (!( this.precpred(this._ctx, 15))) {
+                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 15)");
                     }
                     this.state = 194;
                     _la = this._input.LA(1);
@@ -2238,64 +2313,90 @@ CircParser.prototype.singleExpr = function(_p) {
                         this.consume();
                     }
                     this.state = 195;
-                    this.singleExpr(14);
+                    this.singleExpr(16);
                     break;
 
                 case 5:
-                    localctx = new MemberIndexExprContext(this, new SingleExprContext(this, _parentctx, _parentState));
+                    localctx = new AndExprContext(this, new SingleExprContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, CircParser.RULE_singleExpr);
                     this.state = 196;
-                    if (!( this.precpred(this._ctx, 21))) {
-                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 21)");
+                    if (!( this.precpred(this._ctx, 14))) {
+                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 14)");
                     }
                     this.state = 197;
-                    this.match(CircParser.OpenBracket);
+                    this.match(CircParser.And);
                     this.state = 198;
-                    this.exprSequence();
-                    this.state = 199;
-                    this.match(CircParser.CloseBracket);
+                    this.singleExpr(15);
                     break;
 
                 case 6:
-                    localctx = new MemberDotExprContext(this, new SingleExprContext(this, _parentctx, _parentState));
+                    localctx = new OrExprContext(this, new SingleExprContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, CircParser.RULE_singleExpr);
-                    this.state = 201;
-                    if (!( this.precpred(this._ctx, 20))) {
-                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 20)");
+                    this.state = 199;
+                    if (!( this.precpred(this._ctx, 13))) {
+                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 13)");
                     }
-                    this.state = 202;
-                    this.match(CircParser.Dot);
-                    this.state = 203;
-                    this.match(CircParser.Identifier);
+                    this.state = 200;
+                    this.match(CircParser.Or);
+                    this.state = 201;
+                    this.singleExpr(14);
                     break;
 
                 case 7:
-                    localctx = new FunCallExprContext(this, new SingleExprContext(this, _parentctx, _parentState));
+                    localctx = new MemberIndexExprContext(this, new SingleExprContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, CircParser.RULE_singleExpr);
-                    this.state = 204;
-                    if (!( this.precpred(this._ctx, 19))) {
-                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 19)");
+                    this.state = 202;
+                    if (!( this.precpred(this._ctx, 23))) {
+                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 23)");
                     }
+                    this.state = 203;
+                    this.match(CircParser.OpenBracket);
+                    this.state = 204;
+                    this.exprSequence();
                     this.state = 205;
-                    this.arguments();
+                    this.match(CircParser.CloseBracket);
                     break;
 
                 case 8:
+                    localctx = new MemberDotExprContext(this, new SingleExprContext(this, _parentctx, _parentState));
+                    this.pushNewRecursionContext(localctx, _startState, CircParser.RULE_singleExpr);
+                    this.state = 207;
+                    if (!( this.precpred(this._ctx, 22))) {
+                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 22)");
+                    }
+                    this.state = 208;
+                    this.match(CircParser.Dot);
+                    this.state = 209;
+                    this.match(CircParser.Identifier);
+                    break;
+
+                case 9:
+                    localctx = new FunCallExprContext(this, new SingleExprContext(this, _parentctx, _parentState));
+                    this.pushNewRecursionContext(localctx, _startState, CircParser.RULE_singleExpr);
+                    this.state = 210;
+                    if (!( this.precpred(this._ctx, 21))) {
+                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 21)");
+                    }
+                    this.state = 211;
+                    this.arguments();
+                    break;
+
+                case 10:
                     localctx = new AssignExprContext(this, new SingleExprContext(this, _parentctx, _parentState));
                     this.pushNewRecursionContext(localctx, _startState, CircParser.RULE_singleExpr);
-                    this.state = 206;
+                    this.state = 212;
                     if (!( this.precpred(this._ctx, 10))) {
                         throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 10)");
                     }
-                    this.state = 207;
+                    this.state = 213;
                     this.match(CircParser.Assign);
-                    this.state = 208;
+                    this.state = 214;
                     this.noEmptyStatement();
                     break;
 
                 } 
             }
-            this.state = 213;
+            this.state = 219;
             this._errHandler.sync(this);
             _alt = this._interp.adaptivePredict(this._input,16,this._ctx);
         }
@@ -2411,27 +2512,27 @@ CircParser.prototype.forKeyVal = function() {
     var localctx = new ForKeyValContext(this, this._ctx, this.state);
     this.enterRule(localctx, 22, CircParser.RULE_forKeyVal);
     try {
-        this.state = 220;
+        this.state = 226;
         this._errHandler.sync(this);
         switch(this._input.LA(1)) {
         case CircParser.OpenBracket:
             localctx = new KvExprContext(this, localctx);
             this.enterOuterAlt(localctx, 1);
-            this.state = 214;
+            this.state = 220;
             this.match(CircParser.OpenBracket);
-            this.state = 215;
+            this.state = 221;
             this.match(CircParser.Identifier);
-            this.state = 216;
+            this.state = 222;
             this.match(CircParser.Comma);
-            this.state = 217;
+            this.state = 223;
             this.match(CircParser.Identifier);
-            this.state = 218;
+            this.state = 224;
             this.match(CircParser.CloseBracket);
             break;
         case CircParser.Identifier:
             localctx = new SingleValExprContext(this, localctx);
             this.enterOuterAlt(localctx, 2);
-            this.state = 219;
+            this.state = 225;
             this.match(CircParser.Identifier);
             break;
         default:
@@ -2499,17 +2600,17 @@ CircParser.prototype.arguments = function() {
     var _la = 0; // Token type
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 222;
+        this.state = 228;
         this.match(CircParser.OpenParen);
-        this.state = 224;
+        this.state = 230;
         this._errHandler.sync(this);
         _la = this._input.LA(1);
-        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.Break) | (1 << CircParser.This) | (1 << CircParser.Discard) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen))) !== 0) || ((((_la - 35)) & ~0x1f) == 0 && ((1 << (_la - 35)) & ((1 << (CircParser.NullLiteral - 35)) | (1 << (CircParser.UndefinedLiteral - 35)) | (1 << (CircParser.BooleanLiteral - 35)) | (1 << (CircParser.IntegerLiteral - 35)) | (1 << (CircParser.HexIntegerLiteral - 35)) | (1 << (CircParser.RealLiteral - 35)) | (1 << (CircParser.Identifier - 35)) | (1 << (CircParser.StringLiteral - 35)))) !== 0)) {
-            this.state = 223;
+        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.Break) | (1 << CircParser.This) | (1 << CircParser.Discard) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen))) !== 0) || ((((_la - 37)) & ~0x1f) == 0 && ((1 << (_la - 37)) & ((1 << (CircParser.NullLiteral - 37)) | (1 << (CircParser.UndefinedLiteral - 37)) | (1 << (CircParser.BooleanLiteral - 37)) | (1 << (CircParser.IntegerLiteral - 37)) | (1 << (CircParser.HexIntegerLiteral - 37)) | (1 << (CircParser.RealLiteral - 37)) | (1 << (CircParser.Identifier - 37)) | (1 << (CircParser.StringLiteral - 37)))) !== 0)) {
+            this.state = 229;
             this.argumentList();
         }
 
-        this.state = 226;
+        this.state = 232;
         this.match(CircParser.CloseParen);
     } catch (re) {
     	if(re instanceof antlr4.error.RecognitionException) {
@@ -2584,17 +2685,17 @@ CircParser.prototype.argumentList = function() {
     var _la = 0; // Token type
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 228;
+        this.state = 234;
         this.singleExpr(0);
-        this.state = 233;
+        this.state = 239;
         this._errHandler.sync(this);
         _la = this._input.LA(1);
         while(_la===CircParser.Comma) {
-            this.state = 229;
-            this.match(CircParser.Comma);
-            this.state = 230;
-            this.singleExpr(0);
             this.state = 235;
+            this.match(CircParser.Comma);
+            this.state = 236;
+            this.singleExpr(0);
+            this.state = 241;
             this._errHandler.sync(this);
             _la = this._input.LA(1);
         }
@@ -2670,19 +2771,19 @@ CircParser.prototype.exprSequence = function() {
     this.enterRule(localctx, 28, CircParser.RULE_exprSequence);
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 236;
+        this.state = 242;
         this.singleExpr(0);
-        this.state = 241;
+        this.state = 247;
         this._errHandler.sync(this);
         var _alt = this._interp.adaptivePredict(this._input,20,this._ctx)
         while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
             if(_alt===1) {
-                this.state = 237;
+                this.state = 243;
                 this.match(CircParser.Comma);
-                this.state = 238;
+                this.state = 244;
                 this.singleExpr(0); 
             }
-            this.state = 243;
+            this.state = 249;
             this._errHandler.sync(this);
             _alt = this._interp.adaptivePredict(this._input,20,this._ctx);
         }
@@ -2756,7 +2857,7 @@ CircParser.prototype.literal = function() {
     this.enterRule(localctx, 30, CircParser.RULE_literal);
     var _la = 0; // Token type
     try {
-        this.state = 246;
+        this.state = 252;
         this._errHandler.sync(this);
         switch(this._input.LA(1)) {
         case CircParser.NullLiteral:
@@ -2764,9 +2865,9 @@ CircParser.prototype.literal = function() {
         case CircParser.BooleanLiteral:
         case CircParser.StringLiteral:
             this.enterOuterAlt(localctx, 1);
-            this.state = 244;
+            this.state = 250;
             _la = this._input.LA(1);
-            if(!(((((_la - 35)) & ~0x1f) == 0 && ((1 << (_la - 35)) & ((1 << (CircParser.NullLiteral - 35)) | (1 << (CircParser.UndefinedLiteral - 35)) | (1 << (CircParser.BooleanLiteral - 35)) | (1 << (CircParser.StringLiteral - 35)))) !== 0))) {
+            if(!(((((_la - 37)) & ~0x1f) == 0 && ((1 << (_la - 37)) & ((1 << (CircParser.NullLiteral - 37)) | (1 << (CircParser.UndefinedLiteral - 37)) | (1 << (CircParser.BooleanLiteral - 37)) | (1 << (CircParser.StringLiteral - 37)))) !== 0))) {
             this._errHandler.recoverInline(this);
             }
             else {
@@ -2778,7 +2879,7 @@ CircParser.prototype.literal = function() {
         case CircParser.HexIntegerLiteral:
         case CircParser.RealLiteral:
             this.enterOuterAlt(localctx, 2);
-            this.state = 245;
+            this.state = 251;
             this.numericLiteral();
             break;
         default:
@@ -2846,9 +2947,9 @@ CircParser.prototype.numericLiteral = function() {
     var _la = 0; // Token type
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 248;
+        this.state = 254;
         _la = this._input.LA(1);
-        if(!(((((_la - 38)) & ~0x1f) == 0 && ((1 << (_la - 38)) & ((1 << (CircParser.IntegerLiteral - 38)) | (1 << (CircParser.HexIntegerLiteral - 38)) | (1 << (CircParser.RealLiteral - 38)))) !== 0))) {
+        if(!(((((_la - 40)) & ~0x1f) == 0 && ((1 << (_la - 40)) & ((1 << (CircParser.IntegerLiteral - 40)) | (1 << (CircParser.HexIntegerLiteral - 40)) | (1 << (CircParser.RealLiteral - 40)))) !== 0))) {
         this._errHandler.recoverInline(this);
         }
         else {
@@ -2921,25 +3022,25 @@ CircParser.prototype.arrayLiteral = function() {
     var _la = 0; // Token type
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 250;
+        this.state = 256;
         this.match(CircParser.OpenBracket);
-        this.state = 252;
+        this.state = 258;
         this._errHandler.sync(this);
         _la = this._input.LA(1);
-        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.Break) | (1 << CircParser.This) | (1 << CircParser.Discard) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen))) !== 0) || ((((_la - 35)) & ~0x1f) == 0 && ((1 << (_la - 35)) & ((1 << (CircParser.NullLiteral - 35)) | (1 << (CircParser.UndefinedLiteral - 35)) | (1 << (CircParser.BooleanLiteral - 35)) | (1 << (CircParser.IntegerLiteral - 35)) | (1 << (CircParser.HexIntegerLiteral - 35)) | (1 << (CircParser.RealLiteral - 35)) | (1 << (CircParser.Identifier - 35)) | (1 << (CircParser.StringLiteral - 35)))) !== 0)) {
-            this.state = 251;
+        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.Break) | (1 << CircParser.This) | (1 << CircParser.Discard) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen))) !== 0) || ((((_la - 37)) & ~0x1f) == 0 && ((1 << (_la - 37)) & ((1 << (CircParser.NullLiteral - 37)) | (1 << (CircParser.UndefinedLiteral - 37)) | (1 << (CircParser.BooleanLiteral - 37)) | (1 << (CircParser.IntegerLiteral - 37)) | (1 << (CircParser.HexIntegerLiteral - 37)) | (1 << (CircParser.RealLiteral - 37)) | (1 << (CircParser.Identifier - 37)) | (1 << (CircParser.StringLiteral - 37)))) !== 0)) {
+            this.state = 257;
             this.elementList();
         }
 
-        this.state = 255;
+        this.state = 261;
         this._errHandler.sync(this);
         _la = this._input.LA(1);
         if(_la===CircParser.Comma) {
-            this.state = 254;
+            this.state = 260;
             this.match(CircParser.Comma);
         }
 
-        this.state = 257;
+        this.state = 263;
         this.match(CircParser.CloseBracket);
     } catch (re) {
     	if(re instanceof antlr4.error.RecognitionException) {
@@ -3013,19 +3114,19 @@ CircParser.prototype.elementList = function() {
     this.enterRule(localctx, 36, CircParser.RULE_elementList);
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 259;
+        this.state = 265;
         this.singleExpr(0);
-        this.state = 264;
+        this.state = 270;
         this._errHandler.sync(this);
         var _alt = this._interp.adaptivePredict(this._input,24,this._ctx)
         while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
             if(_alt===1) {
-                this.state = 260;
+                this.state = 266;
                 this.match(CircParser.Comma);
-                this.state = 261;
+                this.state = 267;
                 this.singleExpr(0); 
             }
-            this.state = 266;
+            this.state = 272;
             this._errHandler.sync(this);
             _alt = this._interp.adaptivePredict(this._input,24,this._ctx);
         }
@@ -3095,33 +3196,33 @@ CircParser.prototype.objectLiteral = function() {
     this.enterRule(localctx, 38, CircParser.RULE_objectLiteral);
     var _la = 0; // Token type
     try {
-        this.state = 276;
+        this.state = 282;
         this._errHandler.sync(this);
         var la_ = this._interp.adaptivePredict(this._input,26,this._ctx);
         switch(la_) {
         case 1:
             this.enterOuterAlt(localctx, 1);
-            this.state = 267;
+            this.state = 273;
             this.match(CircParser.OpenBrace);
-            this.state = 268;
+            this.state = 274;
             this.match(CircParser.CloseBrace);
             break;
 
         case 2:
             this.enterOuterAlt(localctx, 2);
-            this.state = 269;
+            this.state = 275;
             this.match(CircParser.OpenBrace);
-            this.state = 270;
+            this.state = 276;
             this.propertyNameAndValueList();
-            this.state = 272;
+            this.state = 278;
             this._errHandler.sync(this);
             _la = this._input.LA(1);
             if(_la===CircParser.Comma) {
-                this.state = 271;
+                this.state = 277;
                 this.match(CircParser.Comma);
             }
 
-            this.state = 274;
+            this.state = 280;
             this.match(CircParser.CloseBrace);
             break;
 
@@ -3198,19 +3299,19 @@ CircParser.prototype.propertyNameAndValueList = function() {
     this.enterRule(localctx, 40, CircParser.RULE_propertyNameAndValueList);
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 278;
+        this.state = 284;
         this.propertyAssignment();
-        this.state = 283;
+        this.state = 289;
         this._errHandler.sync(this);
         var _alt = this._interp.adaptivePredict(this._input,27,this._ctx)
         while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
             if(_alt===1) {
-                this.state = 279;
+                this.state = 285;
                 this.match(CircParser.Comma);
-                this.state = 280;
+                this.state = 286;
                 this.propertyAssignment(); 
             }
-            this.state = 285;
+            this.state = 291;
             this._errHandler.sync(this);
             _alt = this._interp.adaptivePredict(this._input,27,this._ctx);
         }
@@ -3335,31 +3436,31 @@ CircParser.prototype.propertyAssignment = function() {
     var localctx = new PropertyAssignmentContext(this, this._ctx, this.state);
     this.enterRule(localctx, 42, CircParser.RULE_propertyAssignment);
     try {
-        this.state = 295;
+        this.state = 301;
         this._errHandler.sync(this);
         switch(this._input.LA(1)) {
         case CircParser.StringLiteral:
             localctx = new StaticPropertyNameContext(this, localctx);
             this.enterOuterAlt(localctx, 1);
-            this.state = 286;
+            this.state = 292;
             this.match(CircParser.StringLiteral);
-            this.state = 287;
+            this.state = 293;
             this.match(CircParser.Colon);
-            this.state = 288;
+            this.state = 294;
             this.singleExpr(0);
             break;
         case CircParser.OpenBracket:
             localctx = new ExprPropertyNameContext(this, localctx);
             this.enterOuterAlt(localctx, 2);
-            this.state = 289;
+            this.state = 295;
             this.match(CircParser.OpenBracket);
-            this.state = 290;
+            this.state = 296;
             localctx.propertyNameExpr = this.singleExpr(0);
-            this.state = 291;
+            this.state = 297;
             this.match(CircParser.CloseBracket);
-            this.state = 292;
+            this.state = 298;
             this.match(CircParser.Colon);
-            this.state = 293;
+            this.state = 299;
             localctx.propertyValExpr = this.singleExpr(0);
             break;
         default:
@@ -3418,7 +3519,7 @@ CircParser.prototype.emptyStatement = function() {
     this.enterRule(localctx, 44, CircParser.RULE_emptyStatement);
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 297;
+        this.state = 303;
         this.match(CircParser.SemiColon);
     } catch (re) {
     	if(re instanceof antlr4.error.RecognitionException) {
@@ -3476,25 +3577,25 @@ CircParser.prototype.eos = function() {
     var localctx = new EosContext(this, this._ctx, this.state);
     this.enterRule(localctx, 46, CircParser.RULE_eos);
     try {
-        this.state = 302;
+        this.state = 308;
         this._errHandler.sync(this);
         var la_ = this._interp.adaptivePredict(this._input,29,this._ctx);
         switch(la_) {
         case 1:
             this.enterOuterAlt(localctx, 1);
-            this.state = 299;
+            this.state = 305;
             this.match(CircParser.SemiColon);
             break;
 
         case 2:
             this.enterOuterAlt(localctx, 2);
-            this.state = 300;
+            this.state = 306;
             this.match(CircParser.EOF);
             break;
 
         case 3:
             this.enterOuterAlt(localctx, 3);
-            this.state = 301;
+            this.state = 307;
             if (!(  this.lineTerminatorAhead() || this.here(CircParser.CloseBrace) )) {
                 throw new antlr4.error.FailedPredicateException(this, " this.lineTerminatorAhead() || this.here(CircParser.CloseBrace) ");
             }
@@ -3575,17 +3676,17 @@ CircParser.prototype.formalParameterList = function() {
     var _la = 0; // Token type
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 304;
+        this.state = 310;
         this.match(CircParser.Identifier);
-        this.state = 309;
+        this.state = 315;
         this._errHandler.sync(this);
         _la = this._input.LA(1);
         while(_la===CircParser.Comma) {
-            this.state = 305;
-            this.match(CircParser.Comma);
-            this.state = 306;
-            this.match(CircParser.Identifier);
             this.state = 311;
+            this.match(CircParser.Comma);
+            this.state = 312;
+            this.match(CircParser.Identifier);
+            this.state = 317;
             this._errHandler.sync(this);
             _la = this._input.LA(1);
         }
@@ -3643,11 +3744,11 @@ CircParser.prototype.functionBody = function() {
     var _la = 0; // Token type
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 313;
+        this.state = 319;
         this._errHandler.sync(this);
         _la = this._input.LA(1);
-        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.Break) | (1 << CircParser.This) | (1 << CircParser.Discard) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen) | (1 << CircParser.SemiColon))) !== 0) || ((((_la - 35)) & ~0x1f) == 0 && ((1 << (_la - 35)) & ((1 << (CircParser.NullLiteral - 35)) | (1 << (CircParser.UndefinedLiteral - 35)) | (1 << (CircParser.BooleanLiteral - 35)) | (1 << (CircParser.IntegerLiteral - 35)) | (1 << (CircParser.HexIntegerLiteral - 35)) | (1 << (CircParser.RealLiteral - 35)) | (1 << (CircParser.Identifier - 35)) | (1 << (CircParser.StringLiteral - 35)))) !== 0)) {
-            this.state = 312;
+        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In) | (1 << CircParser.Break) | (1 << CircParser.This) | (1 << CircParser.Discard) | (1 << CircParser.OpenBrace) | (1 << CircParser.OpenBracket) | (1 << CircParser.OpenParen) | (1 << CircParser.SemiColon))) !== 0) || ((((_la - 37)) & ~0x1f) == 0 && ((1 << (_la - 37)) & ((1 << (CircParser.NullLiteral - 37)) | (1 << (CircParser.UndefinedLiteral - 37)) | (1 << (CircParser.BooleanLiteral - 37)) | (1 << (CircParser.IntegerLiteral - 37)) | (1 << (CircParser.HexIntegerLiteral - 37)) | (1 << (CircParser.RealLiteral - 37)) | (1 << (CircParser.Identifier - 37)) | (1 << (CircParser.StringLiteral - 37)))) !== 0)) {
+            this.state = 318;
             this.statementList();
         }
 
@@ -3729,27 +3830,27 @@ CircParser.prototype.ifStatement = function() {
     this.enterRule(localctx, 52, CircParser.RULE_ifStatement);
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 315;
+        this.state = 321;
         this.match(CircParser.If);
-        this.state = 316;
+        this.state = 322;
         this.singleExpr(0);
-        this.state = 319;
+        this.state = 325;
         this._errHandler.sync(this);
         var la_ = this._interp.adaptivePredict(this._input,32,this._ctx);
         if(la_===1) {
-            this.state = 317;
+            this.state = 323;
             this.match(CircParser.Then);
-            this.state = 318;
+            this.state = 324;
             localctx.thenBody = this.ifStatementBody();
 
         }
-        this.state = 323;
+        this.state = 329;
         this._errHandler.sync(this);
         var la_ = this._interp.adaptivePredict(this._input,33,this._ctx);
         if(la_===1) {
-            this.state = 321;
+            this.state = 327;
             this.match(CircParser.Else);
-            this.state = 322;
+            this.state = 328;
             localctx.elseBody = this.ifStatementBody();
 
         }
@@ -3806,7 +3907,7 @@ CircParser.prototype.ifStatementBody = function() {
     this.enterRule(localctx, 54, CircParser.RULE_ifStatementBody);
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 325;
+        this.state = 331;
         this.noEmptyStatement();
     } catch (re) {
     	if(re instanceof antlr4.error.RecognitionException) {
@@ -3861,7 +3962,7 @@ CircParser.prototype.exprStatement = function() {
     this.enterRule(localctx, 56, CircParser.RULE_exprStatement);
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 327;
+        this.state = 333;
         this.exprSequence();
     } catch (re) {
     	if(re instanceof antlr4.error.RecognitionException) {
@@ -3924,7 +4025,7 @@ CircParser.prototype.reservedWord = function() {
     this.enterRule(localctx, 58, CircParser.RULE_reservedWord);
     var _la = 0; // Token type
     try {
-        this.state = 331;
+        this.state = 337;
         this._errHandler.sync(this);
         switch(this._input.LA(1)) {
         case CircParser.Let:
@@ -3935,13 +4036,13 @@ CircParser.prototype.reservedWord = function() {
         case CircParser.For:
         case CircParser.In:
             this.enterOuterAlt(localctx, 1);
-            this.state = 329;
+            this.state = 335;
             this.keyword();
             break;
         case CircParser.NullLiteral:
         case CircParser.BooleanLiteral:
             this.enterOuterAlt(localctx, 2);
-            this.state = 330;
+            this.state = 336;
             _la = this._input.LA(1);
             if(!(_la===CircParser.NullLiteral || _la===CircParser.BooleanLiteral)) {
             this._errHandler.recoverInline(this);
@@ -4032,7 +4133,7 @@ CircParser.prototype.keyword = function() {
     var _la = 0; // Token type
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 333;
+        this.state = 339;
         _la = this._input.LA(1);
         if(!((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << CircParser.Let) | (1 << CircParser.If) | (1 << CircParser.Then) | (1 << CircParser.Else) | (1 << CircParser.Fun) | (1 << CircParser.For) | (1 << CircParser.In))) !== 0))) {
         this._errHandler.recoverInline(this);
@@ -4070,20 +4171,24 @@ CircParser.prototype.sempred = function(localctx, ruleIndex, predIndex) {
 CircParser.prototype.singleExpr_sempred = function(localctx, predIndex) {
 	switch(predIndex) {
 		case 0:
-			return this.precpred(this._ctx, 16);
+			return this.precpred(this._ctx, 18);
 		case 1:
-			return this.precpred(this._ctx, 15);
+			return this.precpred(this._ctx, 17);
 		case 2:
-			return this.precpred(this._ctx, 14);
+			return this.precpred(this._ctx, 16);
 		case 3:
-			return this.precpred(this._ctx, 13);
+			return this.precpred(this._ctx, 15);
 		case 4:
-			return this.precpred(this._ctx, 21);
+			return this.precpred(this._ctx, 14);
 		case 5:
-			return this.precpred(this._ctx, 20);
+			return this.precpred(this._ctx, 13);
 		case 6:
-			return this.precpred(this._ctx, 19);
+			return this.precpred(this._ctx, 23);
 		case 7:
+			return this.precpred(this._ctx, 22);
+		case 8:
+			return this.precpred(this._ctx, 21);
+		case 9:
 			return this.precpred(this._ctx, 10);
 		default:
 			throw "No predicate with index:" + predIndex;
@@ -4092,7 +4197,7 @@ CircParser.prototype.singleExpr_sempred = function(localctx, predIndex) {
 
 CircParser.prototype.eos_sempred = function(localctx, predIndex) {
 	switch(predIndex) {
-		case 8:
+		case 10:
 			return  this.lineTerminatorAhead() || this.here(CircParser.CloseBrace) ;
 		default:
 			throw "No predicate with index:" + predIndex;

@@ -113,10 +113,6 @@ function applyBinary (op, lval, rval) {
         throw new Error("Divide by zero");
       }
       return lval % rval;
-    case '&&' :
-      return lval && rval;
-    case '||' :
-      return lval || rval;
     case '<'  :
       return lval < rval;
     case '>'  :
@@ -138,6 +134,10 @@ let funExecContext = null;
 let forInStateStack = [];
 
 const discard = {};
+
+function isTrue (val) {
+  return val !== null && val !== false && val !== 0 && val !== ''
+}
 
 /**
  *
@@ -207,7 +207,7 @@ function evaluate (exp, env, cb) {
     case NodeType.condition: {
       evaluate(exp.expr, env, function cc (cond) {
         stackGuard(cc, arguments);
-        if (cond !== null && cond !== false && cond !== 0 && cond !== '') {
+        if (isTrue(cond)) {
           if (exp.then === null) {
             cb(true);
           } else {
@@ -287,6 +287,7 @@ function evaluate (exp, env, cb) {
           cb(val);
         });
       };
+      fn.__circ__ = true;
       if (exp.name) {
         env.def(exp.name.name, fn);
       }
@@ -442,6 +443,34 @@ function evaluate (exp, env, cb) {
       cb(discard);
       return;
     }
+    case NodeType.and: {
+      evaluate(exp.left, env, function cc (lval) {
+        stackGuard(cc, arguments);
+        if (!isTrue(lval)) {
+          cb(lval)
+        } else {
+          evaluate(exp.right, env, function cc (rval) {
+            stackGuard(cc, arguments);
+            cb(rval);
+          })
+        }
+      });
+      return;
+    }
+    case NodeType.or: {
+      evaluate(exp.left, env, function cc (lval) {
+        stackGuard(cc, arguments);
+        if (isTrue(lval)) {
+          cb(lval);
+        } else {
+          evaluate(exp.right, env, function cc (rval) {
+            stackGuard(cc, arguments);
+            cb(rval);
+          })
+        }
+      });
+      return;
+    }
     case NodeType.prog: {
       loopExprList(exp.exprList, env, cb);
       return;
@@ -514,11 +543,11 @@ builtinEnv.def("jsModule", function (cc, path) {
   cc(module);
 });
 
-builtinEnv.def("callJs", function (cc, thisObj, fn) {
+builtinEnv.def("callJs", function callJs (cc, thisObj, fn) {
   const args = [];
   for (let i = 3, len = arguments.length; i < len; i++) {
     const arg = arguments[i];
-    if (typeof arg === "function") {
+    if (typeof arg === "function" && arg.__circ__ === true) {
       args.push((function (arg) {
         return function () {
           const args = Array.from(arguments);

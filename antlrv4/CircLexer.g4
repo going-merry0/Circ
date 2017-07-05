@@ -38,6 +38,8 @@ NotEquals:              '!=';
 LessThanEquals:         '<=';
 GreaterThanEquals:      '>=';
 LambdaConnect:          '->';
+And:                    '&&';
+Or :                    '||';
 
 NullLiteral
   : 'null'

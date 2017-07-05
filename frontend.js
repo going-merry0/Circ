@@ -23,6 +23,8 @@ const NodeType = {
   breakExpr: "break",
   discard: "discard",
   binary: "binary",
+  and: "and",
+  or: "or",
   condition: "condition",
   exprSequence: "exprSequence",
   assign: "assign",
@@ -355,6 +357,22 @@ class DiscardNode extends Node {
   }
 }
 
+class AndExpr extends Node {
+  constructor () {
+    super(NodeType.and);
+    this.left = null;
+    this.right = null;
+  }
+}
+
+class OrExpr extends Node {
+  constructor () {
+    super(NodeType.or);
+    this.left = null;
+    this.right = null;
+  }
+}
+
 class AstVisitor extends CircParserVisitor {
   visitFormalParameterList (ctx) {
     if (!ctx) {
@@ -607,6 +625,20 @@ class AstVisitor extends CircParserVisitor {
       const node = new DiscardNode();
       node.lineNumber = ctx.start.line;
       node.charIndex = ctx.start.column;
+      return node;
+    } else if (ctx instanceof CircParser.AndExprContext) {
+      const node = new AndExpr();
+      node.lineNumber = ctx.start.line;
+      node.charIndex = ctx.start.column;
+      node.left = this.visitSingleExpr(ctx.singleExpr(0));
+      node.right = this.visitSingleExpr(ctx.singleExpr(1));
+      return node;
+    } else if (ctx instanceof CircParser.OrExprContext) {
+      const node = new OrExpr();
+      node.lineNumber = ctx.start.line;
+      node.charIndex = ctx.start.column;
+      node.left = this.visitSingleExpr(ctx.singleExpr(0));
+      node.right = this.visitSingleExpr(ctx.singleExpr(1));
       return node;
     }
   }
