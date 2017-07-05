@@ -360,10 +360,10 @@ class AstVisitor extends CircParserVisitor {
     if (!ctx) {
       return [];
     }
-    return ctx.Identifier().map(ctx => {
-      const node = new IdentifierNode(ctx.getText());
-      node.lineNumber = ctx.start.line;
-      node.charIndex = ctx.start.column;
+    return ctx.Identifier().map(token => {
+      const node = new IdentifierNode(token.getText());
+      node.lineNumber = token.symbol.line;
+      node.charIndex = token.symbol.column;
       return node;
     });
   }
