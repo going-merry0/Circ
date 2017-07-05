@@ -71,6 +71,7 @@ initializer
 
 singleExpr
   : Fun Identifier? OpenParen formalParameterList? CloseParen OpenBrace functionBody CloseBrace                           # FunExpr
+  | For forKeyVal In singleExpr noEmptyStatement                                                                          # ForExpr
   | singleExpr OpenBracket exprSequence CloseBracket                                                                      # MemberIndexExpr
   | singleExpr Dot Identifier                                                                                             # MemberDotExpr
   | singleExpr arguments                                                                                                  # FunCallExpr
@@ -86,10 +87,17 @@ singleExpr
   | ( Identifier|arguments ) LambdaConnect noEmptyStatement                                                               # LambdaExpr
   | OpenParen exprSequence CloseParen                                                                                     # ParenExpr
   | This                                                                                                                  # ThisExpr
+  | Break                                                                                                                 # BreakExpr
+  | Discard                                                                                                               # DiscardExpr
   | Identifier                                                                                                            # IdentifierExpr
   | literal                                                                                                               # LiteralExpr
   | arrayLiteral                                                                                                          # ArrayLiteralExpr
   | objectLiteral                                                                                                         # ObjectLiteralExpr
+  ;
+
+forKeyVal
+  : OpenBracket Identifier Comma Identifier CloseBracket    # kvExpr
+  | Identifier                                              # singleValExpr
   ;
 
 arguments
@@ -160,11 +168,11 @@ functionBody
   ;
 
 ifStatement
-  : If singleExpr Then thenBody=ifStatementBody ( Else elseBody=ifStatementBody )?
+  : If singleExpr (Then thenBody=ifStatementBody)? ( Else elseBody=ifStatementBody )?
   ;
 
 ifStatementBody
-  : statement
+  : noEmptyStatement
   ;
 
 exprStatement

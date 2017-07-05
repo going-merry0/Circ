@@ -40,6 +40,10 @@ class Environment {
   }
 
   def (key, value) {
+    const old = this.memoryCells.get(key);
+    if (old && old.depth === this.depth) {
+      throw new Error(`Duplicate definition variable ${key}`);
+    }
     const cell = new MemoryCell(value, this.depth);
     this.memoryCells.set(key, cell);
   }
@@ -131,6 +135,9 @@ function applyBinary (op, lval, rval) {
 }
 
 let funExecContext = null;
+let forInStateStack = [];
+
+const discard = {};
 
 /**
  *
@@ -201,9 +208,17 @@ function evaluate (exp, env, cb) {
       evaluate(exp.expr, env, function cc (cond) {
         stackGuard(cc, arguments);
         if (cond !== null && cond !== false && cond !== 0 && cond !== '') {
-          evaluate(exp.then, env, cb);
+          if (exp.then === null) {
+            cb(true);
+          } else {
+            evaluate(exp.then, env, cb);
+          }
         } else {
-          evaluate(exp.else, env, cb);
+          if (exp.else === null) {
+            cb(false);
+          } else {
+            evaluate(exp.else, env, cb);
+          }
         }
       });
       return;
@@ -337,6 +352,94 @@ function evaluate (exp, env, cb) {
     }
     case NodeType.thisExpr: {
       cb(funExecContext);
+      return;
+    }
+    case NodeType.for: {
+      evaluate(exp.stuff, env, function cc (stuff) {
+        stackGuard(cc, arguments);
+        const subEnv = env.extend();
+        let keyName = null;
+        let valName = null;
+        if (exp.keyVal.length === 1) {
+          valName = exp.keyVal[0].name;
+          subEnv.def(valName, null);
+        } else if (exp.keyVal.length === 2) {
+          keyName = exp.keyVal[0].name;
+          valName = exp.keyVal[1].name;
+          subEnv.def(keyName, null);
+          subEnv.def(valName, null);
+        } else {
+          throw new Error("Must specify at least a variable to handle the iteration value.");
+        }
+
+        function loopArray (out, i) {
+          stackGuard(loopArray, arguments);
+          if (i === stuff.length) {
+            forInStateStack.pop();
+            cb(out);
+          } else {
+            if (keyName !== null) {
+              subEnv.set(keyName, i);
+            }
+            if (valName !== null) {
+              subEnv.set(valName, stuff[i]);
+            }
+            evaluate(exp.body, subEnv, function cc (val) {
+              stackGuard(cc, arguments);
+              if (val !== discard) {
+                out.push(val)
+              }
+              loopArray(out, i + 1);
+            });
+          }
+        }
+
+        function loopObject (out, keys, i) {
+          stackGuard(loopObject, arguments);
+          if (i === keys.length) {
+            forInStateStack.pop();
+            cb(out);
+          } else {
+            if (keyName !== null) {
+              subEnv.set(keyName, keys[i]);
+            }
+            if (valName !== null) {
+              subEnv.set(valName, stuff[keys[i]]);
+            }
+            evaluate(exp.body, subEnv, function cc (val) {
+              stackGuard(cc, arguments);
+              if (val !== discard) {
+                out.push(val)
+              }
+              loopObject(out, keys, i);
+            })
+          }
+        }
+
+        const forInState = {
+          out: [],
+          cc: cb
+        };
+        forInStateStack.push(forInState);
+        if (Array.isArray(stuff)) {
+          loopArray(forInState.out, 0);
+        } else {
+          loopObject(forInState.out, Object.keys(stuff), 0);
+        }
+      });
+      return;
+    }
+    case NodeType.breakExpr: {
+      if (forInStateStack.length) {
+        const state = forInStateStack.pop();
+        state.cc(state.out);
+      } else {
+        cb();
+      }
+      return;
+    }
+    case NodeType.discard: {
+      cb(discard);
       return;
     }
     case NodeType.prog: {

@@ -1,13 +1,15 @@
 lexer grammar CircLexer;
 
-Let:    'let';
-If:     'if';
-Then:   'then';
-Else:   'else';
-Fun:    'fun';
-For:    'for';
-In:     'in';
-This:   'this';
+Let:        'let';
+If:         'if';
+Then:       'then';
+Else:       'else';
+Fun:        'fun';
+For:        'for';
+In:         'in';
+Break:      'break';
+This:       'this';
+Discard:    'discard';
 
 LineTerminator
   : [\r\n\u0085\u2028\u2029]    -> channel(HIDDEN)

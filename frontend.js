@@ -19,6 +19,9 @@ const NodeType = {
   identifier: "identifier",
   funDeclaration: "funDeclaration",
   funCall: "funCall",
+  for: "for",
+  breakExpr: "break",
+  discard: "discard",
   binary: "binary",
   condition: "condition",
   exprSequence: "exprSequence",
@@ -188,8 +191,8 @@ class ConditionExprNode extends Node {
   toJson () {
     const json = super.toJson();
     json.expr = this.expr.toJson();
-    json.then = this.then.toJson();
-    json.else = this.else.toJson();
+    json.then = this.then ? this.then.toJson() : null;
+    json.else = this.else ? this.else.toJson() : null;
     return json;
   }
 }
@@ -320,6 +323,35 @@ class MemberDotExprNode extends Node {
 class ThisExprNode extends Node {
   constructor () {
     super(NodeType.thisExpr);
+  }
+}
+
+class ForExprNode extends Node {
+  constructor () {
+    super(NodeType.for);
+    this.keyVal = [];
+    this.stuff = null;
+    this.body = null;
+  }
+
+  toJson () {
+    const json = super.toJson();
+    json.keyVal = this.keyVal.map(n => n.toJson());
+    json.stuff = this.stuff.toJson();
+    json.body = this.body.toJson();
+    return json;
+  }
+}
+
+class BreakExprNode extends Node {
+  constructor () {
+    super(NodeType.breakExpr);
+  }
+}
+
+class DiscardNode extends Node {
+  constructor () {
+    super(NodeType.discard);
   }
 }
 
@@ -558,7 +590,40 @@ class AstVisitor extends CircParserVisitor {
       right.charIndex = ctx.Identifier().symbol.column;
       node.right = right;
       return node;
+    } else if (ctx instanceof CircParser.ForExprContext) {
+      const node = new ForExprNode();
+      node.lineNumber = ctx.start.line;
+      node.charIndex = ctx.start.column;
+      node.keyVal = this.visitForKeyVal(ctx.forKeyVal());
+      node.stuff = this.visitSingleExpr(ctx.singleExpr());
+      node.body = this.visitNoEmptyStatement(ctx.noEmptyStatement());
+      return node;
+    } else if (ctx instanceof CircParser.BreakExprContext) {
+      const node = new BreakExprNode();
+      node.lineNumber = ctx.start.line;
+      node.charIndex = ctx.start.column;
+      return node;
+    } else if (ctx instanceof CircParser.DiscardExprContext) {
+      const node = new DiscardNode();
+      node.lineNumber = ctx.start.line;
+      node.charIndex = ctx.start.column;
+      return node;
     }
+  }
+
+  visitForKeyVal (ctx) {
+    let ctxArr = [];
+    if (ctx instanceof CircParser.KvExprContext) {
+      ctxArr = ctx.Identifier();
+    } else if (ctx instanceof CircParser.SingleValExprContext) {
+      ctxArr.push(ctx.Identifier());
+    }
+    return ctxArr.map(token => {
+      const node = new IdentifierNode(token.getText());
+      node.lineNumber = token.symbol.line;
+      node.charIndex = token.symbol.column;
+      return node;
+    });
   }
 
   visitExprSequence (ctx) {
@@ -598,7 +663,10 @@ class AstVisitor extends CircParserVisitor {
   }
 
   visitIfStatementBody (ctx) {
-    return this.visitStatement(ctx.statement());
+    if (!ctx) {
+      return null
+    }
+    return this.visitNoEmptyStatement(ctx.noEmptyStatement());
   }
 
   visitIfStatement (ctx) {
@@ -632,7 +700,7 @@ class AstVisitor extends CircParserVisitor {
       node.charIndex = ctx.start.column;
       node.exprList = this.visitBlockStatement(ctx.blockStatement());
       return node;
-    } else if (ctx.emptyStatement()) {
+    } else if (ctx.emptyStatement && ctx.emptyStatement()) {
       return null;
     }
   }
