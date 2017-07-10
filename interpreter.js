@@ -188,7 +188,16 @@ function evaluate (exp, env, cb) {
         (function loop (i) {
           stackGuard(loop, arguments);
           if (i === last) {
-            fn.apply(null, params);
+            if (fn.__circ__ !== true) {
+              (function () {
+                const cb = params.shift();
+                const result = fn.apply(fn.__thisObj__, prepareParams4JsCall(params));
+                fn.__thisObj__ = null;
+                cb(result);
+              })();
+            } else {
+              fn.apply(null, params);
+            }
           } else {
             evaluate(exp.paramList[i], env, function cc (val) {
               stackGuard(cc, arguments);
@@ -479,44 +488,66 @@ function evaluate (exp, env, cb) {
 }
 
 const builtinEnv = new Environment();
-builtinEnv.def("time", function (cc, fn) {
-  console.time("time");
-  fn(function (val) {
-    console.timeEnd("time");
-    cc(val);
-  })
-});
+builtinEnv.def("time", (function () {
+  function time (cc, fn) {
+    console.time("time");
+    fn(function (val) {
+      console.timeEnd("time");
+      cc(val);
+    })
+  }
 
-builtinEnv.def("println", function (cc, val) {
-  console.log(val);
-  cc(false);
-});
+  time.__circ__ = true;
+  return time;
+})());
 
-builtinEnv.def("call", function (cc, thisObj, fn, args) {
-  fn.__thisObj__ = thisObj;
-  fn.apply(null, [cc].concat(args));
-});
+builtinEnv.def("println", (function () {
+  function println (cc, val) {
+    const args = Array.from(arguments);
+    args.shift();
+    console.log.apply(null, args);
+    cc(false);
+  }
+
+  println.__circ__ = true;
+  return println;
+})());
+
+builtinEnv.def("call", (function () {
+  function call (cc, thisObj, fn, args) {
+    fn.__thisObj__ = thisObj;
+    fn.apply(null, [cc].concat(args));
+  }
+
+  call.__circ__ = true;
+  return call;
+})());
 
 const exHandlers = [];
-builtinEnv.def("try", function (cc, fn) {
-  const frame = [];
-  for (let i = 2, len = arguments.length; i < len;) {
-    const f = {
-      code: arguments[i++],
-      handler: arguments[i++],
-      continuation: cc
-    };
-    if (typeof f.handler !== "function") {
-      throw new Error("Exception handler must be a function!");
+builtinEnv.def("try", (function () {
+  function tryFn (cc, fn) {
+    const frame = [];
+    for (let i = 2, len = arguments.length; i < len;) {
+      const f = {
+        code: arguments[i++],
+        handler: arguments[i++],
+        continuation: cc
+      };
+      if (typeof f.handler !== "function") {
+        throw new Error("Exception handler must be a function!");
+      }
+      frame.push(f);
     }
-    frame.push(f);
+    exHandlers.push(frame);
+    fn(function (val) {
+      exHandlers.pop();
+      cc(val);
+    });
   }
-  exHandlers.push(frame);
-  fn(function (val) {
-    exHandlers.pop();
-    cc(val);
-  });
-});
+
+  tryFn.__circ__ = true;
+  return tryFn;
+})());
 
 function __throw__ (_, code, info) {
   while (exHandlers.length) {
@@ -531,24 +562,30 @@ function __throw__ (_, code, info) {
   }
   throw new Error(`No error handler for [${code}] ${info}`);
 }
+__throw__.__circ__ = true;
 builtinEnv.def("throw", __throw__);
 
 const jsModules = new Map();
-builtinEnv.def("jsModule", function (cc, path) {
-  let module = jsModules.get(path);
-  if (module === undefined) {
-    module = require(path);
-    jsModules.set(path, module);
+builtinEnv.def("jsModule", (function () {
+  function jsModule (cc, path) {
+    let module = jsModules.get(path);
+    if (module === undefined) {
+      module = require(path);
+      jsModules.set(path, module);
+    }
+    cc(module);
   }
-  cc(module);
-});
 
-builtinEnv.def("callJs", function callJs (cc, thisObj, fn) {
-  const args = [];
-  for (let i = 3, len = arguments.length; i < len; i++) {
-    const arg = arguments[i];
+  jsModule.__circ__ = true;
+  return jsModule;
+})());
+
+function prepareParams4JsCall (args) {
+  const ret = [];
+  for (let i = 0, len = args.length; i < len; i++) {
+    const arg = args[i];
     if (typeof arg === "function" && arg.__circ__ === true) {
-      args.push((function (arg) {
+      ret.push((function (arg) {
         return function () {
           const args = Array.from(arguments);
           args.unshift(() => {
@@ -557,50 +594,75 @@ builtinEnv.def("callJs", function callJs (cc, thisObj, fn) {
         }
       })(arg))
     } else {
-      args.push(arg);
+      ret.push(arg);
     }
   }
-  cc(fn.apply(thisObj || null, args));
-});
+  return ret;
+}
 
-builtinEnv.def("callJsAsync", function (cc, thisObj, fn) {
-  const args = [];
-  for (let i = 3, len = arguments.length; i < len; i++) {
-    const arg = arguments[i];
-    if (typeof arg === "function") {
-      args.push((function (arg) {
-        return function () {
-          const args = Array.from(arguments);
-          args.unshift(() => {
-          });
-          execute(arg, args);
-        }
-      })(arg))
-    } else {
-      args.push(arg);
-    }
+builtinEnv.def("callJs", (function () {
+  function callJs (cc, thisObj, fn) {
+    const args = prepareParams4JsCall(Array.from(arguments).slice(3));
+    cc(fn.apply(thisObj || null, args));
   }
-  args.push(function (err) {
-    if (err) return execute(__throw__, [cc, err.code, err.message]);
-    const args = Array.from(arguments);
-    args.shift();
-    execute(cc, args);
-  });
-  fn.apply(thisObj || null, args);
-});
 
-builtinEnv.def("newJsObj", function (cc, klass) {
-  const args = Array.from(arguments).slice(2);
-  const obj = Object.create(klass.prototype);
-  klass.apply(obj, args);
-  cc(obj);
-});
+  callJs.__circ__ = true;
+  return callJs;
+})());
+
+builtinEnv.def("callJsAsync", (function () {
+  function callJsAsync (cc, thisObj, fn) {
+    const args = [];
+    for (let i = 3, len = arguments.length; i < len; i++) {
+      const arg = arguments[i];
+      if (typeof arg === "function") {
+        args.push((function (arg) {
+          return function () {
+            const args = Array.from(arguments);
+            args.unshift(() => {
+            });
+            execute(arg, args);
+          }
+        })(arg))
+      } else {
+        args.push(arg);
+      }
+    }
+    args.push(function (err) {
+      if (err) return execute(__throw__, [cc, err.code, err.message]);
+      const args = Array.from(arguments);
+      args.shift();
+      execute(cc, args);
+    });
+    fn.apply(thisObj || null, args);
+  }
+
+  callJsAsync.__circ__ = true;
+  return callJsAsync;
+})());
+
+builtinEnv.def("newJsObj", (function () {
+  function newJsObj (cc, klass) {
+    const args = Array.from(arguments).slice(2);
+    const obj = Object.create(klass.prototype);
+    klass.apply(obj, args);
+    cc(obj);
+  }
+
+  newJsObj.__circ__ = true;
+  return newJsObj;
+})());
 
 builtinEnv.def("jsGlobal", global);
 
-builtinEnv.def("regexp", function (cc, str, opt) {
-  cc(new RegExp(str, opt));
-});
+builtinEnv.def("regexp", (function () {
+  function regexp (cc, str, opt) {
+    cc(new RegExp(str, opt));
+  }
+
+  regexp.__circ__ = true;
+  return regexp;
+})());
 
 exports.builtinEnv = builtinEnv;
 

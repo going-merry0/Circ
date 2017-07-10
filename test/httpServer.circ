@@ -1,4 +1,4 @@
-let http = jsModule("http")
+/*let http = jsModule("http")
 let server = callJs(http, http.createServer, (req, res) -> {
   res.statusCode = 200
   callJs(res, res.setHeader, "Content-Type", "text/plain")
@@ -7,5 +7,17 @@ let server = callJs(http, http.createServer, (req, res) -> {
 
 let port = 9999
 callJs(server, server.listen, port, () -> {
+  println("server running at port: " + port)
+})*/
+
+let http = jsModule("http")
+let server = http.createServer((req, res) -> {
+  res.statusCode = 200
+  res.setHeader("Content-Type", "text/plain")
+  res.end("Hello World\n")
+})
+
+let port = 9999
+server.listen(port, () -> {
   println("server running at port: " + port)
 })
